@@ -46,11 +46,15 @@ namespace ChargeIO
         }
 
 
-        public virtual SearchResults<Card> ListCards(int page = 1, int page_size = 20)
+        public virtual SearchResults<Card> ListCards(int page = 1, int page_size = 20, string reference = null)
         {
             var url = Urls.Cards;
             url = ParameterBuilder.ApplyParameterToUrl(url, "page", page.ToString());
             url = ParameterBuilder.ApplyParameterToUrl(url, "page_size", page_size.ToString());
+            if (reference != null)
+            {
+                url = ParameterBuilder.ApplyParameterToUrl(url, "reference", reference);
+            }
 
             var response = Requestor.GetString(url, AuthUser, AuthPassword);
 
@@ -88,11 +92,15 @@ namespace ChargeIO
             return Mapper<Bank>.MapFromJson(response);
         }
 
-        public virtual SearchResults<Bank> ListBanks(int page = 1, int page_size = 20)
+        public virtual SearchResults<Bank> ListBanks(int page = 1, int page_size = 20, string reference = null)
         {
             var url = Urls.Banks;
             url = ParameterBuilder.ApplyParameterToUrl(url, "page", page.ToString());
             url = ParameterBuilder.ApplyParameterToUrl(url, "page_size", page_size.ToString());
+            if (reference != null)
+            {
+                url = ParameterBuilder.ApplyParameterToUrl(url, "reference", reference);
+            }
 
             var response = Requestor.GetString(url, AuthUser, AuthPassword);
 

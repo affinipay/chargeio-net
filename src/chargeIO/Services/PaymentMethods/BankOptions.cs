@@ -38,5 +38,10 @@ namespace ChargeIO
         [JsonProperty("country")]
         public string Country { get; set; }
 
+        [JsonProperty("description")]
+        public string Description { get; set; }
+
+        [JsonProperty("reference")]
+        public string Reference { get; set; }
     }
 }

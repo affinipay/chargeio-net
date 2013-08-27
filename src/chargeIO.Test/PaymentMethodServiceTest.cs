@@ -26,12 +26,16 @@ namespace ChargeIO.Test
                 Number = "4242424242424242",
                 ExpMonth = 12,
                 ExpYear = 2016,
-                Name = "A Customer"
+                Name = "A Customer",
+                Description = "Airline Card",
+                Reference = "Customer123"
             });
             Assert.IsTrue(c.Number == "************4242");
             Assert.IsTrue(c.Type == "VISA");
             Assert.IsTrue(c.ExpMonth == 12);
             Assert.IsTrue(c.ExpYear == 2016);
+            Assert.AreEqual("Airline Card", c.Description);
+            Assert.AreEqual("Customer123", c.Reference);
         }
 
         [Test]
@@ -65,11 +69,15 @@ namespace ChargeIO.Test
                 AccountNumber = "10333257392394",
                 AccountType = "CHECKING",
                 RoutingNumber = "111000025",
-                Name = "A Customer"
+                Name = "A Customer",
+                Description = "Primary Checking",
+                Reference = "Customer123"
             });
             Assert.IsTrue(b.AccountNumber == "**********2394");
             Assert.IsTrue(b.RoutingNumber == "******025");
             Assert.IsTrue(b.AccountType == "CHECKING");
+            Assert.AreEqual("Primary Checking", b.Description);
+            Assert.AreEqual("Customer123", b.Reference);
         }
 
         [Test]
