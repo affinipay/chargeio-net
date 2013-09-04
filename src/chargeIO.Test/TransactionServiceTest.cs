@@ -227,6 +227,33 @@ namespace ChargeIO.Test
 
             Assert.IsTrue(charges.PageSize == 20);
         }
+
+        [Test]
+        public void TestChargeInvalidCard()
+        {
+            try
+            {
+                defaultService.Authorize(new ChargeOptions()
+                {
+                    AmountInCents = 100,
+                    Currency = "USD",
+                    CardName = "John Doe",
+                    CardNumber = "4242424242424241",
+                    CardExpMonth = 12,
+                    CardExpYear = 2016,
+                    CardAddress1 = "123 Main Dr",
+                    CardCvv = "123",
+                    CardPostalCode = "78759"
+                });
+            }
+            catch (ChargeIOException ex)
+            {
+                Assert.AreEqual(1, ex.Errors.Count);
+                Assert.AreEqual("Card number is invalid", ex.Message);
+                Assert.AreEqual("error", ex.Errors[0].Level);
+                Assert.AreEqual("card_number_invalid", ex.Errors[0].Code);
+            }
+        }
     }
     public class InvoiceData
     {

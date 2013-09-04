@@ -141,7 +141,11 @@ namespace ChargeIO
                         var statusCode = ((HttpWebResponse)webException.Response).StatusCode;
                         string json_response = ReadStream(webException.Response.GetResponseStream());
                         List<ChargeIOError> errors = Mapper<List<ChargeIOError>>.MapFromJson(json_response, "messages");
-                        throw new ChargeIOException(statusCode, errors, errors[0].Description);
+                        throw new ChargeIOException(statusCode, errors, errors[0].Message);
+                    }
+                    catch (ChargeIOException chargeioException)
+                    {
+                        throw chargeioException;
                     }
                     catch
                     {
