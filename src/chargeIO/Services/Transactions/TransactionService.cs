@@ -44,16 +44,16 @@ namespace ChargeIO
             return Mapper<Charge>.MapFromJson(response);
         }
 
-        public virtual Charge Void(string chargeId, string reference = null)
+        public virtual Transaction Void(string transactionId, string reference = null)
         {
-            var url = string.Format("{0}/{1}/void", Urls.Charges, chargeId);
+            var url = string.Format("{0}/{1}/void", Urls.Transactions, transactionId);
             Hashtable reqparams = new Hashtable();
             reqparams.Add("reference", reference);
             var response = Requestor.PostJson(url, 
                 ParameterBuilder.BuildJsonPostParameters(reqparams), 
                 AuthUser, AuthPassword);
 
-            return Mapper<Charge>.MapFromJson(response);
+            return TransactionMapper.MapFromJson(response);
         }
 
         public virtual Charge Capture(string chargeId, int amountInCents, string reference = null)
@@ -93,25 +93,25 @@ namespace ChargeIO
             return Mapper<Refund>.MapFromJson(response);
         }
 
-        public virtual Charge GetCharge(string chargeId)
+        public virtual Transfer Transfer(TransferOptions options)
         {
-            var url = string.Format("{0}/{1}", Urls.Charges, chargeId);
+            var response = Requestor.PostJson(
+                Urls.Transfers,
+                ParameterBuilder.BuildJsonPostParameters(options),
+                AuthUser,
+                AuthPassword);
 
-            var response = Requestor.GetString(url, AuthUser, AuthPassword);
-
-            return Mapper<Charge>.MapFromJson(response);
+            return Mapper<Transfer>.MapFromJson(response);
         }
 
-        public virtual Refund GetRefund(string refundId)
+        public virtual Transaction GetTransaction(string transactionId)
         {
-            var url = string.Format("{0}/{1}", Urls.Refunds, refundId);
-
+            var url = string.Format("{0}/{1}", Urls.Transactions, transactionId);
             var response = Requestor.GetString(url, AuthUser, AuthPassword);
-
-            return Mapper<Refund>.MapFromJson(response);
+            return TransactionMapper.MapFromJson(response);
         }
 
-        public virtual SearchResults<Charge> Charges(
+        public virtual SearchResults<Transaction> Transactions(
             int page = 1, 
             int page_size = 20, 
             string q = null,
@@ -122,7 +122,7 @@ namespace ChargeIO
             string orderBy = null)
         {
 
-            var url = Urls.Charges;
+            var url = Urls.Transactions;
             url = ParameterBuilder.ApplyParameterToUrl(url, "page", page.ToString());
             url = ParameterBuilder.ApplyParameterToUrl(url, "page_size", page_size.ToString());
 
@@ -146,7 +146,7 @@ namespace ChargeIO
 
             var response = Requestor.GetString(url, AuthUser, AuthPassword);
 
-            return Mapper<Charge>.MapCollectionFromJson(response);
+            return TransactionMapper.MapCollectionFromJson(response);
         }
 	}
 }

@@ -9,7 +9,6 @@ namespace ChargeIO
 {
     public static class Mapper<T>
     {
-
         public static SearchResults<T> MapCollectionFromJson(string json, string token = "results")
         {
             var results = new SearchResults<T>();
@@ -36,9 +35,9 @@ namespace ChargeIO
     
     public static class TransactionMapper
 	{
-        public static SearchResults<object> MapCollectionFromJson(string json, string token = "results")
+        public static SearchResults<Transaction> MapCollectionFromJson(string json, string token = "results")
 		{
-            var results = new SearchResults<object>();
+            var results = new SearchResults<Transaction>();
 
             var jObject = JObject.Parse(json);
             results.Page = jObject.Value<int>("page");
@@ -51,7 +50,7 @@ namespace ChargeIO
             return results;
 		}
     
-        public static object MapFromJson(string json, string parentToken = null)
+        public static Transaction MapFromJson(string json, string parentToken = null)
         {
             var jsonToParse = string.IsNullOrEmpty(parentToken) ? json : JObject.Parse(json).SelectToken(parentToken).ToString();
             var jObject = JObject.Parse(jsonToParse);
@@ -59,12 +58,63 @@ namespace ChargeIO
             {
                 case "CHARGE":
                     return JsonConvert.DeserializeObject<Charge>(jsonToParse);
-                case "CREDIT":
                 case "REFUND":
                     return JsonConvert.DeserializeObject<Refund>(jsonToParse);
+                case "TRANSFER":
+                    return JsonConvert.DeserializeObject<Transfer>(jsonToParse);
             }
 
             return null;
+        }
+    }
+
+    public class PaymentMethodConverter : JsonConverter
+    {
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            IPaymentMethod method = (IPaymentMethod)value;
+            serializer.Serialize(writer, method);
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            JObject jObject = JObject.Load(reader);
+            var json = jObject.ToString();
+            switch (jObject["type"].ToString())
+            {
+                case "card":
+                    return JsonConvert.DeserializeObject<Card>(json);
+                case "bank":
+                    return JsonConvert.DeserializeObject<Bank>(json);
+            }
+
+            return null;
+        }
+
+        public override bool CanConvert(Type objectType)
+        {
+            return objectType == typeof(IPaymentMethod);
+        }
+    }
+
+    public class TokenReferenceConverter : JsonConverter
+    {
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            TokenReferenceOptions options = (TokenReferenceOptions)value;
+            writer.WriteValue(options.TokenId);
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            TokenReferenceOptions options = new TokenReferenceOptions();
+            options.TokenId = (string)reader.Value;
+            return options;
+        }
+
+        public override bool CanConvert(Type objectType)
+        {
+            return objectType == typeof(TokenReferenceOptions);
         }
     }
 }

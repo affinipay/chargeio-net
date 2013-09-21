@@ -45,13 +45,13 @@ namespace ChargeIO.Test
         public void TestRenameAccount()
         {
             Merchant m = merchantService.GetMerchant();
-            Account a = m.Accounts[0];
+            MerchantAccount a = m.MerchantAccounts[0];
             Assert.IsTrue(a != null);
-            Account updated = merchantService.UpdateAccount(a.Id, new AccountOptions()
+            MerchantAccount updated = merchantService.UpdateMerchantAccount(a.Id, new MerchantAccountOptions()
             {
                 Name = "the new account name",
                 Primary = a.Primary,
-                RequiredCardFields = a.RequiredCardFields,
+                RequiredPaymentFields = a.RequiredPaymentFields,
                 CVVPolicy = a.CVVPolicy,
                 AVSPolicy = a.AVSPolicy,
                 IgnoreAVSFailureIfCVVMatch = a.IgnoreAVSFailureIfCVVMatch
@@ -63,13 +63,13 @@ namespace ChargeIO.Test
         public void TestRenameBankAccount()
         {
             Merchant m = merchantService.GetMerchant();
-            BankAccount a = m.BankAccounts[0];
+            ACHAccount a = m.ACHAccounts[0];
             Assert.IsTrue(a != null);
-            BankAccount updated = merchantService.UpdateBankAccount(a.Id, new BankAccountOptions()
+            ACHAccount updated = merchantService.UpdateACHAccount(a.Id, new ACHAccountOptions()
             {
                 Name = "the new bank account name",
                 Primary = a.Primary,
-                RequiredTransferFields = a.RequiredTransferFields
+                RequiredPaymentFields = a.RequiredPaymentFields
             });
             Assert.IsTrue(updated.Name == "the new bank account name");
         }

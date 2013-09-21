@@ -26,23 +26,18 @@
             return Mapper<Merchant>.MapFromJson(response);
         }
 
-        public virtual Account UpdateAccount(string accountId, AccountOptions o)
+        public virtual MerchantAccount UpdateMerchantAccount(string accountId, MerchantAccountOptions o)
         {
-            var url = string.Format("{0}/{1}", Urls.Accounts, accountId);
-
+            var url = string.Format("{0}/{1}", Urls.MerchantAccounts, accountId);
             var response = Requestor.PutJson(url, ParameterBuilder.BuildJsonPostParameters(o), AuthUser, AuthPassword);
-
-            return Mapper<Account>.MapFromJson(response);
+            return Mapper<MerchantAccount>.MapFromJson(response);
         }
 
-        public virtual BankAccount UpdateBankAccount(string bankAccountId, BankAccountOptions o)
+        public virtual ACHAccount UpdateACHAccount(string achAccountId, ACHAccountOptions o)
         {
-            var url = string.Format("{0}/{1}", Urls.BankAccounts, bankAccountId);
-
+            var url = string.Format("{0}/{1}", Urls.ACHAccounts, achAccountId);
             var response = Requestor.PutJson(url, ParameterBuilder.BuildJsonPostParameters(o), AuthUser, AuthPassword);
-
-            return Mapper<BankAccount>.MapFromJson(response);
+            return Mapper<ACHAccount>.MapFromJson(response);
         }
-
     }
 }

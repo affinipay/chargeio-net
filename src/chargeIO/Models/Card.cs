@@ -6,22 +6,25 @@ using Newtonsoft.Json;
 
 namespace ChargeIO
 {
-    public class Card
+    public class Card : IPaymentMethod
     {
+        [JsonProperty("type")]
+        public string Type { get { return "card"; } }
+
         [JsonProperty("number")]
         public string Number { get; set; }
 
-        [JsonProperty("fingerprint")]
-        public string Fingerprint { get; set; }
-
-        [JsonProperty("type")]
-        public string Type { get; set; }
+        [JsonProperty("card_type")]
+        public string CardType { get; set; }
 
         [JsonProperty("exp_month")]
         public int ExpMonth { get; set; }
 
         [JsonProperty("exp_year")]
         public int ExpYear { get; set; }
+
+        [JsonProperty("fingerprint")]
+        public string Fingerprint { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }

@@ -56,11 +56,11 @@ namespace ChargeIO
         [JsonProperty("timezone")]
         public string Timezone { get; set; }
 
-        [JsonProperty("accounts")]
-        public List<Account> Accounts { get; set; }
+        [JsonProperty("merchant_accounts")]
+        public List<MerchantAccount> MerchantAccounts { get; set; }
 
-        [JsonProperty("bank_accounts")]
-        public List<BankAccount> BankAccounts { get; set; }
+        [JsonProperty("ach_accounts")]
+        public List<ACHAccount> ACHAccounts { get; set; }
 
         [JsonProperty("api_allowed_ip_address_ranges")]
         public string ApiAllowedIpAddressRanges { get; set; }

@@ -56,7 +56,6 @@
   <ItemGroup>
     <Compile Include="PaymentMethodServiceTest.cs" />
     <Compile Include="MerchantServiceTest.cs" />
-    <Compile Include="TransferServiceTest.cs" />
     <Compile Include="TransactionServiceTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

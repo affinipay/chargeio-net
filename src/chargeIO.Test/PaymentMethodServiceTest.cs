@@ -31,7 +31,7 @@ namespace ChargeIO.Test
                 Reference = "Customer123"
             });
             Assert.IsTrue(c.Number == "************4242");
-            Assert.IsTrue(c.Type == "VISA");
+            Assert.IsTrue(c.CardType == "VISA");
             Assert.IsTrue(c.ExpMonth == 12);
             Assert.IsTrue(c.ExpYear == 2016);
             Assert.AreEqual("Airline Card", c.Description);

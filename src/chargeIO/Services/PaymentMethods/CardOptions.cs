@@ -6,10 +6,13 @@ using Newtonsoft.Json;
 
 namespace ChargeIO
 {
-    public class CardOptions
+    public class CardOptions : IPaymentMethod
     {
         [JsonProperty("type")]
-        public string Type { get; set; }
+        public string Type { get { return "card"; } }
+
+        [JsonProperty("card_type")]
+        public string CardType { get; set; }
 
         [JsonProperty("number")]
         public string Number { get; set; }

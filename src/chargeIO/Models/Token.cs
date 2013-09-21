@@ -8,6 +8,9 @@ namespace ChargeIO
 {
     public class Token
     {
+        [JsonProperty("type")]
+        public string Type { get; set; }
+
         [JsonProperty("id")]
         public string Id { get; set; }
 
@@ -20,7 +23,7 @@ namespace ChargeIO
         [JsonProperty("number")]
         public string CardNumber { get; set; }
 
-        [JsonProperty("type")]
+        [JsonProperty("card_type")]
         public string CardType { get; set; }
 
         [JsonProperty("exp_month")]

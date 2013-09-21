@@ -45,11 +45,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\Transaction.cs" />
+    <Compile Include="Models\MerchantAccount.cs" />
     <Compile Include="Models\Bank.cs" />
-    <Compile Include="Models\BankAccount.cs" />
+    <Compile Include="Models\ACHAccount.cs" />
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\Charge.cs" />
+    <Compile Include="Models\IPaymentMethod.cs" />
     <Compile Include="Models\SearchResults.cs" />
     <Compile Include="Models\Merchant.cs" />
     <Compile Include="Infrastructure\ChargeIOError.cs" />
@@ -64,9 +66,10 @@
     <Compile Include="Infrastructure\Urls.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\PaymentMethods\BankOptions.cs" />
+    <Compile Include="Services\PaymentMethods\TokenReferenceOptions.cs" />
     <Compile Include="Services\Transactions\ChargeOptions.cs" />
-    <Compile Include="Services\Merchant\AccountOptions.cs" />
-    <Compile Include="Services\Merchant\BankAccountOptions.cs" />
+    <Compile Include="Services\Merchant\MerchantAccountOptions.cs" />
+    <Compile Include="Services\Merchant\ACHAccountOptions.cs" />
     <Compile Include="Services\PaymentMethods\CardOptions.cs" />
     <Compile Include="Services\Transactions\CaptureOptions.cs" />
     <Compile Include="Services\PaymentMethods\PaymentMethodService.cs" />
@@ -75,8 +78,7 @@
     <Compile Include="Services\Merchant\MerchantService.cs" />
     <Compile Include="Services\PaymentMethods\TokenOptions.cs" />
     <Compile Include="Services\Transactions\TransactionService.cs" />
-    <Compile Include="Services\Transfers\TransferOptions.cs" />
-    <Compile Include="Services\Transfers\TransferService.cs" />
+    <Compile Include="Services\Transactions\TransferOptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

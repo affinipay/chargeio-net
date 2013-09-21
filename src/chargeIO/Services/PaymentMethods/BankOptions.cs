@@ -6,8 +6,11 @@ using Newtonsoft.Json;
 
 namespace ChargeIO
 {
-    public class BankOptions
+    public class BankOptions : IPaymentMethod
     {
+        [JsonProperty("type")]
+        public string Type { get { return "bank"; } }
+
         [JsonProperty("routing_number")]
         public string RoutingNumber { get; set; }
 

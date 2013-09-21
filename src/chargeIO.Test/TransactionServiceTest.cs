@@ -11,7 +11,8 @@ namespace ChargeIO.Test
     [TestFixture]
     public class TransactionServiceTest
     {
-        TransactionService defaultService;
+        TransactionService transactionService;
+        PaymentMethodService paymentMethodService;
         ChargeOptions defaultChargeOptions;
         string rand;
 
@@ -20,91 +21,106 @@ namespace ChargeIO.Test
         {
             defaultChargeOptions = new ChargeOptions()
             {
-                CardName = "FirstName LastName",
-                CardAddress1 = "123 Main St.",
-                CardAddress2 = "Apt #3",
-                CardCity = "Austin",
-                CardState = "TX",
-                CardPostalCode = "78759",
-                CardNumber = "4111111111111111",
-                CardCvv = "123",
-                CardExpMonth = 3,
-                CardExpYear = 2015
+                Method = new CardOptions()
+                {
+                    Name = "FirstName LastName",
+                    Address1 = "123 Main St.",
+                    Address2 = "Apt #3",
+                    City = "Austin",
+                    State = "TX",
+                    PostalCode = "78759",
+                    Number = "4111111111111111",
+                    Cvv = "123",
+                    ExpMonth = 3,
+                    ExpYear = 2015
+                }
             };
 
             rand = new Random().Next().ToString();
-            defaultService = new TransactionService();
+            transactionService = new TransactionService();
+            paymentMethodService = new PaymentMethodService();
         }
 
         [Test]
         public void TestCharge()
         {
-            Charge c = defaultService.Charge(new ChargeOptions()
+            Charge c = transactionService.Charge(new ChargeOptions()
             {
                 AmountInCents = 345,
-                CardName = "FirstName LastName",
-                CardAddress1 = "123 Main St.",
-                CardAddress2 = "Apt #3",
-                CardCity = "Austin",
-                CardState = "TX",
-                CardPostalCode = "78759",
-                CardNumber = "4111111111111111",
-                CardCvv = "123",
-                CardExpMonth = 3,
-                CardExpYear = 2015
+                Method = new CardOptions()
+                {
+                    Name = "FirstName LastName",
+                    Address1 = "123 Main St.",
+                    Address2 = "Apt #3",
+                    City = "Austin",
+                    State = "TX",
+                    PostalCode = "78759",
+                    Number = "4111111111111111",
+                    Cvv = "123",
+                    ExpMonth = 3,
+                    ExpYear = 2015
+                }
             });
+            Assert.AreEqual("AUTHORIZED", c.Status);
+            Assert.NotNull(c.Id);
             Assert.IsTrue(c.AmountInCents == 345);
         }
         [Test]
         public void TestRefund()
         {
-            Charge charge = defaultService.Charge(new ChargeOptions()
+            Charge charge = transactionService.Charge(new ChargeOptions()
             {
                 AmountInCents = 100,
                 Currency = "USD",
                 Reference = "Sparrow rocks",
-                CardName = "Enrico Brunetta",
-                CardNumber = "378282246310005",
-                CardExpMonth = 12,
-                CardExpYear = 2016,
-                CardAddress1 = "7101 Villa Maria Ln",
-                CardCvv = "123",
-                CardPostalCode = "78759"
+                Method = new CardOptions()
+                {
+                    Name = "Enrico Brunetta",
+                    Number = "378282246310005",
+                    ExpMonth = 12,
+                    ExpYear = 2016,
+                    Address1 = "7101 Villa Maria Ln",
+                    Cvv = "123",
+                    PostalCode = "78759"
+                }
             });
 
-            Refund r = defaultService.Refund(charge.Id, new RefundOptions()
+            Refund r = transactionService.Refund(charge.Id, new RefundOptions()
             {
-                AmountInCents = 50,
-                Reference = "enrico was here"
+                AmountInCents = 55,
+                Reference = "refund1"
             });
-            Assert.IsTrue(r.AmountInCents == 50);
-            Refund r1 = defaultService.Refund(charge.Id, new RefundOptions()
+            Assert.IsTrue(r.AmountInCents == 55);
+            Refund r1 = transactionService.Refund(charge.Id, new RefundOptions()
             {
-                AmountInCents = 50,
-                Reference = "enrico was here"
+                AmountInCents = 45,
+                Reference = "refund2"
             });
-            Assert.IsTrue(r1.AmountInCents == 50);
+            Assert.IsTrue(r1.AmountInCents == 45);
 
-            Charge c = defaultService.GetCharge(charge.Id);
+            Charge c = (Charge)transactionService.GetTransaction(charge.Id);
             Assert.IsTrue(c.AmountInCentsRefunded == 100);
         }
 
         [Test]
         public void TestCustomData()
         {
-            Charge charge = defaultService.Charge(new ChargeOptions()
+            Charge charge = transactionService.Charge(new ChargeOptions()
             {
                 AmountInCents = 100,
                 Currency = "USD",
                 Reference = "a new invoice",
-                CardName = "John Doe",
-                CardNumber = "378282246310005",
-                CardExpMonth = 12,
-                CardExpYear = 2016,
-                CardAddress1 = "123 Main Dr",
-                CardAddress2 = "Suite 300",
-                CardCvv = "123",
-                CardPostalCode = "78759",
+                Method = new CardOptions()
+                {
+                    Name = "John Doe",
+                    Number = "378282246310005",
+                    ExpMonth = 12,
+                    ExpYear = 2016,
+                    Address1 = "123 Main Dr",
+                    Address2 = "Suite 300",
+                    Cvv = "123",
+                    PostalCode = "78759"
+                },
                 Data = new InvoiceData()
                 {
                     Number = "123-ABC",
@@ -116,7 +132,7 @@ namespace ChargeIO.Test
             Assert.IsTrue(charge.Status == "AUTHORIZED");
             Assert.IsTrue(charge.AutoCapture == true);
 
-            Refund r = defaultService.Refund(charge.Id, new RefundOptions()
+            Refund r = transactionService.Refund(charge.Id, new RefundOptions()
             {
                 AmountInCents = 50,
                 Reference = "refund for invoice",
@@ -128,7 +144,7 @@ namespace ChargeIO.Test
             });
             Assert.IsTrue(r.AmountInCents == 50);
 
-            Charge c = defaultService.GetCharge(charge.Id);
+            Charge c = (Charge)transactionService.GetTransaction(charge.Id);
             InvoiceData invoiceData = c.Data.ToObject<InvoiceData>();
 
             Assert.IsTrue(invoiceData.Number == "123-ABC");
@@ -139,19 +155,22 @@ namespace ChargeIO.Test
         [Test]
         public void TestAuthorizeAndVoid()
         {
-            Charge charge = defaultService.Authorize(new ChargeOptions()
+            Charge charge = transactionService.Authorize(new ChargeOptions()
             {
                 AmountInCents = 100,
                 Currency = "USD",
                 Reference = "a new invoice",
-                CardName = "John Doe",
-                CardNumber = "378282246310005",
-                CardExpMonth = 12,
-                CardExpYear = 2016,
-                CardAddress1 = "123 Main Dr",
-                CardAddress2 = "Suite 300",
-                CardCvv = "123",
-                CardPostalCode = "78759",
+                Method = new CardOptions()
+                {
+                    Name = "John Doe",
+                    Number = "378282246310005",
+                    ExpMonth = 12,
+                    ExpYear = 2016,
+                    Address1 = "123 Main Dr",
+                    Address2 = "Suite 300",
+                    Cvv = "123",
+                    PostalCode = "78759"
+                },
                 Data = new InvoiceData()
                 {
                     Number = "123-ABC",
@@ -162,7 +181,7 @@ namespace ChargeIO.Test
             Assert.IsTrue(charge.Status == "AUTHORIZED");
             Assert.IsTrue(charge.AutoCapture == false);
 
-            Charge voided = defaultService.Void(charge.Id, "VOIDREF");
+            Charge voided = (Charge)transactionService.Void(charge.Id, "VOIDREF");
 
             Assert.IsTrue(voided.Status == "VOIDED");
             Assert.IsTrue(voided.VoidReference == "VOIDREF");
@@ -171,19 +190,22 @@ namespace ChargeIO.Test
         [Test]
         public void TestAuthorizeAndCapture()
         {
-            Charge charge = defaultService.Authorize(new ChargeOptions()
+            Charge charge = transactionService.Authorize(new ChargeOptions()
             {
                 AmountInCents = 100,
                 Currency = "USD",
                 Reference = "a new invoice",
-                CardName = "John Doe",
-                CardNumber = "378282246310005",
-                CardExpMonth = 12,
-                CardExpYear = 2016,
-                CardAddress1 = "123 Main Dr",
-                CardAddress2 = "Suite 300",
-                CardCvv = "123",
-                CardPostalCode = "78759",
+                Method = new CardOptions()
+                {
+                    Name = "John Doe",
+                    Number = "378282246310005",
+                    ExpMonth = 12,
+                    ExpYear = 2016,
+                    Address1 = "123 Main Dr",
+                    Address2 = "Suite 300",
+                    Cvv = "123",
+                    PostalCode = "78759"
+                },
                 Data = new InvoiceData()
                 {
                     Number = "123-ABC",
@@ -194,7 +216,7 @@ namespace ChargeIO.Test
             Assert.IsTrue(charge.Status == "AUTHORIZED");
             Assert.IsTrue(charge.AutoCapture == false);
 
-            Charge captured = defaultService.Capture(charge.Id, 70, "CAPTUREREF");
+            Charge captured = transactionService.Capture(charge.Id, 70, "CAPTUREREF");
 
             Assert.IsTrue(captured.AmountInCents == 70);
             Assert.IsTrue(captured.Status == "SETTLED");
@@ -202,10 +224,199 @@ namespace ChargeIO.Test
         }
 
         [Test]
+        public void TestVoidRefund()
+        {
+            Charge charge = transactionService.Charge(new ChargeOptions()
+            {
+                AmountInCents = 100,
+                Currency = "USD",
+                Method = new CardOptions()
+                {
+                    Name = "John Doe",
+                    Number = "378282246310005",
+                    ExpMonth = 12,
+                    ExpYear = 2016,
+                    Address1 = "123 Main Dr",
+                    Address2 = "Suite 300",
+                    Cvv = "123",
+                    PostalCode = "78759"
+                }
+            });
+            Assert.IsTrue(charge.Status == "AUTHORIZED");
+
+            Refund r = transactionService.Refund(charge.Id, new RefundOptions()
+            {
+                AmountInCents = 50,
+                Reference = "Refund Ref"
+            });
+            Assert.IsTrue(r.Status == "AUTHORIZED");
+            Assert.AreEqual("Refund Ref", r.Reference);
+
+            r = (Refund)transactionService.Void(r.Id, "Void Refund Ref");
+            Assert.IsTrue(r.Status == "VOIDED");
+            Assert.AreEqual("Refund Ref", r.Reference);
+            Assert.AreEqual("Void Refund Ref", r.VoidReference);
+
+            charge = (Charge)transactionService.GetTransaction(charge.Id);
+            Assert.AreEqual(0, charge.AmountInCentsRefunded);
+        }
+
+        [Test]
+        public void TestChargeBank()
+        {
+            Charge c = transactionService.Charge(new ChargeOptions()
+            {
+                AmountInCents = 426,
+                Method = new BankOptions()
+                {
+                    Name = "FirstName LastName",
+                    Address1 = "123 Main St.",
+                    Address2 = "Apt #3",
+                    City = "Austin",
+                    State = "TX",
+                    PostalCode = "78759",
+                    RoutingNumber = "111000025",
+                    AccountNumber = "1234567890",
+                    AccountType = "CHECKING"
+                }
+            });
+            Assert.AreEqual("AUTHORIZED", c.Status);
+            Assert.NotNull(c.Id);
+            Assert.AreEqual(426, c.AmountInCents);
+            Assert.AreEqual("USD", c.Currency);
+
+            c = (Charge)transactionService.Void(c.Id, "Mistake");
+            Assert.AreEqual("VOIDED", c.Status);
+        }
+
+        [Test]
+        public void TestRefundBank()
+        {
+            Charge c = transactionService.Charge(new ChargeOptions()
+            {
+                AmountInCents = 426,
+                Method = new BankOptions()
+                {
+                    Name = "FirstName LastName",
+                    Address1 = "123 Main St.",
+                    Address2 = "Apt #3",
+                    City = "Austin",
+                    State = "TX",
+                    PostalCode = "78759",
+                    RoutingNumber = "111000025",
+                    AccountNumber = "1234567890",
+                    AccountType = "CHECKING"
+                }
+            });
+            Assert.AreEqual("AUTHORIZED", c.Status);
+            Assert.NotNull(c.Id);
+
+            Refund r = transactionService.Refund(c.Id, new RefundOptions()
+            {
+                AmountInCents = 25
+            });
+            Assert.AreEqual("AUTHORIZED", r.Status);
+            Assert.AreEqual(25, r.AmountInCents);
+
+            c = (Charge)transactionService.GetTransaction(c.Id);
+            Assert.AreEqual(25, c.AmountInCentsRefunded);
+        }
+
+        [Test]
+        public void TestTransfer()
+        {
+            Transfer t = transactionService.Transfer(new TransferOptions()
+            {
+                AmountInCents = 112,
+                Method = new CardOptions()
+                {
+                    Name = "John Doe",
+                    Number = "378282246310005",
+                    ExpMonth = 12,
+                    ExpYear = 2016,
+                    Address1 = "123 Main Dr",
+                    Address2 = "Suite 300",
+                    Cvv = "123",
+                    PostalCode = "78759"
+                },
+                Reference = "Test Xfer"
+            });
+            Assert.AreEqual("AUTHORIZED", t.Status);
+            Assert.NotNull(t.Id);
+            Assert.AreEqual(112, t.AmountInCents);
+            Assert.AreEqual("Test Xfer", t.Reference);
+
+            t = (Transfer)transactionService.Void(t.Id, "Canceled xfer");
+            Assert.AreEqual("VOIDED", t.Status);
+            Assert.AreEqual("Canceled xfer", t.VoidReference);
+        }
+
+        [Test]
+        public void TestTransferBank()
+        {
+            Transfer t = transactionService.Transfer(new TransferOptions()
+            {
+                AmountInCents = 112,
+                Method = new BankOptions()
+                {
+                    Name = "FirstName LastName",
+                    Address1 = "123 Main St.",
+                    Address2 = "Apt #3",
+                    City = "Austin",
+                    State = "TX",
+                    PostalCode = "78759",
+                    RoutingNumber = "111000025",
+                    AccountNumber = "1234567890",
+                    AccountType = "CHECKING"
+                }
+            });
+            Assert.AreEqual("AUTHORIZED", t.Status);
+            Assert.NotNull(t.Id);
+            Assert.AreEqual(112, t.AmountInCents);
+        }
+
+        [Test]
+        public void TestChargeUsingCardToken()
+        {
+            Card card = paymentMethodService.CreateCard(new CardOptions()
+            {
+                Name = "John Doe",
+                Number = "378282246310005",
+                ExpMonth = 12,
+                ExpYear = 2016,
+                Address1 = "123 Main Dr",
+                Address2 = "Suite 300",
+                Cvv = "123",
+                PostalCode = "78759"
+            });
+            Assert.NotNull(card.Id);
+
+            Charge c = transactionService.Charge(new ChargeOptions()
+            {
+                AmountInCents = 426,
+                Method = new TokenReferenceOptions() {
+                    TokenId = card.Id
+                }
+            });
+            Assert.AreEqual("AUTHORIZED", c.Status);
+            Assert.NotNull(c.Id);
+            Assert.IsTrue(c.PaymentMethod is Card);
+
+            card = (Card)c.PaymentMethod;
+            Assert.AreEqual("John Doe", card.Name);
+            Assert.AreEqual("***********0005", card.Number);
+            Assert.AreEqual(12, card.ExpMonth);
+            Assert.AreEqual(2016, card.ExpYear);
+            Assert.AreEqual("123 Main Dr", card.Address1);
+            Assert.AreEqual("Suite 300", card.Address2);
+            Assert.AreEqual("78759", card.PostalCode);
+        }
+
+        [Test]
         public void TestListCharges()
         {
-            SearchResults<Charge> charges = defaultService.Charges();
-            Assert.IsTrue(charges.PageSize == 20);
+            SearchResults<Transaction> transactions = transactionService.Transactions();
+            Assert.IsTrue(transactions.PageSize == 20);
         }
 
         [Test]
@@ -214,7 +425,7 @@ namespace ChargeIO.Test
             //TODO: perform some charges and then search for specific field values
             string rand = new Random().Next().ToString();
 
-            SearchResults<Charge> charges = defaultService.Charges(
+            SearchResults<Transaction> transactions = transactionService.Transactions(
                 1, //page
                 20, //page_size
                 "Ref", //search string
@@ -225,7 +436,7 @@ namespace ChargeIO.Test
                 null //order_by
             );
 
-            Assert.IsTrue(charges.PageSize == 20);
+            Assert.IsTrue(transactions.PageSize == 20);
         }
 
         [Test]
@@ -233,17 +444,20 @@ namespace ChargeIO.Test
         {
             try
             {
-                defaultService.Authorize(new ChargeOptions()
+                transactionService.Authorize(new ChargeOptions()
                 {
                     AmountInCents = 100,
                     Currency = "USD",
-                    CardName = "John Doe",
-                    CardNumber = "4242424242424241",
-                    CardExpMonth = 12,
-                    CardExpYear = 2016,
-                    CardAddress1 = "123 Main Dr",
-                    CardCvv = "123",
-                    CardPostalCode = "78759"
+                    Method = new CardOptions()
+                    {
+                        Name = "John Doe",
+                        Number = "4242424242424241",
+                        ExpMonth = 12,
+                        ExpYear = 2016,
+                        Address1 = "123 Main Dr",
+                        Cvv = "123",
+                        PostalCode = "78759"
+                    }
                 });
             }
             catch (ChargeIOException ex)

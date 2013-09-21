@@ -6,13 +6,13 @@
         {
             get { return Configuration.GetApiUrl(); }
         }
-        public static string Accounts
+        public static string MerchantAccounts
         {
             get { return BaseUrl + "/accounts"; }
         }
-        public static string BankAccounts
+        public static string ACHAccounts
         {
-            get { return BaseUrl + "/bank-accounts"; }
+            get { return BaseUrl + "/ach-accounts"; }
         }
         public static string Banks
         {

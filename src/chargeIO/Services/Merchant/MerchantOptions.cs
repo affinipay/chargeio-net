@@ -8,7 +8,6 @@ namespace ChargeIO
 {
     public class MerchantOptions
     {
-
         [JsonProperty("name")]
         public string Name { get; set; }
 
@@ -44,6 +43,5 @@ namespace ChargeIO
 
         [JsonProperty("api_allowed_ip_address_ranges")]
         public string ApiAllowedIpAddressRanges { get; set; }
-
     }
 }
