@@ -43,11 +43,13 @@ Example:
 
 		Charge charge = ts.Charge(new ChargeOptions(){
 			AmountInCents = 100,
-			CardName = "John Doe",
-			CardNumber = "378282246310005",
-			CardExpMonth = 12,
-			CardExpYear = 2016,
-			CardCvv = "123",
+			Method = new CardOptions(){
+				Name = "John Doe",
+				Number = "378282246310005",
+				ExpMonth = 12,
+				ExpYear = 2016,
+				Cvv = "123",
+			}
 		});
 
 		Refund r = ts.Refund(charge.Id, 50, "Partial refund for merchandise return");
