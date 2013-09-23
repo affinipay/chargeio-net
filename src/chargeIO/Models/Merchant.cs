@@ -20,12 +20,6 @@ namespace ChargeIO
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonProperty("auth_user")]
-        public string AuthUser { get; set; }
-
-        [JsonProperty("status")]
-        public string Status { get; set; }
-
         [JsonProperty("contact_name")]
         public string ContactName { get; set; }
 
