@@ -219,7 +219,7 @@ namespace ChargeIO.Test
             Charge captured = transactionService.Capture(charge.Id, 70, "CAPTUREREF");
 
             Assert.IsTrue(captured.AmountInCents == 70);
-            Assert.IsTrue(captured.Status == "SETTLED");
+            Assert.IsTrue(captured.Status == "COMPLETED");
             Assert.IsTrue(captured.CaptureReference == "CAPTUREREF");
         }
 
@@ -315,7 +315,7 @@ namespace ChargeIO.Test
             {
                 AmountInCents = 25
             });
-            Assert.AreEqual("AUTHORIZED", r.Status);
+            Assert.AreEqual("PENDING", r.Status);
             Assert.AreEqual(25, r.AmountInCents);
 
             c = (Charge)transactionService.GetTransaction(c.Id);

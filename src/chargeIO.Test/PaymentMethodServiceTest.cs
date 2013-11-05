@@ -27,6 +27,8 @@ namespace ChargeIO.Test
                 ExpMonth = 12,
                 ExpYear = 2016,
                 Name = "A Customer",
+                Email = "customer@example.com",
+                Phone = "111-222-3344",
                 Description = "Airline Card",
                 Reference = "Customer123"
             });
@@ -34,6 +36,8 @@ namespace ChargeIO.Test
             Assert.IsTrue(c.CardType == "VISA");
             Assert.IsTrue(c.ExpMonth == 12);
             Assert.IsTrue(c.ExpYear == 2016);
+            Assert.AreEqual("customer@example.com", c.Email);
+            Assert.AreEqual("111-222-3344", c.Phone);
             Assert.AreEqual("Airline Card", c.Description);
             Assert.AreEqual("Customer123", c.Reference);
         }
