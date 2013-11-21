@@ -31,6 +31,9 @@ namespace ChargeIO
         [JsonProperty("failure_code")]
         public string FailureCode { get; set; }
 
+        [JsonProperty("auto_capture")]
+        public bool AutoCapture { get; set; }
+
         [JsonProperty("data")]
         public JObject Data { get; set; }
     }

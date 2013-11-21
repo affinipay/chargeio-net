@@ -20,9 +20,6 @@ namespace ChargeIO
         [JsonConverter(typeof(PaymentMethodConverter))]
         public IPaymentMethod PaymentMethod { get; set; }
 
-        [JsonProperty("auto_capture")]
-        public bool AutoCapture { get; set; }
-
         [JsonProperty("amount_refunded")]
         public int? AmountInCentsRefunded { get; set; }
 

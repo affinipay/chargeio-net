@@ -91,6 +91,7 @@ namespace ChargeIO.Test
                 Reference = "refund1"
             });
             Assert.IsTrue(r.AmountInCents == 55);
+            Assert.IsTrue(r.AutoCapture);
             Refund r1 = transactionService.Refund(charge.Id, new RefundOptions()
             {
                 AmountInCents = 45,
