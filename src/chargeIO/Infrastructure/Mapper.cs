@@ -60,8 +60,8 @@ namespace ChargeIO
                     return JsonConvert.DeserializeObject<Charge>(jsonToParse);
                 case "REFUND":
                     return JsonConvert.DeserializeObject<Refund>(jsonToParse);
-                case "TRANSFER":
-                    return JsonConvert.DeserializeObject<Transfer>(jsonToParse);
+                case "CREDIT":
+                    return JsonConvert.DeserializeObject<Credit>(jsonToParse);
             }
 
             return null;

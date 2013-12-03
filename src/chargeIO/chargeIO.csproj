@@ -57,7 +57,7 @@
     <Compile Include="Infrastructure\ChargeIOError.cs" />
     <Compile Include="Models\Refund.cs" />
     <Compile Include="Models\Token.cs" />
-    <Compile Include="Models\Transfer.cs" />
+    <Compile Include="Models\Credit.cs" />
     <Compile Include="Infrastructure\Mapper.cs" />
     <Compile Include="Infrastructure\ParameterBuilder.cs" />
     <Compile Include="Infrastructure\Requestor.cs" />
@@ -78,7 +78,7 @@
     <Compile Include="Services\Merchant\MerchantService.cs" />
     <Compile Include="Services\PaymentMethods\TokenOptions.cs" />
     <Compile Include="Services\Transactions\TransactionService.cs" />
-    <Compile Include="Services\Transactions\TransferOptions.cs" />
+    <Compile Include="Services\Transactions\CreditOptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

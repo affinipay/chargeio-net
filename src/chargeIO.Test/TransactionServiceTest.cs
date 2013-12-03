@@ -324,9 +324,9 @@ namespace ChargeIO.Test
         }
 
         [Test]
-        public void TestTransfer()
+        public void TestCredit()
         {
-            Transfer t = transactionService.Transfer(new TransferOptions()
+            Credit t = transactionService.Credit(new CreditOptions()
             {
                 AmountInCents = 112,
                 Method = new CardOptions()
@@ -347,15 +347,15 @@ namespace ChargeIO.Test
             Assert.AreEqual(112, t.AmountInCents);
             Assert.AreEqual("Test Xfer", t.Reference);
 
-            t = (Transfer)transactionService.Void(t.Id, "Canceled xfer");
+            t = (Credit)transactionService.Void(t.Id, "Canceled xfer");
             Assert.AreEqual("VOIDED", t.Status);
             Assert.AreEqual("Canceled xfer", t.VoidReference);
         }
 
         [Test]
-        public void TestTransferBank()
+        public void TestCreditBank()
         {
-            Transfer t = transactionService.Transfer(new TransferOptions()
+            Credit t = transactionService.Credit(new CreditOptions()
             {
                 AmountInCents = 112,
                 Method = new BankOptions()

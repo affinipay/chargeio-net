@@ -42,9 +42,9 @@
         {
             get { return BaseUrl + "/tokens"; }
         }
-        public static string Transfers
+        public static string Credits
         {
-            get { return BaseUrl + "/transfers"; }
+            get { return BaseUrl + "/credits"; }
         }
 	}
 }

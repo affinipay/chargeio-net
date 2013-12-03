@@ -93,15 +93,15 @@ namespace ChargeIO
             return Mapper<Refund>.MapFromJson(response);
         }
 
-        public virtual Transfer Transfer(TransferOptions options)
+        public virtual Credit Credit(CreditOptions options)
         {
             var response = Requestor.PostJson(
-                Urls.Transfers,
+                Urls.Credits,
                 ParameterBuilder.BuildJsonPostParameters(options),
                 AuthUser,
                 AuthPassword);
 
-            return Mapper<Transfer>.MapFromJson(response);
+            return Mapper<Credit>.MapFromJson(response);
         }
 
         public virtual Transaction GetTransaction(string transactionId)
