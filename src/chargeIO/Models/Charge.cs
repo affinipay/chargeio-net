@@ -23,6 +23,12 @@ namespace ChargeIO
         [JsonProperty("amount_refunded")]
         public int? AmountInCentsRefunded { get; set; }
 
+        [JsonProperty("cvv_result")]
+        public String CvvResult { get; set; }
+
+        [JsonProperty("avs_result")]
+        public String AvsResult { get; set; }
+
         [JsonProperty("reference")]
         public string Reference { get; set; }
 

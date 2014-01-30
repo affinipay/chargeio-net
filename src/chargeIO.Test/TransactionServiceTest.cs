@@ -64,6 +64,8 @@ namespace ChargeIO.Test
             Assert.AreEqual("AUTHORIZED", c.Status);
             Assert.NotNull(c.Id);
             Assert.IsTrue(c.AmountInCents == 345);
+            Assert.AreEqual("MATCHED", c.CvvResult);
+            Assert.AreEqual("ADDRESS_AND_POSTAL_CODE", c.AvsResult);
         }
         [Test]
         public void TestRefund()
