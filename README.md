@@ -3,7 +3,7 @@ chargeIO.net
 
 chargeIO.net is a .NET api for http://chargeio.com
 
-For for a full API reference you can visit: http://chargeio.com/docs/merchant
+For for a full API reference you can visit: http://chargeio.com/docs/merchant/index.html
 
 Quick Start
 -----------
