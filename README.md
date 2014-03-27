@@ -33,7 +33,7 @@ c) In any of the service constructors documented below, you can optionally pass 
 Example:
 --------
 
-	Configuration.SetApiUrl("https://beta.chargeio.com/v1");
+	Configuration.SetApiUrl("https://api.chargeio.com/v1");
 	Configuration.SetAuthUser("[Your auth username]");
 	Configuration.SetAuthPassword("[your auth password]");
 	
