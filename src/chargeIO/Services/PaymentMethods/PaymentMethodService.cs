@@ -7,22 +7,18 @@ namespace ChargeIO
 {
 	public class PaymentMethodService
 	{
-		private string AuthUser { get; set; }
-        private string AuthPassword { get; set; }
+        private string SecretKey { get; set; }
 
-        public PaymentMethodService(string authUser = null, string authPassword = null)
+        public PaymentMethodService(string secretKey = null)
 		{
-			AuthUser = authUser;
-            AuthPassword = authPassword;
+            SecretKey = secretKey;
 		}
 
         public virtual Card CreateCard(CardOptions options)
         {
             var response = Requestor.PostJson(
                 Urls.Cards,
-                ParameterBuilder.BuildJsonPostParameters(options),
-                AuthUser,
-                AuthPassword);
+                ParameterBuilder.BuildJsonPostParameters(options), SecretKey);
 
             return Mapper<Card>.MapFromJson(response);
         }
@@ -31,7 +27,7 @@ namespace ChargeIO
         {
             var url = string.Format("{0}/{1}", Urls.Cards, cardId);
 
-            var response = Requestor.GetString(url, AuthUser, AuthPassword);
+            var response = Requestor.GetString(url, SecretKey);
 
             return Mapper<Card>.MapFromJson(response);
         }
@@ -40,7 +36,7 @@ namespace ChargeIO
         {
             var url = string.Format("{0}/{1}", Urls.Cards, cardId);
 
-            var response = Requestor.Delete(url, AuthUser, AuthPassword);
+            var response = Requestor.Delete(url, SecretKey);
 
             return Mapper<Card>.MapFromJson(response);
         }
@@ -56,7 +52,7 @@ namespace ChargeIO
                 url = ParameterBuilder.ApplyParameterToUrl(url, "reference", reference);
             }
 
-            var response = Requestor.GetString(url, AuthUser, AuthPassword);
+            var response = Requestor.GetString(url, SecretKey);
 
             return Mapper<Card>.MapCollectionFromJson(response);
         }
@@ -65,19 +61,17 @@ namespace ChargeIO
         {
             var response = Requestor.PostJson(
                 Urls.Banks,
-                ParameterBuilder.BuildJsonPostParameters(options),
-                AuthUser,
-                AuthPassword);
+                ParameterBuilder.BuildJsonPostParameters(options), SecretKey);
 
             return Mapper<Bank>.MapFromJson(response);
         }
-        
+
         /*
         public virtual Bank GetBank(string bankId)
         {
             var url = string.Format("{0}/{1}", Urls.Banks, bankId);
 
-            var response = Requestor.GetString(url, AuthUser, AuthPassword);
+            var response = Requestor.GetString(url, SecretKey);
 
             return Mapper<Bank>.MapFromJson(response);
         }
@@ -87,7 +81,7 @@ namespace ChargeIO
         {
             var url = string.Format("{0}/{1}", Urls.Banks, bankId);
 
-            var response = Requestor.Delete(url, AuthUser, AuthPassword);
+            var response = Requestor.Delete(url, SecretKey);
 
             return Mapper<Bank>.MapFromJson(response);
         }
@@ -102,7 +96,7 @@ namespace ChargeIO
                 url = ParameterBuilder.ApplyParameterToUrl(url, "reference", reference);
             }
 
-            var response = Requestor.GetString(url, AuthUser, AuthPassword);
+            var response = Requestor.GetString(url, SecretKey);
 
             return Mapper<Bank>.MapCollectionFromJson(response);
         }
@@ -111,14 +105,14 @@ namespace ChargeIO
         {
             var url = string.Format("{0}/{1}", Urls.Tokens, tokenId);
 
-            var response = Requestor.GetString(url, AuthUser, AuthPassword);
+            var response = Requestor.GetString(url, SecretKey);
 
             return Mapper<Token>.MapFromJson(response);
         }
      
         public virtual Token CreateToken(TokenOptions t)
         {
-            var response = Requestor.PostString(Urls.Tokens, ParameterBuilder.BuildPostParameters(t), AuthUser, AuthPassword);
+            var response = Requestor.PostString(Urls.Tokens, ParameterBuilder.BuildPostParameters(t), SecretKey);
 
             return Mapper<Token>.MapFromJson(response);
         }

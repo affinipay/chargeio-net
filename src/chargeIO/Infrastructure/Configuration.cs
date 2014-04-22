@@ -8,35 +8,22 @@ namespace ChargeIO
 {
 	public static class Configuration
 	{
-		private static string _authUser;
-        private static string _authPassword;
+		private static string _secretKey;
         private static string _apiUrl;
 
-		internal static string GetAuthUser()
+		internal static string GetSecretKey()
 		{
-			if (String.IsNullOrEmpty(_authUser))
-				_authUser = ConfigurationManager.AppSettings["ChargeIOAuthUser"];
+			if (String.IsNullOrEmpty(_secretKey))
+				_secretKey = ConfigurationManager.AppSettings["ChargeIOSecretKey"];
 
-			return _authUser;
+			return _secretKey;
 		}
 
-		public static void SetAuthUser(string newAuthUser)
+		public static void SetAuthUser(string newSecretKey)
 		{
-			_authUser = newAuthUser;
+			_secretKey = newSecretKey;
 		}
 
-        internal static string GetAuthPassword()
-        {
-            if (String.IsNullOrEmpty(_authPassword))
-                _authPassword = ConfigurationManager.AppSettings["ChargeIOAuthPassword"];
-
-            return _authPassword;
-        }
-
-        public static void SetAuthPassword(string newAuthPassword)
-        {
-            _authPassword = newAuthPassword;
-        }
         internal static string GetApiUrl()
         {
             if (String.IsNullOrEmpty(_apiUrl))

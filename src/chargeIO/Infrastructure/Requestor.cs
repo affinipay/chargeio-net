@@ -9,38 +9,36 @@ namespace ChargeIO
 {
 	internal static class Requestor
 	{
-        public static string GetString(string url, string authUser = null, string authPassword = null)
+        public static string GetString(string url, string secretKey = null)
 		{
-            authUser = authUser ?? Configuration.GetAuthUser();
-            authPassword = authPassword ?? Configuration.GetAuthPassword();
+            secretKey = secretKey ?? Configuration.GetSecretKey();
 
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";           
-            request.Headers.Add("Authorization", GetAuthorizationHeaderValue(authUser, authPassword));
+            request.Headers.Add("Authorization", GetAuthorizationHeaderValue(secretKey));
             request.UserAgent = GetUserAgent();
             
 			return ExecuteWebRequest(request);
 		}
 
-        public static string PostString(string url, string postData, string authUser = null, string authPassword = null)
+        public static string PostString(string url, string postData, string secretKey = null)
         {
-            return Post(url, postData, "application/x-www-form-urlencoded", authUser, authPassword);
+            return Post(url, postData, "application/x-www-form-urlencoded", secretKey);
         }
 
-        public static string PostJson(string url, string postData, string authUser = null, string authPassword = null)
+        public static string PostJson(string url, string postData, string secretKey = null)
         {
-            return Post(url, postData, "application/json", authUser, authPassword);
+            return Post(url, postData, "application/json", secretKey);
         }
 
-        public static string Post(string url, string postData, string contentType = null, string authUser = null, string authPassword = null)
+        public static string Post(string url, string postData, string contentType = null, string secretKey = null)
 		{
-            authUser = authUser ?? Configuration.GetAuthUser();
-            authPassword = authPassword ?? Configuration.GetAuthPassword();
+            secretKey = secretKey ?? Configuration.GetSecretKey();
 
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
 
-            request.Headers.Add("Authorization", GetAuthorizationHeaderValue(authUser, authPassword));
+            request.Headers.Add("Authorization", GetAuthorizationHeaderValue(secretKey));
             request.UserAgent = GetUserAgent();
 
             request.ContentType = contentType;
@@ -57,25 +55,24 @@ namespace ChargeIO
             return ExecuteWebRequest(request);
 		}
 
-        public static string PutString(string url, string putData, string authUser = null, string authPassword = null)
+        public static string PutString(string url, string putData, string secretKey = null)
         {
-            return Put(url, putData, "application/x-www-form-urlencoded", authUser, authPassword);
+            return Put(url, putData, "application/x-www-form-urlencoded", secretKey);
         }
 
-        public static string PutJson(string url, string putData, string authUser = null, string authPassword = null)
+        public static string PutJson(string url, string putData, string secretKey = null)
         {
-            return Put(url, putData, "application/json", authUser, authPassword);
+            return Put(url, putData, "application/json", secretKey);
         }
 
-        public static string Put(string url, string putData, string contentType = null, string authUser = null, string authPassword = null)
+        public static string Put(string url, string putData, string contentType = null, string secretKey = null)
         {
-            authUser = authUser ?? Configuration.GetAuthUser();
-            authPassword = authPassword ?? Configuration.GetAuthPassword();
+            secretKey = secretKey ?? Configuration.GetSecretKey();
 
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "PUT";
 
-            request.Headers.Add("Authorization", GetAuthorizationHeaderValue(authUser, authPassword));
+            request.Headers.Add("Authorization", GetAuthorizationHeaderValue(secretKey));
             request.UserAgent = GetUserAgent();
 
             request.ContentType = contentType;
@@ -92,22 +89,21 @@ namespace ChargeIO
             return ExecuteWebRequest(request);
         }
 
-        public static string Delete(string url, string authUser = null, string authPassword = null)
+        public static string Delete(string url, string secretKey = null)
 		{
-            var wr = GetWebRequest(url, "DELETE", authUser, authPassword);
+            var wr = GetWebRequest(url, "DELETE", secretKey);
 
 			return ExecuteWebRequest(wr);
 		}
 
-        private static WebRequest GetWebRequest(string url, string method, string authUser = null, string authPassword = null)
+        private static WebRequest GetWebRequest(string url, string method, string secretKey = null)
 		{
-			authUser = authUser ?? Configuration.GetAuthUser();
-            authPassword = authPassword ?? Configuration.GetAuthPassword();
+			secretKey = secretKey ?? Configuration.GetSecretKey();
 
 			var request = (HttpWebRequest)WebRequest.Create(url);
 			request.Method = method;
 
-			request.Headers.Add("Authorization", GetAuthorizationHeaderValue(authUser, authPassword));
+			request.Headers.Add("Authorization", GetAuthorizationHeaderValue(secretKey));
             request.UserAgent = GetUserAgent();
 			return request;
 		}
@@ -117,9 +113,9 @@ namespace ChargeIO
             return "ChargeIO .net Client (" + Urls.Merchant.GetType().Assembly.GetName().Version.ToString() + ")";
         }
 
-		private static string GetAuthorizationHeaderValue(string authUser, string authPassword)
+		private static string GetAuthorizationHeaderValue(string secretKey)
 		{
-			var token = Convert.ToBase64String(Encoding.UTF8.GetBytes(string.Format("{0}:{1}", authUser, authPassword)));
+			var token = Convert.ToBase64String(Encoding.UTF8.GetBytes(string.Format("{0}:", secretKey)));
 			return string.Format("Basic {0}", token);
 		}
 

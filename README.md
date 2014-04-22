@@ -1,41 +1,37 @@
 chargeIO.net
 ============
 
-chargeIO.net is a .NET api for http://chargeio.com
+.NET client library for the chargeIO payment gateway
 
-For for a full API reference you can visit: http://chargeio.com/docs/merchant/index.html
-
-Quick Start
+Installation
 -----------
 
-Add a reference to chargeIO.net.dll (You can find a pre-compiled version in the build folder of this repository or install chargeIO.net via NuGet)
+To use the library, add a reference to chargeIO.net.dll (you can find a pre-compiled version in the build folder of this repository).
 
-Next you will need to provide chargeIO.net with your api key and password. There are 3 ways to do this: Choose one.
+Access to the ChargeIO Gateway requires your test or live-mode secret key for authentication and authorization. You can provide your
+secret key to the library in any of three ways to suit your development needs: 
 
-a) Add an AppSetting with your api key to your config (this is the easiest way)
+a) Add an AppSetting with your secret key to your config (easiest)
 
 	<appSettings>
 	...
-		<add key="ChargeIOAuthUser" value="[your auth username here]" />
-		<add key="ChargeIOAuthPassword" value="[your auth password here]" />
+		<add key="ChargeIOSecretKey" value="[your secret key]" />
 	...
 	</appSettings>
 
-b) In your application initialization, use the configuration object (this is a programmatic way, but you only have to do it once during startup)
+b) In your application initialization, use the Configuration object (this is a programmatic mechanism, but is only performed once during startup)
 
-	Configuration.SetAuthUser("[your auth username here]");
-	Configuration.SetAuthPassword("[your auth password here]");
+	Configuration.SetSecretKey("[your secret key]");
 
-c) In any of the service constructors documented below, you can optionally pass the auth user and password (ideal when you are supporting multiple merchants). i.e...
+c) In any of the service constructors (e.g., TransactionService), you can optionally pass the secret key (intended for scenarios in which you are supporting multiple merchants)
 
-	TransactionService ts = new TransactionService("[merchant auth username]","[merchant auth password]");
+	TransactionService ts = new TransactionService("[merchant secret key]");
 
 Example:
 --------
 
 	Configuration.SetApiUrl("https://api.chargeio.com/v1");
-	Configuration.SetAuthUser("[Your auth username]");
-	Configuration.SetAuthPassword("[your auth password]");
+	Configuration.SetSecretKey("[your secret key]");
 	
 	try {
 		
@@ -57,3 +53,8 @@ Example:
 	catch(ChargeIOException e) {
 		System.Console.WriteLine(e.Message);
     }
+
+Documentation
+-----------
+
+The latest ChargeIO API documentation is available at https://chargeio.com/developers.

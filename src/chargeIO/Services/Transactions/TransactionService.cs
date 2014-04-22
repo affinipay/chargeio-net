@@ -9,13 +9,11 @@ namespace ChargeIO
 {
 	public class TransactionService
 	{
-		private string AuthUser { get; set; }
-        private string AuthPassword { get; set; }
+        private string SecretKey { get; set; }
 
-        public TransactionService(string authUser = null, string authPassword = null)
+        public TransactionService(string secretKey = null)
 		{
-			AuthUser = authUser;
-            AuthPassword = authPassword;
+            SecretKey = secretKey;
 		}
 
         public virtual Charge Charge(ChargeOptions options)
@@ -24,9 +22,7 @@ namespace ChargeIO
 
             var response = Requestor.PostJson(
                 Urls.Charges,
-                ParameterBuilder.BuildJsonPostParameters(options),
-                AuthUser,
-                AuthPassword);
+                ParameterBuilder.BuildJsonPostParameters(options), SecretKey);
 
             return Mapper<Charge>.MapFromJson(response);
         }
@@ -37,9 +33,7 @@ namespace ChargeIO
 
             var response = Requestor.PostJson(
                 Urls.Charges,
-                ParameterBuilder.BuildJsonPostParameters(options),
-                AuthUser,
-                AuthPassword);
+                ParameterBuilder.BuildJsonPostParameters(options), SecretKey);
 
             return Mapper<Charge>.MapFromJson(response);
         }
@@ -50,8 +44,7 @@ namespace ChargeIO
             Hashtable reqparams = new Hashtable();
             reqparams.Add("reference", reference);
             var response = Requestor.PostJson(url, 
-                ParameterBuilder.BuildJsonPostParameters(reqparams), 
-                AuthUser, AuthPassword);
+                ParameterBuilder.BuildJsonPostParameters(reqparams), SecretKey);
 
             return TransactionMapper.MapFromJson(response);
         }
@@ -65,8 +58,8 @@ namespace ChargeIO
                 {
                     AmountInCents = amountInCents,
                     Reference = reference,
-                
-                }), AuthUser, AuthPassword);
+
+                }), SecretKey);
 
             return Mapper<Charge>.MapFromJson(response);
         }
@@ -75,7 +68,7 @@ namespace ChargeIO
         {
             var url = string.Format("{0}/{1}/refund", Urls.Charges, chargeId);
 
-            var response = Requestor.PostJson(url, ParameterBuilder.BuildJsonPostParameters(options), AuthUser, AuthPassword);
+            var response = Requestor.PostJson(url, ParameterBuilder.BuildJsonPostParameters(options), SecretKey);
 
             return Mapper<Refund>.MapFromJson(response);
         }
@@ -88,7 +81,7 @@ namespace ChargeIO
             options.AmountInCents = refundAmountInCents;
             options.Reference = reference;
             options.Data = data;
-            var response = Requestor.PostJson(url, ParameterBuilder.BuildJsonPostParameters(options), AuthUser, AuthPassword);
+            var response = Requestor.PostJson(url, ParameterBuilder.BuildJsonPostParameters(options), SecretKey);
 
             return Mapper<Refund>.MapFromJson(response);
         }
@@ -97,9 +90,7 @@ namespace ChargeIO
         {
             var response = Requestor.PostJson(
                 Urls.Credits,
-                ParameterBuilder.BuildJsonPostParameters(options),
-                AuthUser,
-                AuthPassword);
+                ParameterBuilder.BuildJsonPostParameters(options), SecretKey);
 
             return Mapper<Credit>.MapFromJson(response);
         }
@@ -107,7 +98,7 @@ namespace ChargeIO
         public virtual Transaction GetTransaction(string transactionId)
         {
             var url = string.Format("{0}/{1}", Urls.Transactions, transactionId);
-            var response = Requestor.GetString(url, AuthUser, AuthPassword);
+            var response = Requestor.GetString(url, SecretKey);
             return TransactionMapper.MapFromJson(response);
         }
 
@@ -144,7 +135,7 @@ namespace ChargeIO
             if (!string.IsNullOrEmpty(orderBy))
                 url = ParameterBuilder.ApplyParameterToUrl(url, "order_by", orderBy);
 
-            var response = Requestor.GetString(url, AuthUser, AuthPassword);
+            var response = Requestor.GetString(url, SecretKey);
 
             return TransactionMapper.MapCollectionFromJson(response);
         }
