@@ -6,7 +6,8 @@ chargeIO.net
 Installation
 -----------
 
-To use the library, add a reference to chargeIO.net.dll (you can find a pre-compiled version in the build folder of this repository).
+To use the library, add a reference to chargeIO.net.dll. You can find pre-compiled versions for .NET 3.5 and 4.0 in
+"build\chargeIO.net 1.0.0.zip".
 
 Access to the ChargeIO Gateway requires your test or live-mode secret key for authentication and authorization. You can provide your
 secret key to the library in any of three ways to suit your development needs: 
