@@ -19,7 +19,7 @@ namespace ChargeIO
 			return _secretKey;
 		}
 
-		public static void SetAuthUser(string newSecretKey)
+		public static void SetSecretKey(string newSecretKey)
 		{
 			_secretKey = newSecretKey;
 		}
