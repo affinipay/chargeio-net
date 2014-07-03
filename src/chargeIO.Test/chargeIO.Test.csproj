@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RecurringChargeServiceTest.cs" />
     <Compile Include="PaymentMethodServiceTest.cs" />
     <Compile Include="MerchantServiceTest.cs" />
     <Compile Include="TransactionServiceTest.cs" />

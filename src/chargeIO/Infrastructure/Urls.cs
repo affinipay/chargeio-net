@@ -46,5 +46,9 @@
         {
             get { return BaseUrl + "/credits"; }
         }
+        public static string RecurringCharges
+        {
+            get { return BaseUrl + "/recurring/charges"; }
+        }
 	}
 }

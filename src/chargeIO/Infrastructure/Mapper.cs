@@ -117,4 +117,12 @@ namespace ChargeIO
             return objectType == typeof(TokenReferenceOptions);
         }
     }
+
+    public class IsoDateConverter : Newtonsoft.Json.Converters.IsoDateTimeConverter
+    {
+        public IsoDateConverter()
+        {
+            DateTimeFormat = "yyyy-MM-dd";
+        }
+    }
 }
