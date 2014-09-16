@@ -471,6 +471,125 @@ namespace ChargeIO.Test
                 Assert.AreEqual("card_number_invalid", ex.Errors[0].Code);
             }
         }
+
+        [Test]
+        public void TestCaptureGratuity()
+        {
+            Charge charge = transactionService.Authorize(new ChargeOptions()
+            {
+                AmountInCents = 2000,
+                Currency = "USD",
+                Method = new CardOptions()
+                {
+                    Name = "John Doe",
+                    Number = "378282246310005",
+                    ExpMonth = 12,
+                    ExpYear = 2016,
+                    Address1 = "123 Main Dr",
+                    Address2 = "Suite 300",
+                    Cvv = "123",
+                    PostalCode = "78759"
+                }
+            });
+            Assert.IsTrue(charge.Status == "AUTHORIZED");
+
+            string signatureData = "[{\"x\":[100],\"y\":[100]}]";
+            charge = transactionService.Capture(charge.Id, new CaptureOptions()
+            {
+                AmountInCents = 2000,
+                GratuityInCents = 400,
+                Signature = new TransactionSignature()
+                {
+                    MimeType = "chargeio/jsignature",
+                    Data = signatureData
+                }
+            });
+
+            Assert.AreEqual(2000, charge.AmountInCents);
+            Assert.AreEqual(400, charge.GratuityInCents);
+            Assert.NotNull(charge.SignatureId);
+
+            TransactionSignature signature = transactionService.GetSignature(charge.SignatureId);
+            Assert.NotNull(signature);
+            Assert.AreEqual("chargeio/jsignature", signature.MimeType);
+            Assert.AreEqual(signatureData, signature.Data);
+        }
+
+        [Test]
+        public void TestAuthorizeGratuity()
+        {
+            string signatureData = "[{\"x\":[100],\"y\":[100]}]";
+            Charge charge = transactionService.Authorize(new ChargeOptions()
+            {
+                AmountInCents = 2000,
+                Currency = "USD",
+                Method = new CardOptions()
+                {
+                    Name = "John Doe",
+                    Number = "378282246310005",
+                    ExpMonth = 12,
+                    ExpYear = 2016,
+                    Address1 = "123 Main Dr",
+                    Address2 = "Suite 300",
+                    Cvv = "123",
+                    PostalCode = "78759"
+                },
+                GratuityInCents = 400,
+                Signature = new TransactionSignature()
+                {
+                    MimeType = "chargeio/jsignature",
+                    Data = signatureData
+                }
+            });
+            Assert.IsTrue(charge.Status == "AUTHORIZED");
+            Assert.AreEqual(2000, charge.AmountInCents);
+            Assert.AreEqual(400, charge.GratuityInCents);
+            Assert.NotNull(charge.SignatureId);
+
+            TransactionSignature signature = transactionService.GetSignature(charge.SignatureId);
+            Assert.NotNull(signature);
+            Assert.AreEqual("chargeio/jsignature", signature.MimeType);
+            Assert.AreEqual(signatureData, signature.Data);
+        }
+
+        [Test]
+        public void TestAuthorizeAndSign()
+        {
+            string signatureData = "[{\"x\":[100],\"y\":[100]}]";
+            Charge charge = transactionService.Authorize(new ChargeOptions()
+            {
+                AmountInCents = 2000,
+                Currency = "USD",
+                Method = new CardOptions()
+                {
+                    Name = "John Doe",
+                    Number = "378282246310005",
+                    ExpMonth = 12,
+                    ExpYear = 2016,
+                    Address1 = "123 Main Dr",
+                    Address2 = "Suite 300",
+                    Cvv = "123",
+                    PostalCode = "78759"
+                }
+            });
+            Assert.IsTrue(charge.Status == "AUTHORIZED");
+
+            charge = (Charge)transactionService.Sign(charge.Id, new SignatureOptions()
+            {
+                MimeType = "chargeio/jsignature",
+                Data = signatureData,
+                GratuityInCents = 400
+            });
+
+            Assert.AreEqual(2000, charge.AmountInCents);
+            Assert.AreEqual(400, charge.GratuityInCents);
+            Assert.NotNull(charge.SignatureId);
+
+            TransactionSignature signature = transactionService.GetSignature(charge.SignatureId);
+            Assert.NotNull(signature);
+            Assert.AreEqual("chargeio/jsignature", signature.MimeType);
+            Assert.AreEqual(signatureData, signature.Data);
+        }
     }
     public class InvoiceData
     {

@@ -20,6 +20,12 @@ namespace ChargeIO
 
         [JsonProperty("auto_capture")]
         public bool AutoCapture { get; set; }
+
+        [JsonProperty("gratuity")]
+        public int? GratuityInCents { get; set; }
+
+        [JsonProperty("signature")]
+        public TransactionSignature Signature { get; set; }
         
         [JsonProperty("reference")]
         public string Reference { get; set; }

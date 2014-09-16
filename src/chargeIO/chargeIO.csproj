@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\TransactionSignature.cs" />
     <Compile Include="Models\RecurringChargeOccurrence.cs" />
     <Compile Include="Models\Schedule.cs" />
     <Compile Include="Models\RecurringCharge.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Services\PaymentMethods\CardOptions.cs" />
     <Compile Include="Services\Transactions\CaptureOptions.cs" />
     <Compile Include="Services\PaymentMethods\PaymentMethodService.cs" />
+    <Compile Include="Services\Transactions\SignatureOptions.cs" />
     <Compile Include="Services\Transactions\RefundOptions.cs" />
     <Compile Include="Services\Merchant\MerchantOptions.cs" />
     <Compile Include="Services\Merchant\MerchantService.cs" />

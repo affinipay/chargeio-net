@@ -34,6 +34,9 @@ namespace ChargeIO
         [JsonProperty("auto_capture")]
         public bool AutoCapture { get; set; }
 
+        [JsonProperty("signature_id")]
+        public string SignatureId { get; set; }
+
         [JsonProperty("data")]
         public JObject Data { get; set; }
     }

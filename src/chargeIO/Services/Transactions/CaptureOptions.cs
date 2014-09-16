@@ -15,5 +15,10 @@ namespace ChargeIO
         [JsonProperty("reference")]
         public string Reference { get; set; }
 
+        [JsonProperty("gratuity")]
+        public int? GratuityInCents { get; set; }
+
+        [JsonProperty("signature")]
+        public TransactionSignature Signature { get; set; }
     }
 }

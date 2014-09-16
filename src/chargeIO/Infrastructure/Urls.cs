@@ -50,5 +50,9 @@
         {
             get { return BaseUrl + "/recurring/charges"; }
         }
+        public static string Signatures
+        {
+            get { return BaseUrl + "/signatures"; }
+        }
 	}
 }

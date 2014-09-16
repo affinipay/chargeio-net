@@ -57,9 +57,17 @@ namespace ChargeIO
                 ParameterBuilder.BuildJsonPostParameters(new CaptureOptions() 
                 {
                     AmountInCents = amountInCents,
-                    Reference = reference,
-
+                    Reference = reference
                 }), SecretKey);
+
+            return Mapper<Charge>.MapFromJson(response);
+        }
+
+        public virtual Charge Capture(string chargeId, CaptureOptions options)
+        {
+            var url = string.Format("{0}/{1}/capture", Urls.Charges, chargeId);
+
+            var response = Requestor.PostJson(url, ParameterBuilder.BuildJsonPostParameters(options), SecretKey);
 
             return Mapper<Charge>.MapFromJson(response);
         }
@@ -138,6 +146,20 @@ namespace ChargeIO
             var response = Requestor.GetString(url, SecretKey);
 
             return TransactionMapper.MapCollectionFromJson(response);
+        }
+
+        public virtual Transaction Sign(string transactionId, SignatureOptions options)
+        {
+            var url = string.Format("{0}/{1}/sign", Urls.Transactions, transactionId);
+            var response = Requestor.PostJson(url, ParameterBuilder.BuildJsonPostParameters(options), SecretKey);
+            return TransactionMapper.MapFromJson(response);
+        }
+
+        public virtual TransactionSignature GetSignature(string signatureId)
+        {
+            var url = string.Format("{0}/{1}", Urls.Signatures, signatureId);
+            var response = Requestor.GetString(url, SecretKey);
+            return Mapper<TransactionSignature>.MapFromJson(response);
         }
 	}
 }
