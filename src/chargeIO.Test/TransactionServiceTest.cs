@@ -67,6 +67,7 @@ namespace ChargeIO.Test
             Assert.AreEqual("MATCHED", c.CvvResult);
             Assert.AreEqual("ADDRESS_AND_POSTAL_CODE", c.AvsResult);
         }
+
         [Test]
         public void TestRefund()
         {
@@ -74,14 +75,15 @@ namespace ChargeIO.Test
             {
                 AmountInCents = 100,
                 Currency = "USD",
-                Reference = "Sparrow rocks",
+                Reference = "Refund reference",
                 Method = new CardOptions()
                 {
-                    Name = "Enrico Brunetta",
+                    Name = "John Doe",
                     Number = "378282246310005",
                     ExpMonth = 12,
                     ExpYear = 2016,
-                    Address1 = "7101 Villa Maria Ln",
+                    Address1 = "123 Main Dr",
+                    Address2 = "Suite 300",
                     Cvv = "123",
                     PostalCode = "78759"
                 }
