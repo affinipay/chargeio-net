@@ -17,7 +17,7 @@ namespace ChargeIO
             request.Method = "GET";           
             request.Headers.Add("Authorization", GetAuthorizationHeaderValue(secretKey));
             request.UserAgent = GetUserAgent();
-            
+            request.Timeout = Configuration.GetHTTPTimeout();
 			return ExecuteWebRequest(request);
 		}
 
@@ -40,6 +40,7 @@ namespace ChargeIO
 
             request.Headers.Add("Authorization", GetAuthorizationHeaderValue(secretKey));
             request.UserAgent = GetUserAgent();
+            request.Timeout = Configuration.GetHTTPTimeout();
 
             request.ContentType = contentType;
 
@@ -74,6 +75,7 @@ namespace ChargeIO
 
             request.Headers.Add("Authorization", GetAuthorizationHeaderValue(secretKey));
             request.UserAgent = GetUserAgent();
+            request.Timeout = Configuration.GetHTTPTimeout();
 
             request.ContentType = contentType;
 
@@ -105,6 +107,8 @@ namespace ChargeIO
 
 			request.Headers.Add("Authorization", GetAuthorizationHeaderValue(secretKey));
             request.UserAgent = GetUserAgent();
+            request.Timeout = Configuration.GetHTTPTimeout();
+
 			return request;
 		}
 
