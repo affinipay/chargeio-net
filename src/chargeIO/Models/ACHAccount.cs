@@ -21,9 +21,6 @@ namespace ChargeIO
         [JsonProperty("status")]
         public string Status { get; set; }
 
-        [JsonProperty("type")]
-        public string Type { get; set; }
-
         [JsonProperty("name")]
         public string Name { get; set; }
 
@@ -41,6 +38,9 @@ namespace ChargeIO
 
         [JsonProperty("bank_name")]
         public string BankName { get; set; }
+
+        [JsonProperty("require_billing_country_match_ip")]
+        public bool RequireBillingCountryMatchIp { get; set; }
 
         [JsonProperty("required_payment_fields")]
         public string RequiredPaymentFields { get; set; }

@@ -41,6 +41,7 @@ namespace ChargeIO.Test
             });
             Assert.IsTrue(updated.Name == "the new merchant name");
         }
+
         [Test]
         public void TestRenameAccount()
         {
@@ -51,10 +52,15 @@ namespace ChargeIO.Test
             {
                 Name = "the new account name",
                 Primary = a.Primary,
-                RequiredPaymentFields = a.RequiredPaymentFields,
+                RequireBillingCountryMatchIp = a.RequireBillingCountryMatchIp,
                 CVVPolicy = a.CVVPolicy,
                 AVSPolicy = a.AVSPolicy,
-                IgnoreAVSFailureIfCVVMatch = a.IgnoreAVSFailureIfCVVMatch
+                IgnoreAVSFailureIfCVVMatch = a.IgnoreAVSFailureIfCVVMatch,
+                RequiredPaymentFields = a.RequiredPaymentFields,
+                SwipeCVVPolicy = a.SwipeCVVPolicy,
+                SwipeAVSPolicy = a.SwipeAVSPolicy,
+                SwipeIgnoreAVSFailureIfCVVMatch = a.SwipeIgnoreAVSFailureIfCVVMatch,
+                SwipeRequiredPaymentFields = a.SwipeRequiredPaymentFields
             });
             Assert.IsTrue(updated.Name == "the new account name");
         }
@@ -69,6 +75,7 @@ namespace ChargeIO.Test
             {
                 Name = "the new bank account name",
                 Primary = a.Primary,
+                RequireBillingCountryMatchIp = a.RequireBillingCountryMatchIp,
                 RequiredPaymentFields = a.RequiredPaymentFields
             });
             Assert.IsTrue(updated.Name == "the new bank account name");

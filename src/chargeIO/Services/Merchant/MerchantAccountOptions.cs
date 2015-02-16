@@ -14,8 +14,8 @@ namespace ChargeIO
         [JsonProperty("primary")]
         public bool Primary { get; set; }
 
-        [JsonProperty("required_payment_fields")]
-        public string RequiredPaymentFields { get; set; }
+        [JsonProperty("require_billing_country_match_ip")]
+        public bool RequireBillingCountryMatchIp { get; set; }
 
         [JsonProperty("cvv_policy")]
         public string CVVPolicy { get; set; }
@@ -25,5 +25,23 @@ namespace ChargeIO
 
         [JsonProperty("ignore_avs_failure_if_cvv_match")]
         public bool IgnoreAVSFailureIfCVVMatch { get; set; }
+
+        [JsonProperty("required_payment_fields")]
+        public string RequiredPaymentFields { get; set; }
+
+        [JsonProperty("swipe_cvv_policy")]
+        public string SwipeCVVPolicy { get; set; }
+
+        [JsonProperty("swipe_avs_policy")]
+        public string SwipeAVSPolicy { get; set; }
+
+        [JsonProperty("swipe_ignore_avs_failure_if_cvv_match")]
+        public bool SwipeIgnoreAVSFailureIfCVVMatch { get; set; }
+
+        [JsonProperty("swipe_required_payment_fields")]
+        public string SwipeRequiredPaymentFields { get; set; }
+
+        [JsonProperty("accepted_card_types")]
+        public String AcceptedCardTypes { get; set; }
     }
 }
