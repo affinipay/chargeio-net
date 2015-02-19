@@ -10,6 +10,7 @@ namespace ChargeIO
 	{
 		private static string _secretKey;
         private static string _apiUrl;
+        private static int _http_timeout = 300 * 1000;
 
 		internal static string GetSecretKey()
 		{
@@ -39,5 +40,19 @@ namespace ChargeIO
         {
             _apiUrl = newApiUrl;
         }
+
+        public static void SetHTTPTimeout(int timeout)
+        {
+            _http_timeout = timeout;
+        }
+
+        internal static int GetHTTPTimeout()
+        {
+            if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["ChargeIOHTTPTimeout"]))
+                _http_timeout = Convert.ToInt32(ConfigurationManager.AppSettings["ChargeIOHTTPTimeout"]);
+
+            return _http_timeout;
+        }
+
 	}
 }
