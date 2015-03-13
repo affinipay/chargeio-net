@@ -27,9 +27,6 @@ namespace ChargeIO
         [JsonProperty("primary")]
         public bool Primary { get; set; }
 
-        [JsonProperty("require_billing_country_match_ip")]
-        public bool RequireBillingCountryMatchIp { get; set; }
-
         [JsonProperty("cvv_policy")]
         public string CVVPolicy { get; set; }
 

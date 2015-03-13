@@ -52,7 +52,6 @@ namespace ChargeIO.Test
             {
                 Name = "the new account name",
                 Primary = a.Primary,
-                RequireBillingCountryMatchIp = a.RequireBillingCountryMatchIp,
                 CVVPolicy = a.CVVPolicy,
                 AVSPolicy = a.AVSPolicy,
                 IgnoreAVSFailureIfCVVMatch = a.IgnoreAVSFailureIfCVVMatch,
@@ -75,7 +74,6 @@ namespace ChargeIO.Test
             {
                 Name = "the new bank account name",
                 Primary = a.Primary,
-                RequireBillingCountryMatchIp = a.RequireBillingCountryMatchIp,
                 RequiredPaymentFields = a.RequiredPaymentFields
             });
             Assert.IsTrue(updated.Name == "the new bank account name");
