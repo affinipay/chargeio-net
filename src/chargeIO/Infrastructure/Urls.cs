@@ -34,6 +34,10 @@
         {
             get { return BaseUrl + "/charges"; }
         }
+        public static string Holds
+        {
+            get { return BaseUrl + "/charges/holds"; }
+        }
         public static string Refunds
         {
             get { return BaseUrl + "/refunds"; }

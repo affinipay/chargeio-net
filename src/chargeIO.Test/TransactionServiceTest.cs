@@ -592,7 +592,59 @@ namespace ChargeIO.Test
             Assert.AreEqual("chargeio/jsignature", signature.MimeType);
             Assert.AreEqual(signatureData, signature.Data);
         }
+
+        [Test]
+        public void TestHolds()
+        {
+            Token token = paymentMethodService.CreateToken(new TokenOptions()
+            {
+                Type = "card",
+                CardNumber = "378282246310005",
+                CardCvv = "123",
+                CardExpirationMonth = 12,
+                CardExpirationYear = 2016,
+                Name = "A Customer",
+                Address1 = "123 Main Dr",
+                City = "Austin",
+                State = "TX",
+                PostalCode = "78759",
+                Country = "US"
+            });
+
+            Charge charge = transactionService.Authorize(new ChargeOptions()
+            {
+                AmountInCents = 100,
+                Currency = "USD",
+                Reference = "a new invoice",
+                Method = new TokenReferenceOptions()
+                {
+                    TokenId = token.Id
+                }
+            });
+            Assert.IsTrue(charge.Status == "AUTHORIZED");
+            Assert.IsTrue(charge.AutoCapture == false);
+
+
+            SearchResults<Transaction> holds = transactionService.Holds();
+            Assert.IsTrue(holds.TotalEntries >= 1);
+            Assert.AreEqual(charge.Id, holds[0].Id);
+
+
+            charge = transactionService.Capture(charge.Id, new CaptureOptions()
+            {
+                AmountInCents = 100,
+                CaptureTime = "NEXT_AUTO_CAPTURE"
+            });
+            Assert.AreEqual("AUTHORIZED", charge.Status);
+            Assert.IsTrue(charge.AutoCapture);
+
+
+            holds = transactionService.Holds();
+            Assert.IsTrue(holds.TotalEntries >= 0);
+            Assert.AreNotEqual(charge.Id, holds[0].Id);
+        }
     }
+
     public class InvoiceData
     {
         [JsonProperty("number")]
@@ -604,6 +656,7 @@ namespace ChargeIO.Test
         [JsonProperty("amount")]
         public int? AmountInCents { get; set; }
     }
+
     public class RefundData
     {
         [JsonProperty("date")]

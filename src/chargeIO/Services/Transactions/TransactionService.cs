@@ -120,7 +120,6 @@ namespace ChargeIO
             string accountId = null,
             string orderBy = null)
         {
-
             var url = Urls.Transactions;
             url = ParameterBuilder.ApplyParameterToUrl(url, "page", page.ToString());
             url = ParameterBuilder.ApplyParameterToUrl(url, "page_size", page_size.ToString());
@@ -142,6 +141,23 @@ namespace ChargeIO
 
             if (!string.IsNullOrEmpty(orderBy))
                 url = ParameterBuilder.ApplyParameterToUrl(url, "order_by", orderBy);
+
+            var response = Requestor.GetString(url, SecretKey);
+
+            return TransactionMapper.MapCollectionFromJson(response);
+        }
+
+        public virtual SearchResults<Transaction> Holds(
+            int page = 1,
+            int page_size = 20,
+            string accountId = null)
+        {
+            var url = Urls.Holds;
+            url = ParameterBuilder.ApplyParameterToUrl(url, "page", page.ToString());
+            url = ParameterBuilder.ApplyParameterToUrl(url, "page_size", page_size.ToString());
+
+            if (!string.IsNullOrEmpty(accountId))
+                url = ParameterBuilder.ApplyParameterToUrl(url, "account_id", accountId);
 
             var response = Requestor.GetString(url, SecretKey);
 

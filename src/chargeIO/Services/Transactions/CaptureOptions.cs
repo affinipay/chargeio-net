@@ -20,5 +20,8 @@ namespace ChargeIO
 
         [JsonProperty("signature")]
         public TransactionSignature Signature { get; set; }
+
+        [JsonProperty("capture_time")]
+        public string CaptureTime { get; set; }
     }
 }

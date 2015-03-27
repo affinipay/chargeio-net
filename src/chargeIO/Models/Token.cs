@@ -33,7 +33,7 @@ namespace ChargeIO
         public int CardExpirationYear { get; set; }
 
         [JsonProperty("cvv")]
-        public int CardCvv { get; set; }
+        public string CardCvv { get; set; }
 
         [JsonProperty("routing_number")]
         public string BankRoutingNumber { get; set; }
