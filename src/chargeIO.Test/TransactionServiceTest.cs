@@ -69,6 +69,37 @@ namespace ChargeIO.Test
         }
 
         [Test]
+        public void TestChargeWithCardId()
+        {
+            Card card = paymentMethodService.CreateCard(new CardOptions()
+            {
+                Number = "5105105105105100",
+                Cvv = "123",
+                ExpMonth = 12,
+                ExpYear = 2016,
+                Name = "John Doe",
+                Email = "jdoe@example.com",
+                Phone = "111-222-3344",
+                Description = "Company Card",
+                Reference = "Customerjdoe123"
+            });
+
+
+            Charge charge = transactionService.Charge(new ChargeOptions()
+            {
+                AmountInCents = 345,
+                Method = new CardReferenceOptions()
+                {
+                    CardId = card.Id
+                }
+            });
+
+            Assert.AreEqual("AUTHORIZED", charge.Status);
+            Assert.NotNull(charge.Id);
+            Assert.IsTrue(charge.AmountInCents == 345);
+        }
+
+        [Test]
         public void TestRefund()
         {
             Charge charge = transactionService.Charge(new ChargeOptions()
