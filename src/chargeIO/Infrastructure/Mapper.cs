@@ -118,6 +118,28 @@ namespace ChargeIO
         }
     }
 
+    public class CardReferenceConverter : JsonConverter
+    {
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            CardReferenceOptions options = (CardReferenceOptions)value;
+            writer.WriteValue(options.CardId);
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            CardReferenceOptions options = new CardReferenceOptions();
+            options.CardId = (string)reader.Value;
+            return options;
+        }
+
+        public override bool CanConvert(Type objectType)
+        {
+            return objectType == typeof(CardReferenceOptions);
+        }
+    }
+
+
     public class IsoDateConverter : Newtonsoft.Json.Converters.IsoDateTimeConverter
     {
         public IsoDateConverter()
