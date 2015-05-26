@@ -177,7 +177,6 @@ namespace ChargeIO.Test
             rc = recurringChargeService.DeleteRecurringCharge(rc.Id);
             Assert.NotNull(rc);
             Assert.AreEqual("DELETED", rc.Status);
-
         }
     }
 }

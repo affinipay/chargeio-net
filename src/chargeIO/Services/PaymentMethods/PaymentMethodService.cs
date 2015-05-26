@@ -14,7 +14,7 @@ namespace ChargeIO
             SecretKey = secretKey;
 		}
 
-        public virtual Card CreateCard(CardOptions options)
+        public virtual Card CreateCard(IPaymentMethod options)
         {
             var response = Requestor.PostJson(
                 Urls.Cards,
@@ -22,6 +22,7 @@ namespace ChargeIO
 
             return Mapper<Card>.MapFromJson(response);
         }
+
         /*
         public virtual Card GetCard(string cardId)
         {
@@ -57,7 +58,7 @@ namespace ChargeIO
             return Mapper<Card>.MapCollectionFromJson(response);
         }
 
-        public virtual Bank CreateBank(BankOptions options)
+        public virtual Bank CreateBank(IPaymentMethod options)
         {
             var response = Requestor.PostJson(
                 Urls.Banks,

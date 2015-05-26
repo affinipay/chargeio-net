@@ -32,7 +32,7 @@ namespace ChargeIO.Test
                     Number = "4111111111111111",
                     Cvv = "123",
                     ExpMonth = 3,
-                    ExpYear = 2015
+                    ExpYear = 2018
                 }
             };
 
@@ -58,14 +58,23 @@ namespace ChargeIO.Test
                     Number = "4111111111111111",
                     Cvv = "123",
                     ExpMonth = 3,
-                    ExpYear = 2015
+                    ExpYear = 2018
                 }
             });
-            Assert.AreEqual("AUTHORIZED", c.Status);
+
             Assert.NotNull(c.Id);
+            Assert.AreEqual("AUTHORIZED", c.Status);
+            Assert.NotNull(c.AccountId);
+            Assert.AreEqual("CHARGE", c.Type);
+            Assert.IsNull(c.FailureCode);
+            Assert.IsTrue(c.AutoCapture);
             Assert.IsTrue(c.AmountInCents == 345);
+            Assert.IsNull(c.GratuityInCents);
+            Assert.AreEqual("USD", c.Currency);
+            Assert.IsNull(c.Reference);
             Assert.AreEqual("MATCHED", c.CvvResult);
             Assert.AreEqual("ADDRESS_AND_POSTAL_CODE", c.AvsResult);
+            Assert.NotNull(c.AuthorizationCode);
         }
 
         [Test]
@@ -665,5 +674,4 @@ namespace ChargeIO.Test
         [JsonProperty("reason")]
         public string Reason { get; set; }
     }
-
 }

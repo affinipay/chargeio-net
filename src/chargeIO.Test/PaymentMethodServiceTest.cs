@@ -43,6 +43,34 @@ namespace ChargeIO.Test
         }
 
         [Test]
+        public void TestCreateCardFromToken()
+        {
+            Token t = defaultService.CreateToken(new TokenOptions()
+            {
+                Type = "card",
+                CardNumber = "4242424242424242",
+                CardExpirationMonth = 12,
+                CardExpirationYear = 2016,
+                Name = "A Customer",
+                Address1 = "123 Payments Way",
+                PostalCode = "78730"
+            });
+            Assert.NotNull(t.Id);
+
+            Card c = defaultService.CreateCard(new SavedPaymentFromTokenOptions()
+            {
+                TokenId = t.Id
+            });
+            Assert.IsTrue(c.Number == "************4242");
+            Assert.IsTrue(c.CardType == "VISA");
+            Assert.IsTrue(c.ExpMonth == 12);
+            Assert.IsTrue(c.ExpYear == 2016);
+            Assert.AreEqual("A Customer", c.Name);
+            Assert.AreEqual("123 Payments Way", c.Address1);
+            Assert.AreEqual("78730", c.PostalCode);
+        }
+
+        [Test]
         public void TestDeleteCard()
         {
             Card c = defaultService.CreateCard(new CardOptions()
@@ -85,6 +113,32 @@ namespace ChargeIO.Test
         }
 
         [Test]
+        public void TestCreateBankFromToken()
+        {
+            Token t = defaultService.CreateToken(new TokenOptions()
+            {
+                Type = "bank",
+                BankAccountNumber = "10333257392394",
+                BankAccountType = "CHECKING",
+                BankRoutingNumber = "111000025",
+                Name = "A Customer",
+                Description = "Primary Checking",
+                Reference = "Customer123"
+            });
+            Assert.NotNull(t.Id);
+
+            Bank b = defaultService.CreateBank(new SavedPaymentFromTokenOptions()
+            {
+                TokenId = t.Id
+            });
+            Assert.IsTrue(b.AccountNumber == "**********2394");
+            Assert.IsTrue(b.RoutingNumber == "******025");
+            Assert.IsTrue(b.AccountType == "CHECKING");
+            Assert.AreEqual("Primary Checking", b.Description);
+            Assert.AreEqual("Customer123", b.Reference);
+        }
+
+        [Test]
         public void TestDeleteBank()
         {
             Bank b = defaultService.CreateBank(new BankOptions()
@@ -110,6 +164,7 @@ namespace ChargeIO.Test
         {
             Token t = defaultService.CreateToken(new TokenOptions()
             {
+                Type = "bank",
                 BankAccountNumber = "10333257392394",
                 BankAccountType = "CHECKING",
                 BankRoutingNumber = "111000025",
