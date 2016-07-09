@@ -27,6 +27,12 @@ namespace ChargeIO
         [JsonProperty("primary")]
         public bool Primary { get; set; }
 
+        [JsonProperty("currency")]
+        public string Currency { get; set; }
+
+        [JsonProperty("trust_account")]
+        public bool? TrustAccount { get; set; }
+
         [JsonProperty("cvv_policy")]
         public string CVVPolicy { get; set; }
 

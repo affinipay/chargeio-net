@@ -27,6 +27,9 @@ namespace ChargeIO
         [JsonProperty("primary")]
         public bool Primary { get; set; }
 
+        [JsonProperty("trust_account")]
+        public bool? TrustAccount { get; set; }
+
         [JsonProperty("routing_number")]
         public string RoutingNumber { get; set; }
 

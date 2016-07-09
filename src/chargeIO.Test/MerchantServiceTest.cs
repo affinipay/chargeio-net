@@ -19,6 +19,46 @@ namespace ChargeIO.Test
         }
 
         [Test]
+        public void TestMerchantProperties()
+        {
+            Merchant m = merchantService.GetMerchant();
+            Assert.IsNotNull(m);
+            Assert.IsNotNull(m.Id);
+            Assert.IsNotNull(m.Created);
+            Assert.IsNotNull(m.Modified);
+            Assert.IsNotNull(m.Name);
+            Assert.IsNotNull(m.ContactName);
+            Assert.IsNotNull(m.ContactEmail);
+            Assert.IsNotNull(m.ContactPhone);
+            Assert.IsNotNull(m.Address1);
+            Assert.IsNotNull(m.City);
+            Assert.IsNotNull(m.State);
+            Assert.IsNotNull(m.PostalCode);
+            Assert.IsNotNull(m.Country);
+            Assert.IsNotNull(m.Timezone);
+
+            MerchantAccount a = m.MerchantAccounts[0];
+            Assert.IsNotNull(a);
+            Assert.IsNotNull(a.Id);
+            Assert.IsNotNull(a.Created);
+            Assert.IsNotNull(a.Modified);
+            Assert.IsNotNull(a.Status);
+            Assert.IsNotNull(a.Name);
+            Assert.IsNotNull(a.Primary);
+            Assert.IsNotNull(a.Currency);
+            Assert.IsNotNull(a.CVVPolicy);
+            Assert.IsNotNull(a.AVSPolicy);
+            Assert.IsNotNull(a.IgnoreAVSFailureIfCVVMatch);
+            Assert.IsNotNull(a.RequiredPaymentFields);
+            Assert.IsNotNull(a.SwipeCVVPolicy);
+            Assert.IsNotNull(a.SwipeAVSPolicy);
+            Assert.IsNotNull(a.SwipeIgnoreAVSFailureIfCVVMatch);
+            Assert.IsNotNull(a.SwipeRequiredPaymentFields);
+            Assert.IsNotNull(a.TransactionAllowedCountries);
+            Assert.IsNotNull(a.AcceptedCardTypes);
+        }
+
+        [Test]
         public void TestRenameMerchant()
         {
             Merchant m = merchantService.GetMerchant();
@@ -39,7 +79,7 @@ namespace ChargeIO.Test
                 ApiAllowedIpAddressRanges = m.ApiAllowedIpAddressRanges
 
             });
-            Assert.IsTrue(updated.Name == "the new merchant name");
+            Assert.AreEqual("the new merchant name", updated.Name);
         }
 
         [Test]

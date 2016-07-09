@@ -53,7 +53,8 @@ namespace ChargeIO.Test
                 CardExpirationYear = 2016,
                 Name = "A Customer",
                 Address1 = "123 Payments Way",
-                PostalCode = "78730"
+                PostalCode = "78730",
+                Reference = "Customer456"
             });
             Assert.NotNull(t.Id);
 
@@ -68,6 +69,7 @@ namespace ChargeIO.Test
             Assert.AreEqual("A Customer", c.Name);
             Assert.AreEqual("123 Payments Way", c.Address1);
             Assert.AreEqual("78730", c.PostalCode);
+            Assert.AreEqual("Customer456", c.Reference);
         }
 
         [Test]

@@ -40,13 +40,13 @@ namespace ChargeIO.Test
                     Number = "4111111111111111",
                     Cvv = "123",
                     ExpMonth = 12,
-                    ExpYear = 2016
+                    ExpYear = 2021
                 },
                 Schedule = new Schedule()
                 {
                     IntervalUnit = "MONTH",
                     IntervalDelay = 1,
-                    Start = new DateTime(2016, 1, 1)
+                    Start = new DateTime(2020, 1, 1)
                 },
                 Description = "Test Recurring Charge",
                 AmountInCents = 2500
@@ -55,7 +55,7 @@ namespace ChargeIO.Test
             Assert.NotNull(rc);
             Assert.AreEqual("ACTIVE", rc.Status);
             Assert.NotNull(rc.Id);
-            Assert.AreEqual(2016, rc.NextPayment.Year);
+            Assert.AreEqual(2020, rc.NextPayment.Year);
             Assert.AreEqual(1, rc.NextPayment.Month);
             Assert.AreEqual(1, rc.NextPayment.Day);
 
@@ -77,7 +77,7 @@ namespace ChargeIO.Test
             Assert.NotNull(occs);
             Assert.IsTrue(occs.TotalEntries == 1);
             Assert.AreEqual("PENDING", occs[0].Status);
-            Assert.AreEqual(2016, occs[0].DueDate.Year);
+            Assert.AreEqual(2020, occs[0].DueDate.Year);
             Assert.AreEqual(1, occs[0].DueDate.Month);
             Assert.AreEqual(1, occs[0].DueDate.Day);
 
@@ -96,7 +96,7 @@ namespace ChargeIO.Test
             Assert.NotNull(occs);
             Assert.IsTrue(occs.TotalEntries == 2);
             Assert.AreEqual("PENDING", occs[0].Status);
-            Assert.AreEqual(2016, occs[0].DueDate.Year);
+            Assert.AreEqual(2020, occs[0].DueDate.Year);
             Assert.AreEqual(2, occs[0].DueDate.Month);
             Assert.AreEqual(1, occs[0].DueDate.Day);
 
@@ -109,7 +109,7 @@ namespace ChargeIO.Test
             Assert.NotNull(occs);
             Assert.IsTrue(occs.TotalEntries == 3);
             Assert.AreEqual("PENDING", occs[0].Status);
-            Assert.AreEqual(2016, occs[0].DueDate.Year);
+            Assert.AreEqual(2020, occs[0].DueDate.Year);
             Assert.AreEqual(3, occs[0].DueDate.Month);
             Assert.AreEqual(1, occs[0].DueDate.Day);
 
@@ -130,20 +130,20 @@ namespace ChargeIO.Test
                     Number = "4242424242424242",
                     Cvv = "123",
                     ExpMonth = 10,
-                    ExpYear = 2018
+                    ExpYear = 2022
                 },
                 Schedule = new Schedule()
                 {
                     IntervalUnit = "MONTH",
                     IntervalDelay = 1,
-                    Start = new DateTime(2016, 1, 1),
+                    Start = new DateTime(2020, 1, 1),
                     Days = scheduleDays
                 },
                 Description = "Test Recurring Charge",
                 AmountInCents = 3000
             });
             Assert.NotNull(rc);
-            Assert.AreEqual(2016, rc.NextPayment.Year);
+            Assert.AreEqual(2020, rc.NextPayment.Year);
             Assert.AreEqual(2, rc.NextPayment.Month);
             Assert.AreEqual(15, rc.NextPayment.Day);
 
@@ -151,7 +151,7 @@ namespace ChargeIO.Test
             Assert.NotNull(occs);
             Assert.IsTrue(occs.TotalEntries == 3);
             Assert.AreEqual("PENDING", occs[0].Status);
-            Assert.AreEqual(2016, occs[0].DueDate.Year);
+            Assert.AreEqual(2020, occs[0].DueDate.Year);
             Assert.AreEqual(2, occs[0].DueDate.Month);
             Assert.AreEqual(15, occs[0].DueDate.Day);
 
