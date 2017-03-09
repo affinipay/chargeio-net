@@ -10,7 +10,7 @@ To use the library, add a reference to chargeIO.net.dll. You can find pre-compil
 "build\chargeIO.net 1.0.0.zip".
 
 Access to the ChargeIO Gateway requires your test or live-mode secret key for authentication and authorization. You can provide your
-secret key to the library in any of three ways to suit your development needs: 
+secret key to the library in any of three ways to suit your development needs:
 
 a) Add an AppSetting with your secret key to your config (easiest)
 
@@ -33,9 +33,9 @@ Example:
 
 	Configuration.SetApiUrl("https://api.chargeio.com/v1");
 	Configuration.SetSecretKey("[your secret key]");
-	
+
 	try {
-		
+
 		TransactionService ts = new TransactionService();
 
 		Charge charge = ts.Charge(new ChargeOptions(){
@@ -58,4 +58,4 @@ Example:
 Documentation
 -----------
 
-The latest ChargeIO API documentation is available at https://chargeio.com/developers.
+The latest ChargeIO API documentation is available at https://developers.affinipay.com.
