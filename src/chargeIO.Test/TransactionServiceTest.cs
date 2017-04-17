@@ -14,6 +14,8 @@ namespace ChargeIO.Test
         TransactionService transactionService;
         PaymentMethodService paymentMethodService;
         ChargeOptions defaultChargeOptions;
+        string ChargeIOCreditAccountId = ""; // Your Test Credit Account ID
+        string ChargeIOBankAccountId = ""; // Your Test Bank Account ID
         string rand;
 
         [SetUp]
@@ -339,9 +341,15 @@ namespace ChargeIO.Test
         [Test]
         public void TestCredit()
         {
+            if (ChargeIOCreditAccountId == String.Empty)
+                Assert.Ignore("You must specify the credit account to use for this test: " +
+                              "https://secure.affinipay.com/settings/advanced");
+
             Credit t = transactionService.Credit(new CreditOptions()
             {
                 AmountInCents = 112,
+                Type = "card",
+                AccountId = ChargeIOCreditAccountId,
                 Method = new CardOptions()
                 {
                     Name = "John Doe",
@@ -368,9 +376,15 @@ namespace ChargeIO.Test
         [Test]
         public void TestCreditBank()
         {
+            if (ChargeIOBankAccountId == String.Empty)
+                Assert.Ignore("You must specify the bank account to use for this test: " +
+                              "https://secure.affinipay.com/settings/advanced");
+
             Credit t = transactionService.Credit(new CreditOptions()
             {
                 AmountInCents = 112,
+                Type = "bank",
+                AccountId = ChargeIOBankAccountId,
                 Method = new BankOptions()
                 {
                     Name = "FirstName LastName",
