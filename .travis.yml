@@ -1,12 +1,12 @@
 language: csharp
 
 install:
-  - nuget restore chargeIO.sln
+  - nuget restore src/chargeIO.sln
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 
 script:
-  - xbuild /p:Configuration=Release chargeIO.sln
-  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./chargeIO.Tests/bin/Release/chargeIO.Tests.dll
+  - xbuild /p:Configuration=Release src/chargeIO.sln
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./src/chargeIO.Test/bin/Release/chargeIO.Test.dll
 
 branches:
   only: master
