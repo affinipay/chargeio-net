@@ -1,10 +1,6 @@
 language: csharp
 
-before_install:
-  - gem install bundler
-
 install:
-  - travis_retry bundle install
   - nuget restore chargeIO.sln
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 
@@ -17,5 +13,3 @@ branches:
 
 notifications:
   email: vude@affinipay.com
-
-gemfile: Gemfile
