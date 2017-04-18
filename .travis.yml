@@ -1,0 +1,21 @@
+language: csharp
+
+before_install:
+  - gem install bundler
+
+install:
+  - travis_retry bundle install
+  - nuget restore chargeIO.sln
+  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+
+script:
+  - xbuild /p:Configuration=Release chargeIO.sln
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./chargeIO.Tests/bin/Release/chargeIO.Tests.dll
+
+branches:
+  only: master
+
+notifications:
+  email: vude@affinipay.com
+
+gemfile: Gemfile
