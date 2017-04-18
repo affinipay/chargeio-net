@@ -14,8 +14,6 @@ namespace ChargeIO.Test
         TransactionService transactionService;
         PaymentMethodService paymentMethodService;
         ChargeOptions defaultChargeOptions;
-        string ChargeIOCreditAccountId = ""; // Your Test Credit Account ID
-        string ChargeIOBankAccountId = ""; // Your Test Bank Account ID
         string rand;
 
         [SetUp]
