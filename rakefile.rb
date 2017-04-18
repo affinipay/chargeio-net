@@ -1,3 +1,5 @@
+require 'bundler/setup'
+
 require 'albacore'
 
 VERSION = "1.0.0"
