@@ -90,7 +90,7 @@ namespace ChargeIO.Test
                     Name = "John Doe",
                     Number = "378282246310005",
                     ExpMonth = 12,
-                    ExpYear = 2016,
+                    ExpYear = 2020,
                     Address1 = "123 Main Dr",
                     Address2 = "Suite 300",
                     Cvv = "123",
@@ -129,7 +129,7 @@ namespace ChargeIO.Test
                     Name = "John Doe",
                     Number = "378282246310005",
                     ExpMonth = 12,
-                    ExpYear = 2016,
+                    ExpYear = 2020,
                     Address1 = "123 Main Dr",
                     Address2 = "Suite 300",
                     Cvv = "123",
@@ -179,7 +179,7 @@ namespace ChargeIO.Test
                     Name = "John Doe",
                     Number = "378282246310005",
                     ExpMonth = 12,
-                    ExpYear = 2016,
+                    ExpYear = 2020,
                     Address1 = "123 Main Dr",
                     Address2 = "Suite 300",
                     Cvv = "123",
@@ -214,7 +214,7 @@ namespace ChargeIO.Test
                     Name = "John Doe",
                     Number = "378282246310005",
                     ExpMonth = 12,
-                    ExpYear = 2016,
+                    ExpYear = 2020,
                     Address1 = "123 Main Dr",
                     Address2 = "Suite 300",
                     Cvv = "123",
@@ -249,7 +249,7 @@ namespace ChargeIO.Test
                     Name = "John Doe",
                     Number = "378282246310005",
                     ExpMonth = 12,
-                    ExpYear = 2016,
+                    ExpYear = 2020,
                     Address1 = "123 Main Dr",
                     Address2 = "Suite 300",
                     Cvv = "123",
@@ -337,59 +337,6 @@ namespace ChargeIO.Test
         }
 
         [Test]
-        public void TestCredit()
-        {
-            Credit t = transactionService.Credit(new CreditOptions()
-            {
-                AmountInCents = 112,
-                Method = new CardOptions()
-                {
-                    Name = "John Doe",
-                    Number = "378282246310005",
-                    ExpMonth = 12,
-                    ExpYear = 2016,
-                    Address1 = "123 Main Dr",
-                    Address2 = "Suite 300",
-                    Cvv = "123",
-                    PostalCode = "78759"
-                },
-                Reference = "Test Xfer"
-            });
-            Assert.AreEqual("AUTHORIZED", t.Status);
-            Assert.NotNull(t.Id);
-            Assert.AreEqual(112, t.AmountInCents);
-            Assert.AreEqual("Test Xfer", t.Reference);
-
-            t = (Credit)transactionService.Void(t.Id, "Canceled xfer");
-            Assert.AreEqual("VOIDED", t.Status);
-            Assert.AreEqual("Canceled xfer", t.VoidReference);
-        }
-
-        [Test]
-        public void TestCreditBank()
-        {
-            Credit t = transactionService.Credit(new CreditOptions()
-            {
-                AmountInCents = 112,
-                Method = new BankOptions()
-                {
-                    Name = "FirstName LastName",
-                    Address1 = "123 Main St.",
-                    Address2 = "Apt #3",
-                    City = "Austin",
-                    State = "TX",
-                    PostalCode = "78759",
-                    RoutingNumber = "111000025",
-                    AccountNumber = "1234567890",
-                    AccountType = "CHECKING"
-                }
-            });
-            Assert.AreEqual("AUTHORIZED", t.Status);
-            Assert.NotNull(t.Id);
-            Assert.AreEqual(112, t.AmountInCents);
-        }
-
-        [Test]
         public void TestChargeUsingCardToken()
         {
             Card card = paymentMethodService.CreateCard(new CardOptions()
@@ -397,7 +344,7 @@ namespace ChargeIO.Test
                 Name = "John Doe",
                 Number = "378282246310005",
                 ExpMonth = 12,
-                ExpYear = 2016,
+                ExpYear = 2020,
                 Address1 = "123 Main Dr",
                 Address2 = "Suite 300",
                 Cvv = "123",
@@ -420,7 +367,7 @@ namespace ChargeIO.Test
             Assert.AreEqual("John Doe", card.Name);
             Assert.AreEqual("***********0005", card.Number);
             Assert.AreEqual(12, card.ExpMonth);
-            Assert.AreEqual(2016, card.ExpYear);
+            Assert.AreEqual(2020, card.ExpYear);
             Assert.AreEqual("123 Main Dr", card.Address1);
             Assert.AreEqual("Suite 300", card.Address2);
             Assert.AreEqual("78759", card.PostalCode);
@@ -467,7 +414,7 @@ namespace ChargeIO.Test
                         Name = "John Doe",
                         Number = "4242424242424241",
                         ExpMonth = 12,
-                        ExpYear = 2016,
+                        ExpYear = 2020,
                         Address1 = "123 Main Dr",
                         Cvv = "123",
                         PostalCode = "78759"
@@ -495,7 +442,7 @@ namespace ChargeIO.Test
                     Name = "John Doe",
                     Number = "378282246310005",
                     ExpMonth = 12,
-                    ExpYear = 2016,
+                    ExpYear = 2020,
                     Address1 = "123 Main Dr",
                     Address2 = "Suite 300",
                     Cvv = "123",
@@ -539,7 +486,7 @@ namespace ChargeIO.Test
                     Name = "John Doe",
                     Number = "378282246310005",
                     ExpMonth = 12,
-                    ExpYear = 2016,
+                    ExpYear = 2020,
                     Address1 = "123 Main Dr",
                     Address2 = "Suite 300",
                     Cvv = "123",
@@ -576,7 +523,7 @@ namespace ChargeIO.Test
                     Name = "John Doe",
                     Number = "378282246310005",
                     ExpMonth = 12,
-                    ExpYear = 2016,
+                    ExpYear = 2020,
                     Address1 = "123 Main Dr",
                     Address2 = "Suite 300",
                     Cvv = "123",
@@ -611,7 +558,7 @@ namespace ChargeIO.Test
                 CardNumber = "378282246310005",
                 CardCvv = "123",
                 CardExpirationMonth = 12,
-                CardExpirationYear = 2016,
+                CardExpirationYear = 2020,
                 Name = "A Customer",
                 Address1 = "123 Main Dr",
                 City = "Austin",

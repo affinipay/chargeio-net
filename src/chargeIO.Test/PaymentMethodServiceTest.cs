@@ -25,7 +25,7 @@ namespace ChargeIO.Test
             {
                 Number = "4242424242424242",
                 ExpMonth = 12,
-                ExpYear = 2016,
+                ExpYear = 2020,
                 Name = "A Customer",
                 Email = "customer@example.com",
                 Phone = "111-222-3344",
@@ -35,7 +35,7 @@ namespace ChargeIO.Test
             Assert.IsTrue(c.Number == "************4242");
             Assert.IsTrue(c.CardType == "VISA");
             Assert.IsTrue(c.ExpMonth == 12);
-            Assert.IsTrue(c.ExpYear == 2016);
+            Assert.IsTrue(c.ExpYear == 2020);
             Assert.AreEqual("customer@example.com", c.Email);
             Assert.AreEqual("111-222-3344", c.Phone);
             Assert.AreEqual("Airline Card", c.Description);
@@ -50,7 +50,7 @@ namespace ChargeIO.Test
                 Type = "card",
                 CardNumber = "4242424242424242",
                 CardExpirationMonth = 12,
-                CardExpirationYear = 2016,
+                CardExpirationYear = 2020,
                 Name = "A Customer",
                 Address1 = "123 Payments Way",
                 PostalCode = "78730",
@@ -65,7 +65,7 @@ namespace ChargeIO.Test
             Assert.IsTrue(c.Number == "************4242");
             Assert.IsTrue(c.CardType == "VISA");
             Assert.IsTrue(c.ExpMonth == 12);
-            Assert.IsTrue(c.ExpYear == 2016);
+            Assert.IsTrue(c.ExpYear == 2020);
             Assert.AreEqual("A Customer", c.Name);
             Assert.AreEqual("123 Payments Way", c.Address1);
             Assert.AreEqual("78730", c.PostalCode);
@@ -79,7 +79,7 @@ namespace ChargeIO.Test
             {
                 Number = "4242424242424242",
                 ExpMonth = 12,
-                ExpYear = 2016,
+                ExpYear = 2020,
                 Name = "A Customer"
             });
             Card deleted = defaultService.DeleteCard(c.Id);
