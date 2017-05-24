@@ -13,8 +13,8 @@ pipeline {
         }
         stage('Build'){
             steps {
-		bat '"${tool 'dotnet'}" restore'
-		bat '"${tool 'dotnet'}" build'
+		bat "${tool 'dotnet'} restore"
+		bat "${tool 'dotnet'} build"
             }
         }
         stage('Archive') {
