@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Archive') {
             steps {
-		        archive 'ProjectName/bin/Release/**'
+	        archive 'ProjectName/bin/Release/**'
             }
         }
     }
