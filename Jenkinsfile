@@ -15,10 +15,14 @@ pipeline {
             steps {
 		bat "${tool 'dotnet'} restore"
 		bat "${tool 'dotnet'} build"
-	    	bat "cp C:\Jenkins\cache\chargeio-net\settings\appsettings.json test-chargeio/bin/Debug/netcoreapp1.0/appsettings.json"
-		bat "${tool 'dotnet'} run --project test-chargeio/test-chargeio.csproj test-chargeio/bin/Debug/netcoreapp1.0/test-chargeio.dll"
             }
         }
+    	stage('Test'){
+	    steps{
+		bat "cp C:\Jenkins\cache\chargeio-net\settings\appsettings.json test-chargeio/bin/Debug/netcoreapp1.0/appsettings.json"
+		bat "${tool 'dotnet'} run --project test-chargeio/test-chargeio.csproj test-chargeio/bin/Debug/netcoreapp1.0/test-chargeio.dll"
+	    }
+    	}
         stage('Archive') {
             steps {
 	        archive 'ProjectName/bin/Release/**'
