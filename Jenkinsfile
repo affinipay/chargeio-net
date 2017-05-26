@@ -19,7 +19,7 @@ pipeline {
         }
     	stage('Test'){
 	    steps{
-		bat "../appsettings.json ${workspaceRoot}/test-chargeio/bin/Debug/netcoreapp1.0/appsettings.json"
+		bat "cp ../appsettings.json ${workspaceRoot}/test-chargeio/bin/Debug/netcoreapp1.0/appsettings.json"
 		bat "${tool 'dotnet'} run --project test-chargeio/test-chargeio.csproj test-chargeio/bin/Debug/netcoreapp1.0/test-chargeio.dll"
 	    }
     	}
