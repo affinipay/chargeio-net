@@ -14,6 +14,7 @@
             "command": "cp",
             "args": ["../appsettings.json", "${workspaceRoot}/test-chargeio/bin/Debug/netcoreapp1.0/appsettings.json"],
             "isShellCommand": true,
+            "isBuildCommand": false,
             "problemMatcher": "$msCompile"
         }
     ]
