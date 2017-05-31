@@ -3,13 +3,13 @@
     <TargetFramework>netstandard1.6</TargetFramework>
     <Version>1.1.0</Version>
     <Authors>Victor Ude</Authors>
-    <Company>AffiniPay Holdings LLC</Company>
+    <Company>AffiniPay LLC</Company>
     <Product>affinipay.com</Product>
     <PackageId>chargeio-net</PackageId>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
     <FileVersion>1.1.0.0</FileVersion>
     <NeutralLanguage>en</NeutralLanguage>
-    <Description>.NET client library for the chargeIO payment gateway</Description>
+    <Description>.NET client library for the AffiniPay Payment Gateway</Description>
     <Copyright>
       The MIT License
 

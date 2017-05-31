@@ -16,7 +16,7 @@ This library requires the [.NET Core SDK](https://www.microsoft.com/net/core). M
 Install the library from NuGet:
 
 ```
-PM> Install-Package chargeio-net -Version 1.0.0
+PM> Install-Package chargeio-net -Version 1.1.0
 ```
 
 ## Configuration
