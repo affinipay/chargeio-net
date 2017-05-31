@@ -2,7 +2,7 @@
 {
 	internal static class Urls
 	{
-```		private static string BaseUrl => Configuration.ApiUrl;
+		private static string BaseUrl => Configuration.ApiUrl;
 
 	    public static string MerchantAccounts => BaseUrl + "/accounts";
 
