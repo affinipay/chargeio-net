@@ -53,7 +53,7 @@ namespace ChargeIo.Models
         public List<MerchantAccount> MerchantAccounts { get; set; }
 
         [JsonProperty("ach_accounts")]
-        public List<AchAccount> ACHAccounts { get; set; }
+        public List<AchAccount> AchAccounts { get; set; }
 
         [JsonProperty("api_allowed_ip_address_ranges")]
         public string ApiAllowedIpAddressRanges { get; set; }

@@ -33,9 +33,9 @@ namespace ChargeIo.Services.Merchant
             return Mapper<MerchantAccount>.MapFromJson(response);
         }
 
-        public virtual AchAccount UpdateACHAccount(string achAccountId, ACHAccountOptions o)
+        public virtual AchAccount UpdateAchAccount(string achAccountId, AchAccountOptions o)
         {
-            var url = string.Format("{0}/{1}", Urls.ACHAccounts, achAccountId);
+            var url = string.Format("{0}/{1}", Urls.AchAccounts, achAccountId);
             var response = Requestor.PutJson(url, ParameterBuilder.BuildJsonPostParameters(o), SecretKey);
             return Mapper<AchAccount>.MapFromJson(response);
         }

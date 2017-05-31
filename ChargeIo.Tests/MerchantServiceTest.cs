@@ -104,9 +104,9 @@ namespace ChargeIo.Tests
         public void TestRenameBankAccount()
         {
             var m = _merchantService.GetMerchant();
-            var a = m.ACHAccounts[0];
+            var a = m.AchAccounts[0];
             Assert.IsTrue(a != null);
-            var updated = _merchantService.UpdateACHAccount(a.Id, new ACHAccountOptions()
+            var updated = _merchantService.UpdateAchAccount(a.Id, new AchAccountOptions()
             {
                 Name = "the new bank account name",
                 Primary = a.Primary,

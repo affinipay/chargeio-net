@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace ChargeIo.Services.Merchant
 {
     [Serializable]
-    public class ACHAccountOptions
+    public class AchAccountOptions
     {
         [JsonProperty("name")]
         public string Name { get; set; }
