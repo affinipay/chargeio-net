@@ -9,7 +9,6 @@ namespace ChargeIo.Infrastructure
         public static IConfigurationRoot Get { get; }
 		public static string SecretKey { get; set; }
 		public static string ApiUrl { get; set; }
-		public static string ApiVersion { get; set; }
 		public static long HttpTimeout { get; set; }
 		public static Version AssemblyVersion { get; set; }
 
@@ -22,7 +21,6 @@ namespace ChargeIo.Infrastructure
             Get = configuration.Build();
             SecretKey = Get["ChargeIOSecretKey"];
             ApiUrl = Get["ChargeIOApiUrl"];
-            ApiVersion = Get["ApiVersion"];
             HttpTimeout = long.Parse(Get["ChargeIOHTTPTimeout"]);
 	        AssemblyVersion = typeof(Configuration).GetTypeInfo().Assembly.GetName().Version;
         }

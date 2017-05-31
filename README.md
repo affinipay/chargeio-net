@@ -27,8 +27,7 @@ Here's an example of an `appsettings.json` file:
 ```
 {
     "ChargeIOSecretKey": "z6keqpRzRAiNNjvlJ3sL5wU46t1VGewnBu7Xzsed03W5b359KhDyapZWGnTiAFXM",
-    "ChargeIOApiUrl": "https://api.chargeio.com",
-    "ApiVersion": "/v1",
+    "ChargeIOApiUrl": "https://api.chargeio.com/v1",
     "ChargeIOHTTPTimeout": "20000"
 }
 ```
