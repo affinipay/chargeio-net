@@ -19,8 +19,8 @@ pipeline {
         }
     	stage('Test'){
 	    steps{
-		bat "cp ../appsettings.json test-chargeio/bin/Debug/netcoreapp1.0/appsettings.json"
-		bat "${tool 'dotnet'} run --project test-chargeio/test-chargeio.csproj test-chargeio/bin/Debug/netcoreapp1.0/test-chargeio.dll"
+		bat "cp ../appsettings.json ChargeIo.Tests/bin/Debug/netcoreapp1.0/appsettings.json"
+		bat "${tool 'dotnet'} run --project ChargeIo.Tests/ChargeIo.Tests.csproj ChargeIo.Tests/bin/Debug/netcoreapp1.0/ChargeIo.Tests.dll"
 	    }
     	}
         stage('Archive') {
