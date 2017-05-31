@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using Microsoft.Extensions.Configuration;
 
 namespace ChargeIo.Infrastructure
@@ -10,11 +11,12 @@ namespace ChargeIo.Infrastructure
 		public static string ApiUrl { get; set; }
 		public static string ApiVersion { get; set; }
 		public static long HttpTimeout { get; set; }
+		public static Version AssemblyVersion { get; set; }
 
         static Configuration()
         {
             var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettings.json", false, true)
                 .AddEnvironmentVariables();
 
             Get = configuration.Build();
@@ -22,6 +24,7 @@ namespace ChargeIo.Infrastructure
             ApiUrl = Get["ChargeIOApiUrl"];
             ApiVersion = Get["ApiVersion"];
             HttpTimeout = long.Parse(Get["ChargeIOHTTPTimeout"]);
+	        AssemblyVersion = typeof(Configuration).GetTypeInfo().Assembly.GetName().Version;
         }
 	}
 }

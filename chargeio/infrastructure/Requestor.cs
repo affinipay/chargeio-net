@@ -6,6 +6,8 @@ namespace ChargeIo.Infrastructure
 {
 	internal static class Requestor
 	{
+	    public static readonly string GetUserAgent = $"ChargeIO .net Client ({Configuration.AssemblyVersion})";
+	    
         public static string GetString(string url, string secretKey = null)
 		{
             return Get(url);
@@ -43,7 +45,7 @@ namespace ChargeIo.Infrastructure
                     var byteArray = Encoding.ASCII.GetBytes(Configuration.SecretKey + ":");
                     client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
                     client.Timeout = TimeSpan.FromMilliseconds(Configuration.HttpTimeout);
-                    client.DefaultRequestHeaders.Add("User-Agent", GetUserAgent());
+                    client.DefaultRequestHeaders.Add("User-Agent", GetUserAgent);
                     var result = client.GetStringAsync(url);
                     return result.Result;
                 } catch (Exception e) {
@@ -60,7 +62,7 @@ namespace ChargeIo.Infrastructure
                     var byteArray = Encoding.ASCII.GetBytes(Configuration.SecretKey + ":");
                     client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
                     client.Timeout = TimeSpan.FromMilliseconds(Configuration.HttpTimeout);
-                    client.DefaultRequestHeaders.Add("User-Agent", GetUserAgent());
+                    client.DefaultRequestHeaders.Add("User-Agent", GetUserAgent);
                     var result = client.PutAsync(url, new StringContent(putData, Encoding.UTF8, contentType));
                     return result.Result.Content.ReadAsStringAsync().Result;
                 } catch (Exception e) {
@@ -77,7 +79,7 @@ namespace ChargeIo.Infrastructure
                     var byteArray = Encoding.ASCII.GetBytes(Configuration.SecretKey + ":");
                     client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
                     client.Timeout = TimeSpan.FromMilliseconds(Configuration.HttpTimeout);
-                    client.DefaultRequestHeaders.Add("User-Agent", GetUserAgent());
+                    client.DefaultRequestHeaders.Add("User-Agent", GetUserAgent);
                     var result = client.PostAsync(url, new StringContent(putData, Encoding.UTF8, contentType));
                     return result.Result.Content.ReadAsStringAsync().Result;
                 } catch (Exception e) {
@@ -94,7 +96,7 @@ namespace ChargeIo.Infrastructure
                     var byteArray = Encoding.ASCII.GetBytes(Configuration.SecretKey + ":");
                     client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
                     client.Timeout = TimeSpan.FromMilliseconds(Configuration.HttpTimeout);
-                    client.DefaultRequestHeaders.Add("User-Agent", GetUserAgent());
+                    client.DefaultRequestHeaders.Add("User-Agent", GetUserAgent);
                     var result = client.DeleteAsync(url);
                     return result.Result.Content.ReadAsStringAsync().Result;
                 } catch (Exception e) {
@@ -102,11 +104,6 @@ namespace ChargeIo.Infrastructure
                     return null;
                 }
             }
-        }
-
-        private static string GetUserAgent()
-        {
-            return "ChargeIO .net Client";
         }
     }
 }
