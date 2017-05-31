@@ -1,6 +1,7 @@
-﻿using System;
+﻿using ChargeIo.Infrastructure;
+using ChargeIo.Models;
 
-namespace chargeio
+namespace ChargeIo.Services.Merchant
 {
 	public class MerchantService
 	{
@@ -11,18 +12,18 @@ namespace chargeio
             SecretKey = secretKey ?? Configuration.SecretKey;
 		}
 
-        public virtual Merchant GetMerchant()
+        public virtual Models.Merchant GetMerchant()
 		{
 			var response = Requestor.GetString(Urls.Merchant, SecretKey);
-            return Mapper<Merchant>.MapFromJson(response);
+            return Mapper<Models.Merchant>.MapFromJson(response);
 		}
     
-        public virtual Merchant UpdateMerchant(MerchantOptions m)
+        public virtual Models.Merchant UpdateMerchant(MerchantOptions m)
         {
             var merchant = ParameterBuilder.BuildJsonPostParameters(m);
             var response = Requestor.PutJson(Urls.Merchant, merchant, SecretKey);
 
-            return Mapper<Merchant>.MapFromJson(response);
+            return Mapper<Models.Merchant>.MapFromJson(response);
         }
 
         public virtual MerchantAccount UpdateMerchantAccount(string accountId, MerchantAccountOptions o)

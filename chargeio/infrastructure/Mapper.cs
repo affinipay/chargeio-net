@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json.Linq;
+using ChargeIo.Models;
+using ChargeIo.Services.PaymentMethods;
 using Newtonsoft.Json;
-using System.Collections;
+using Newtonsoft.Json.Linq;
 
-namespace chargeio
+namespace ChargeIo.Infrastructure
 {
     public static class Mapper<T>
     {
@@ -19,9 +19,8 @@ namespace chargeio
             results.TotalEntries = jObject.Value<int>("total_entries");
 
             var allTokens = jObject.SelectToken(token);
-            
-            foreach (var tkn in allTokens)
-                results.Add(Mapper<T>.MapFromJson(tkn.ToString()));
+
+            results.AddRange(allTokens.Select(tkn => MapFromJson(tkn.ToString())));
 
             return results;
         }
@@ -45,9 +44,8 @@ namespace chargeio
             results.TotalEntries = jObject.Value<int>("total_entries");
 
 			var allTokens = jObject.SelectToken(token);
-            foreach (var tkn in allTokens)
-                results.Add(MapFromJson(tkn.ToString()));
-            return results;
+		    results.AddRange(allTokens.Select(tkn => MapFromJson(tkn.ToString())));
+		    return results;
 		}
     
         public static Transaction MapFromJson(string json, string parentToken = null)
@@ -77,7 +75,7 @@ namespace chargeio
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            JObject jObject = JObject.Load(reader);
+            var jObject = JObject.Load(reader);
             var json = jObject.ToString();
             switch (jObject["type"].ToString())
             {
@@ -101,14 +99,13 @@ namespace chargeio
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            TokenReferenceOptions options = (TokenReferenceOptions)value;
+            var options = (TokenReferenceOptions)value;
             writer.WriteValue(options.TokenId);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            TokenReferenceOptions options = new TokenReferenceOptions();
-            options.TokenId = (string)reader.Value;
+            var options = new TokenReferenceOptions {TokenId = (string) reader.Value};
             return options;
         }
 

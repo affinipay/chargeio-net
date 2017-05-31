@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
-namespace chargeio
+namespace ChargeIo.Services.Transactions
 {
     [Serializable]
     public class SignatureOptions

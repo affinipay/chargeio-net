@@ -1,8 +1,7 @@
-using System;
+using ChargeIo.Infrastructure;
 using NUnit.Framework;
-using chargeio;
 
-namespace test_chargeio
+namespace ChargeIo.Tests
 {
     public class ConfigurationTest
     {

@@ -1,7 +1,8 @@
 ﻿using System;
+using ChargeIo.Infrastructure;
 using Newtonsoft.Json;
 
-namespace chargeio
+namespace ChargeIo.Models
 {
     [Serializable]
     public class Credit : Transaction

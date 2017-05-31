@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using ChargeIo.Infrastructure;
 using Newtonsoft.Json;
 
-namespace chargeio
+namespace ChargeIo.Services.PaymentMethods
 {
     [JsonConverter(typeof(TokenReferenceConverter))]
     public class TokenReferenceOptions

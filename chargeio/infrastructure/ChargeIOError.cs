@@ -1,10 +1,10 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace chargeio
+namespace ChargeIo.Infrastructure
 {
     [Serializable]
-	public class ChargeIOError
+	public class ChargeIoError
 	{
 		[JsonProperty("message")]
 		public string Message { get; set; }

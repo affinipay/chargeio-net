@@ -1,25 +1,24 @@
 ﻿using System;
-using System.Net;
-using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 
-namespace chargeio
+namespace ChargeIo.Infrastructure
 {
 	[Serializable]
-	public class ChargeIOException : Exception
+	public class ChargeIoException : Exception
 	{
 		public HttpStatusCode HttpStatusCode { get; set; }
-		public List<ChargeIOError> Errors { get; set; }
+		public List<ChargeIoError> Errors { get; set; }
 
-		public ChargeIOException() 
+		public ChargeIoException() 
 		{ 
 		}
 
-        public ChargeIOException(string message) : base(message)
+        public ChargeIoException(string message) : base(message)
         {
         }
 
-        public ChargeIOException(HttpStatusCode httpStatusCode, List<ChargeIOError> errors, string message)
+        public ChargeIoException(HttpStatusCode httpStatusCode, List<ChargeIoError> errors, string message)
             : base(message)
         {
             HttpStatusCode = httpStatusCode;

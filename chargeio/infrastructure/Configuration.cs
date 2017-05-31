@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
 
-namespace chargeio
+namespace ChargeIo.Infrastructure
 {
 	public static class Configuration
 	{
@@ -9,7 +9,7 @@ namespace chargeio
 		public static string SecretKey { get; set; }
 		public static string ApiUrl { get; set; }
 		public static string ApiVersion { get; set; }
-		public static Int64 HttpTimeout { get; set; }
+		public static long HttpTimeout { get; set; }
 
         static Configuration()
         {
@@ -21,7 +21,7 @@ namespace chargeio
             SecretKey = Get["ChargeIOSecretKey"];
             ApiUrl = Get["ChargeIOApiUrl"];
             ApiVersion = Get["ApiVersion"];
-            HttpTimeout = Int64.Parse(Get["ChargeIOHTTPTimeout"]);
+            HttpTimeout = long.Parse(Get["ChargeIOHTTPTimeout"]);
         }
 	}
 }

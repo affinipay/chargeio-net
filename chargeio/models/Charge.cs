@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using ChargeIo.Infrastructure;
 using Newtonsoft.Json;
 
-namespace chargeio
+namespace ChargeIo.Models
 {
     [Serializable]
     public class Charge : Transaction

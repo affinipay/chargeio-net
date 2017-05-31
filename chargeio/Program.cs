@@ -1,30 +1,33 @@
-using System;
-using Microsoft.Extensions.DependencyInjection;  
+using ChargeIo.Interface;
+using ChargeIo.Service;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using chargeio;
 
-public class Program
+namespace ChargeIo
 {
-    public static void Main(string[] args)
+    public class Program
     {
-        //setup our DI
-        var serviceProvider = new ServiceCollection()
-            .AddLogging()
-            .AddSingleton<IPayment, Payment>()
-            .BuildServiceProvider();
+        public static void Main(string[] args)
+        {
+            //setup our DI
+            var serviceProvider = new ServiceCollection()
+                .AddLogging()
+                .AddSingleton<IPayment, Payment>()
+                .BuildServiceProvider();
 
-        //configure console logging
-        serviceProvider
-            .GetService<ILoggerFactory>()
-            .AddConsole(LogLevel.Debug);
+            //configure console logging
+            serviceProvider
+                .GetService<ILoggerFactory>()
+                .AddConsole(LogLevel.Debug);
 
-        var logger = serviceProvider.GetService<ILoggerFactory>()
-            .CreateLogger<Program>();
-        logger.LogDebug("Starting application");
+            var logger = serviceProvider.GetService<ILoggerFactory>()
+                .CreateLogger<Program>();
+            logger.LogDebug("Starting application");
 
-        //do the actual work here
-        var payment = serviceProvider.GetService<IPayment>();
+            //do the actual work here
+            var payment = serviceProvider.GetService<IPayment>();
 
-        logger.LogDebug("Initial configuration complete");
+            logger.LogDebug("Initial configuration complete");
+        }
     }
 }

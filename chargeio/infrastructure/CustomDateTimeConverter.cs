@@ -1,13 +1,12 @@
-using System;
 using Newtonsoft.Json.Converters;
 
-namespace chargeio
+namespace ChargeIo.Infrastructure
 {
-    class CustomDateTimeConverter : IsoDateTimeConverter
+    internal class CustomDateTimeConverter : IsoDateTimeConverter
     {
         public CustomDateTimeConverter()
         {
-            base.DateTimeFormat = "yyyy-MM-dd";
+            DateTimeFormat = "yyyy-MM-dd";
         }
     }
 }

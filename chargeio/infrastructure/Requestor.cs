@@ -1,13 +1,8 @@
 ﻿using System;
-using System.IO;
-using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
 using System.Text;
-using System.Collections.Generic;
 
-namespace chargeio
+namespace ChargeIo.Infrastructure
 {
 	internal static class Requestor
 	{
@@ -43,7 +38,7 @@ namespace chargeio
 
         private static string Get(string url)
         {
-            using(HttpClient client = new HttpClient()) {
+            using(var client = new HttpClient()) {
                 try {
                     var byteArray = Encoding.ASCII.GetBytes(Configuration.SecretKey + ":");
                     client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
@@ -60,7 +55,7 @@ namespace chargeio
 
         private static string Put(string url, string putData, string contentType, string secretKey)
         {
-            using(HttpClient client = new HttpClient()) {
+            using(var client = new HttpClient()) {
                 try {
                     var byteArray = Encoding.ASCII.GetBytes(Configuration.SecretKey + ":");
                     client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
@@ -77,7 +72,7 @@ namespace chargeio
 
         private static string Post(string url, string putData, string contentType, string secretKey)
         {
-            using(HttpClient client = new HttpClient()) {
+            using(var client = new HttpClient()) {
                 try {
                     var byteArray = Encoding.ASCII.GetBytes(Configuration.SecretKey + ":");
                     client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
@@ -94,7 +89,7 @@ namespace chargeio
 
         private static string Delete(string url)
         {
-            using(HttpClient client = new HttpClient()) {
+            using(var client = new HttpClient()) {
                 try {
                     var byteArray = Encoding.ASCII.GetBytes(Configuration.SecretKey + ":");
                     client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));

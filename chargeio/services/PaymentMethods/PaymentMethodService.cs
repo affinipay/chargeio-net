@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
-using System.Collections;
+﻿using ChargeIo.Infrastructure;
+using ChargeIo.Models;
 
-namespace chargeio
+namespace ChargeIo.Services.PaymentMethods
 {
 	public class PaymentMethodService
 	{

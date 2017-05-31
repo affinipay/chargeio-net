@@ -1,6 +1,6 @@
 using System;
 
-namespace chargeio
+namespace ChargeIo.Interface
 {
     public interface IPayment
     {

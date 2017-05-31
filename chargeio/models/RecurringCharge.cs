@@ -1,9 +1,9 @@
 ﻿using System;
+using ChargeIo.Infrastructure;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Converters;
 
-namespace chargeio
+namespace ChargeIo.Models
 {
     [Serializable]
     public class RecurringCharge

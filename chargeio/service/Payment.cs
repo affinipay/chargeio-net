@@ -1,6 +1,7 @@
 using System;
+using ChargeIo.Interface;
 
-namespace chargeio
+namespace ChargeIo.Service
 {
     public class Payment : IPayment
     {

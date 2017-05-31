@@ -10,6 +10,9 @@
     <PackageReference Include="NUnitLite" Version="3.6.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\chargeio\chargeio.csproj" />
+    <ProjectReference Include="..\ChargeIo\ChargeIo.csproj">
+      <Project>{6ce4d066-49c2-4de8-8bc8-5694303d5626}</Project>
+      <Name>ChargeIo</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

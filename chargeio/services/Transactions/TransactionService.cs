@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Globalization;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
+using ChargeIo.Infrastructure;
+using ChargeIo.Models;
 
-namespace chargeio
+namespace ChargeIo.Services.Transactions
 {
 	public class TransactionService
 	{
@@ -41,7 +39,7 @@ namespace chargeio
         public virtual Transaction Void(string transactionId, string reference = null)
         {
             var url = string.Format("{0}/{1}/void", Urls.Transactions, transactionId);
-            Dictionary<string, string> reqparams = new Dictionary<string, string>();
+            var reqparams = new Dictionary<string, string>();
             reqparams.Add("reference", reference);
             var response = Requestor.PostJson(url, 
                 ParameterBuilder.BuildJsonPostParameters(reqparams), SecretKey);
@@ -85,7 +83,7 @@ namespace chargeio
         {
             var url = string.Format("{0}/{1}/refund", Urls.Charges, chargeId);
 
-            RefundOptions options = new RefundOptions();
+            var options = new RefundOptions();
             options.AmountInCents = refundAmountInCents;
             options.Reference = reference;
             options.Data = data;

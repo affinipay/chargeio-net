@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace chargeio
+namespace ChargeIo.Models
 {
     [Serializable]
     public class Token
