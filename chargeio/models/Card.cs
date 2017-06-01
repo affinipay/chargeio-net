@@ -1,13 +1,14 @@
 ﻿using System;
+using ChargeIO;
 using Newtonsoft.Json;
 
 namespace ChargeIo.Models
 {
     [Serializable]
-    public class Card
+    public class Card : IPaymentMethod
     {
         [JsonProperty("type")]
-        public string Type { get { return "card"; } }
+        public string Type => "card";
 
         [JsonProperty("number")]
         public string Number { get; set; }

@@ -2,6 +2,7 @@
 using System.Linq;
 using ChargeIo.Models;
 using ChargeIo.Services.PaymentMethods;
+using ChargeIO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -70,7 +71,8 @@ namespace ChargeIo.Infrastructure
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            serializer.Serialize(writer, value);
+            var method = (IPaymentMethod)value;
+            serializer.Serialize(writer, method);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -90,8 +92,7 @@ namespace ChargeIo.Infrastructure
 
         public override bool CanConvert(Type objectType)
         {
-            // return objectType == typeof(IPaymentMethod);
-            return true;
+            return objectType == typeof(IPaymentMethod);
         }
     }
 

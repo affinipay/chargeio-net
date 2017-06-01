@@ -1,5 +1,6 @@
 ﻿using System;
 using ChargeIo.Models;
+using ChargeIO;
 using Newtonsoft.Json;
 
 namespace ChargeIo.Services.Transactions
@@ -32,6 +33,6 @@ namespace ChargeIo.Services.Transactions
         public object Data { get; set; }
 
         [JsonProperty("method")]
-        public object Method { get; set; }
+        public IPaymentMethod Method { get; set; }
     }
 }

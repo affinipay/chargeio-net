@@ -1,5 +1,6 @@
 ﻿using System;
 using ChargeIo.Infrastructure;
+using ChargeIO;
 using Newtonsoft.Json;
 
 namespace ChargeIo.Models
@@ -15,7 +16,7 @@ namespace ChargeIo.Models
 
         [JsonProperty("method")]
         [JsonConverter(typeof(PaymentMethodConverter))]
-        public object PaymentMethod { get; set; }
+        public IPaymentMethod PaymentMethod { get; set; }
 
         [JsonProperty("reference")]
         public string Reference { get; set; }
