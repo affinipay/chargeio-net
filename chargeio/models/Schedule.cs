@@ -15,14 +15,14 @@ namespace ChargeIo.Models
         public int? IntervalDelay { get; set; }
 
         [JsonProperty("start")]
-        [JsonConverter(typeof(CustomDateTimeConverter))]
+        [JsonConverter(typeof(IsoDateConverter))]
         public DateTime Start { get; set; }
 
         [JsonProperty("end")]
-        [JsonConverter(typeof(CustomDateTimeConverter))]
+        [JsonConverter(typeof(IsoDateConverter))]
         public DateTime? End { get; set; }
 
         [JsonProperty("days")]
-        public List<String> Days { get; set; }
+        public List<string> Days { get; set; }
     }
 }

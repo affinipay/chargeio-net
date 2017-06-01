@@ -27,7 +27,7 @@ namespace ChargeIo.Models
         public string Status { get; set; }
 
         [JsonProperty("due_date")]
-        [JsonConverter(typeof(CustomDateTimeConverter))]
+        [JsonConverter(typeof(IsoDateConverter))]
         public DateTime DueDate { get; set; }
 
         [JsonProperty("attempts")]

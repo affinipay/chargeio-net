@@ -58,7 +58,7 @@ namespace ChargeIo.Models
         public int? TotalAmount { get; set; }
 
         [JsonProperty("next_payment")]
-        [JsonConverter(typeof(CustomDateTimeConverter))]
+        [JsonConverter(typeof(IsoDateConverter))]
         public DateTime NextPayment { get; set; }
 
         [JsonProperty("data")]
