@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using ChargeIo.Infrastructure;
-using ChargeIO;
 using Newtonsoft.Json;
 
 namespace ChargeIo.Models
@@ -32,19 +31,19 @@ namespace ChargeIo.Models
         public IPaymentMethod PaymentMethod { get; set; }
 
         [JsonProperty("avs_result")]
-        public String AvsResult { get; set; }
+        public string AvsResult { get; set; }
 
         [JsonProperty("cvv_result")]
-        public String CvvResult { get; set; }
+        public string CvvResult { get; set; }
 
         [JsonProperty("recurring_charge_id")]
-        public String RecurringChargeId { get; set; }
+        public string RecurringChargeId { get; set; }
 
         [JsonProperty("recurring_charge_occurrence_id")]
-        public String RecurringChargeOccurrenceId { get; set; }
+        public string RecurringChargeOccurrenceId { get; set; }
 
         [JsonProperty("authorization_code")]
-        public String AuthorizationCode { get; set; }
+        public string AuthorizationCode { get; set; }
 
         [JsonProperty("amount_refunded")]
         public int? AmountInCentsRefunded { get; set; }

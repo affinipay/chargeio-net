@@ -2,7 +2,6 @@
 using System.Linq;
 using ChargeIo.Models;
 using ChargeIo.Services.PaymentMethods;
-using ChargeIO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

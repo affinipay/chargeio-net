@@ -1,5 +1,5 @@
 ﻿using ChargeIo.Infrastructure;
-using ChargeIO;
+using ChargeIo.Models;
 using Newtonsoft.Json;
 
 namespace ChargeIo.Services.PaymentMethods

@@ -1,6 +1,5 @@
 ﻿using System;
 using ChargeIo.Infrastructure;
-using ChargeIO;
 using Newtonsoft.Json;
 
 namespace ChargeIo.Models
