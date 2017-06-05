@@ -391,7 +391,7 @@ namespace ChargeIO.Tests
                 20, //page_size
                 "Ref", //search string
                 null, // field search string
-                DateTime.Now, //from
+                DateTime.Now.AddYears(-1), //from
                 DateTime.Now, //to
                 null, // accountId
                 null //order_by

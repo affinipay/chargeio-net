@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using ChargeIO.Infrastructure;
 using ChargeIO.Models;
 
