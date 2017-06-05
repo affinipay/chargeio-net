@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using ChargeIo.Infrastructure;
-using ChargeIo.Models;
+using System.Linq;
+using ChargeIO.Infrastructure;
+using ChargeIO.Models;
 
-namespace ChargeIo.Services.Transactions
+namespace ChargeIO.Services.Transactions
 {
 	public class TransactionService
 	{
-        private string SecretKey { get; set; }
+        private string SecretKey { get; }
 
-        public TransactionService(string secretKey = null)
+        public TransactionService(string secretKey = "")
 		{
-            SecretKey = secretKey ?? Configuration.SecretKey;
+            SecretKey = secretKey.Length > 0 ? secretKey : Configuration.SecretKey;
 		}
 
         public virtual Charge Charge(ChargeOptions options)
@@ -39,8 +40,7 @@ namespace ChargeIo.Services.Transactions
         public virtual Transaction Void(string transactionId, string reference = null)
         {
             var url = string.Format("{0}/{1}/void", Urls.Transactions, transactionId);
-            var reqparams = new Dictionary<string, string>();
-            reqparams.Add("reference", reference);
+            var reqparams = new Dictionary<string, string> {{"reference", reference}};
             var response = Requestor.PostJson(url, 
                 ParameterBuilder.BuildJsonPostParameters(reqparams), SecretKey);
 
@@ -83,10 +83,12 @@ namespace ChargeIo.Services.Transactions
         {
             var url = string.Format("{0}/{1}/refund", Urls.Charges, chargeId);
 
-            var options = new RefundOptions();
-            options.AmountInCents = refundAmountInCents;
-            options.Reference = reference;
-            options.Data = data;
+            var options = new RefundOptions
+            {
+                AmountInCents = refundAmountInCents,
+                Reference = reference,
+                Data = data
+            };
             var response = Requestor.PostJson(url, ParameterBuilder.BuildJsonPostParameters(options), SecretKey);
 
             return Mapper<Refund>.MapFromJson(response);
@@ -110,7 +112,7 @@ namespace ChargeIo.Services.Transactions
 
         public virtual SearchResults<Transaction> Transactions(
             int page = 1, 
-            int page_size = 20, 
+            int pageSize = 20, 
             string q = null,
             string qf = null,
             DateTime? startDate = null,
@@ -120,7 +122,7 @@ namespace ChargeIo.Services.Transactions
         {
             var url = Urls.Transactions;
             url = ParameterBuilder.ApplyParameterToUrl(url, "page", page.ToString());
-            url = ParameterBuilder.ApplyParameterToUrl(url, "page_size", page_size.ToString());
+            url = ParameterBuilder.ApplyParameterToUrl(url, "page_size", pageSize.ToString());
 
             if (!string.IsNullOrEmpty(q))
                 url = ParameterBuilder.ApplyParameterToUrl(url, "q", q);
@@ -147,12 +149,12 @@ namespace ChargeIo.Services.Transactions
 
         public virtual SearchResults<Transaction> Holds(
             int page = 1,
-            int page_size = 20,
+            int pageSize = 20,
             string accountId = null)
         {
             var url = Urls.Holds;
             url = ParameterBuilder.ApplyParameterToUrl(url, "page", page.ToString());
-            url = ParameterBuilder.ApplyParameterToUrl(url, "page_size", page_size.ToString());
+            url = ParameterBuilder.ApplyParameterToUrl(url, "page_size", pageSize.ToString());
 
             if (!string.IsNullOrEmpty(accountId))
                 url = ParameterBuilder.ApplyParameterToUrl(url, "account_id", accountId);

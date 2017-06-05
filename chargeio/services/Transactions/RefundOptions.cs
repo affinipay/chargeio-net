@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace ChargeIo.Services.Transactions
+namespace ChargeIO.Services.Transactions
 {
     [Serializable]
     public class RefundOptions

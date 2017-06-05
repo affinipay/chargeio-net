@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 
-namespace ChargeIo.Infrastructure
+namespace ChargeIO.Infrastructure
 {
 	[Serializable]
 	public class ChargeIoException : Exception

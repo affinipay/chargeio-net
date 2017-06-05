@@ -1,8 +1,8 @@
 ﻿using System;
-using ChargeIo.Models;
+using ChargeIO.Models;
 using Newtonsoft.Json;
 
-namespace ChargeIo.Services.PaymentMethods
+namespace ChargeIO.Services.PaymentMethods
 {
     [Serializable]
     public class CardOptions : IPaymentMethod

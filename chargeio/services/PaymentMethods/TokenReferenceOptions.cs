@@ -1,8 +1,8 @@
-﻿using ChargeIo.Infrastructure;
-using ChargeIo.Models;
+﻿using ChargeIO.Infrastructure;
+using ChargeIO.Models;
 using Newtonsoft.Json;
 
-namespace ChargeIo.Services.PaymentMethods
+namespace ChargeIO.Services.PaymentMethods
 {
     [JsonConverter(typeof(TokenReferenceConverter))]
     public class TokenReferenceOptions : IPaymentMethod

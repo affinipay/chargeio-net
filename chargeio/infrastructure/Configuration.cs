@@ -2,7 +2,7 @@
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
 
-namespace ChargeIo.Infrastructure
+namespace ChargeIO.Infrastructure
 {
 	public static class Configuration
 	{

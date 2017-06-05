@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using ChargeIo.Models;
-using ChargeIo.Services.PaymentMethods;
-using ChargeIo.Services.RecurringCharges;
+using ChargeIO.Models;
+using ChargeIO.Services.PaymentMethods;
+using ChargeIO.Services.RecurringCharges;
 using NUnit.Framework;
 
-namespace ChargeIo.Tests
+namespace ChargeIO.Tests
 {
     [TestFixture]
     public class RecurringChargeServiceTest

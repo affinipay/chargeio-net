@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace ChargeIo.Services.Merchant
+namespace ChargeIO.Services.Merchant
 {
     [Serializable]
     public class MerchantOptions

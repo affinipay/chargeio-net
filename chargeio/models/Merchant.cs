@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace ChargeIo.Models
+namespace ChargeIO.Models
 {
     [Serializable]
     public class Merchant

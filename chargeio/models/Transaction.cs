@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace ChargeIo.Models
+namespace ChargeIO.Models
 {
     [Serializable]
     public class Transaction 

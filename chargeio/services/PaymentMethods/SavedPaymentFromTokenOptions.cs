@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace ChargeIo.Services.PaymentMethods
+namespace ChargeIO.Services.PaymentMethods
 {
     public class SavedPaymentFromTokenOptions
     {

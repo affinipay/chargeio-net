@@ -2,7 +2,7 @@
 using System.Reflection;
 using NUnitLite;
 
-namespace ChargeIo.Tests
+namespace ChargeIO.Tests
 {
     internal class Program
     {

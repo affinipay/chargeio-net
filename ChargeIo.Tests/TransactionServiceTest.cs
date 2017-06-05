@@ -1,12 +1,12 @@
 ﻿using System;
-using ChargeIo.Infrastructure;
-using ChargeIo.Models;
-using ChargeIo.Services.PaymentMethods;
-using ChargeIo.Services.Transactions;
+using ChargeIO.Infrastructure;
+using ChargeIO.Models;
+using ChargeIO.Services.PaymentMethods;
+using ChargeIO.Services.Transactions;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
-namespace ChargeIo.Tests
+namespace ChargeIO.Tests
 {
     [TestFixture]
     public class TransactionServiceTest

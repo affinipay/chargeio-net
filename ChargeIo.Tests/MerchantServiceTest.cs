@@ -1,7 +1,7 @@
-﻿using ChargeIo.Services.Merchant;
+﻿using ChargeIO.Services.Merchant;
 using NUnit.Framework;
 
-namespace ChargeIo.Tests
+namespace ChargeIO.Tests
 {
     [TestFixture]
     public class MerchantServiceTest

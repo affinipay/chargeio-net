@@ -1,8 +1,8 @@
 ﻿using System;
-using ChargeIo.Infrastructure;
+using ChargeIO.Infrastructure;
 using Newtonsoft.Json;
 
-namespace ChargeIo.Models
+namespace ChargeIO.Models
 {
     [Serializable]
     public class Refund : Transaction

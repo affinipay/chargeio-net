@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Text;
 
-namespace ChargeIo.Infrastructure
+namespace ChargeIO.Infrastructure
 {
 	internal static class Requestor
 	{

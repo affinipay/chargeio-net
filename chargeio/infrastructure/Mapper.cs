@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using ChargeIo.Models;
-using ChargeIo.Services.PaymentMethods;
+using ChargeIO.Models;
+using ChargeIO.Services.PaymentMethods;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace ChargeIo.Infrastructure
+namespace ChargeIO.Infrastructure
 {
     public static class Mapper<T>
     {

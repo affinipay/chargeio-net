@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using ChargeIo.Infrastructure;
+using ChargeIO.Infrastructure;
 using Newtonsoft.Json;
 
-namespace ChargeIo.Models
+namespace ChargeIO.Models
 {
     [Serializable]
     public class Schedule

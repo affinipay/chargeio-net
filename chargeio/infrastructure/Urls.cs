@@ -1,4 +1,4 @@
-﻿namespace ChargeIo.Infrastructure
+﻿namespace ChargeIO.Infrastructure
 {
 	internal static class Urls
 	{

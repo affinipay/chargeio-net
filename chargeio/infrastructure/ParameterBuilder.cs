@@ -2,7 +2,7 @@
 using System.Reflection;
 using Newtonsoft.Json;
 
-namespace ChargeIo.Infrastructure
+namespace ChargeIO.Infrastructure
 {
 	internal static class ParameterBuilder
 	{

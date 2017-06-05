@@ -1,8 +1,8 @@
 ﻿using System;
-using ChargeIo.Models;
+using ChargeIO.Models;
 using Newtonsoft.Json;
 
-namespace ChargeIo.Services.RecurringCharges
+namespace ChargeIO.Services.RecurringCharges
 {
     [Serializable]
     public class RecurringChargeOptions

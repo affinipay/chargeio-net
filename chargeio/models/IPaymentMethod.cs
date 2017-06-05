@@ -1,4 +1,4 @@
-namespace ChargeIo.Models
+namespace ChargeIO.Models
 {
     public interface IPaymentMethod
     {

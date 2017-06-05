@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace ChargeIo.Infrastructure
+namespace ChargeIO.Infrastructure
 {
     [Serializable]
 	public class ChargeIoError

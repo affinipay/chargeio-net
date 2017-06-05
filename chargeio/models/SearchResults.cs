@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ChargeIo.Models
+namespace ChargeIO.Models
 {
     [Serializable]
     public class SearchResults<T> : List<T>

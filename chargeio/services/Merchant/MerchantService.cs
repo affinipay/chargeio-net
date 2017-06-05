@@ -1,16 +1,16 @@
-﻿using ChargeIo.Infrastructure;
-using ChargeIo.Models;
+﻿using ChargeIO.Infrastructure;
+using ChargeIO.Models;
 
-namespace ChargeIo.Services.Merchant
+namespace ChargeIO.Services.Merchant
 {
 	public class MerchantService
 	{
-        private string SecretKey { get; set; }
+        private string SecretKey { get; }
         
-        public MerchantService(string secretKey = null)
-		{
-            SecretKey = secretKey ?? Configuration.SecretKey;
-		}
+        public MerchantService(string secretKey = "")
+        {
+            SecretKey = secretKey.Length > 0 ? secretKey : Configuration.SecretKey;
+        }
 
         public virtual Models.Merchant GetMerchant()
 		{

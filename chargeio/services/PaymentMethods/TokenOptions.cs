@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace ChargeIo.Services.PaymentMethods
+namespace ChargeIO.Services.PaymentMethods
 {
     [Serializable]
     public class TokenOptions

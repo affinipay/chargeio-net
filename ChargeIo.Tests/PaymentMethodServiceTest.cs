@@ -1,7 +1,7 @@
-﻿using ChargeIo.Services.PaymentMethods;
+﻿using ChargeIO.Services.PaymentMethods;
 using NUnit.Framework;
 
-namespace ChargeIo.Tests
+namespace ChargeIO.Tests
 {
     [TestFixture]
     public class PaymentMethodServiceTest
