@@ -11,7 +11,14 @@ namespace ChargeIO.Services.Transactions
 
         public TransactionService(string secretKey = "")
 		{
-            SecretKey = secretKey.Length > 0 ? secretKey : Configuration.SecretKey;
+		    if (secretKey == null)
+		    {
+		        SecretKey = Configuration.SecretKey;
+		    }
+		    else
+		    {
+		        SecretKey = secretKey.Length > 0 ? secretKey : Configuration.SecretKey;
+		    }
 		}
 
         public virtual Charge Charge(ChargeOptions options)

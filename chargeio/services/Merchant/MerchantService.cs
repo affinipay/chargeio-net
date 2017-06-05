@@ -1,4 +1,5 @@
-﻿using ChargeIO.Infrastructure;
+﻿using System;
+using ChargeIO.Infrastructure;
 using ChargeIO.Models;
 
 namespace ChargeIO.Services.Merchant
@@ -9,7 +10,14 @@ namespace ChargeIO.Services.Merchant
         
         public MerchantService(string secretKey = "")
         {
-            SecretKey = secretKey.Length > 0 ? secretKey : Configuration.SecretKey;
+            if (secretKey == null)
+            {
+                SecretKey = Configuration.SecretKey;
+            }
+            else
+            {
+                SecretKey = secretKey.Length > 0 ? secretKey : Configuration.SecretKey;
+            }
         }
 
         public virtual Models.Merchant GetMerchant()

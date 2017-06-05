@@ -1,4 +1,4 @@
-﻿using chargeio;
+﻿using ChargeIO.Services.Merchant;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -26,9 +26,9 @@ namespace Sample
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Run(async (context) =>
+            app.Run(async context =>
             {
-                var service = new MerchantService();
+                var service = new MerchantService(null);
                 var merchant = service.GetMerchant();
                 await context.Response.WriteAsync(JObject.FromObject(merchant).ToString());
             });
