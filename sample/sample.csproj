@@ -6,8 +6,14 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="chargeio-net" Version="1.0.0" />
+    <PackageReference Include="chargeio-net" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChargeIo\ChargeIo.csproj">
+      <Project>{6ce4d066-49c2-4de8-8bc8-5694303d5626}</Project>
+      <Name>ChargeIo</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
