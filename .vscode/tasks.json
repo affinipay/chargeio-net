@@ -1,0 +1,21 @@
+{
+    "version": "0.1.0",
+    "isShellCommand": true,
+    "tasks": [
+        {
+            "taskName": "build",
+            "command": "dotnet",
+            "args": ["build"],
+            "isBuildCommand": true,
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "configure",
+            "command": "cp",
+            "args": ["../appsettings.json", "${workspaceRoot}/test-chargeio/bin/Debug/netcoreapp1.0/appsettings.json"],
+            "isShellCommand": true,
+            "isBuildCommand": false,
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}

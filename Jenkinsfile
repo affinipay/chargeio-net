@@ -8,18 +8,24 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-		        checkout scm
+		checkout scm
             }
         }
         stage('Build'){
             steps {
-                bat 'nuget restore src/chargeIO.sln'
-                bat "\"${tool 'MSBuild'}\" src/chargeIO.sln /p:Configuration=Release /p:Platform=\"Any CPU\" /p:ProductVersion=1.0.0.${env.BUILD_NUMBER} /p:FrameworkPathOverride=\"C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\""
+		bat "${tool 'dotnet'} restore"
+		bat "${tool 'dotnet'} build"
             }
         }
+    	stage('Test'){
+	    steps{
+		bat "cp ../appsettings.json ChargeIo.Tests/bin/Debug/netcoreapp1.0/appsettings.json"
+		bat "${tool 'dotnet'} run --project ChargeIo.Tests/ChargeIo.Tests.csproj ChargeIo.Tests/bin/Debug/netcoreapp1.0/ChargeIo.Tests.dll"
+	    }
+    	}
         stage('Archive') {
             steps {
-		        archive 'ProjectName/bin/Release/**'
+	        archive 'ProjectName/bin/Release/**'
             }
         }
     }

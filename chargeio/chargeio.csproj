@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <Version>1.1.0</Version>
+    <Authors>Victor Ude</Authors>
+    <Company>AffiniPay LLC</Company>
+    <Product>affinipay.com</Product>
+    <PackageId>chargeio-net</PackageId>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Description>.NET client library for the AffiniPay Payment Gateway</Description>
+    <Copyright>
+      The MIT License
+
+      Copyright (c) 2017 - AffiniPay, LLC. (https://affinipay.com)
+
+      Permission is hereby granted, free of charge, to any person obtaining a copy
+      of this software and associated documentation files (the "Software"), to deal
+      in the Software without restriction, including without limitation the rights
+      to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+      copies of the Software, and to permit persons to whom the Software is
+      furnished to do so, subject to the following conditions:
+
+      The above copyright notice and this permission notice shall be included in
+      all copies or substantial portions of the Software.
+
+      THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+      IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+      FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+      AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+      LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+      OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+      THE SOFTWARE.
+    </Copyright>
+    <PackageLicenseUrl>https://github.com/affinipay/chargeio-net/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/affinipay/chargeio-net</PackageProjectUrl>
+    <PackageIconUrl>https://secure.affinipay.com/assets/affinipay/AP-LogoStacked-4651ac3c05cabf8b3b2c5836402f1064c1fee6f06b66c442cb8a72c47e375ec0.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/affinipay/chargeio-net</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>affinipay;lawpay;chargeio</PackageTags>
+    <PackageReleaseNotes>This release is a port of the existing chargeIO .NET library to .NET Core</PackageReleaseNotes>
+    <AssemblyName>ChargeIo</AssemblyName>
+    <RootNamespace>ChargeIo</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+    <PackageReference Include="System.Net.Http" Version="4.3.1" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0" />
+    <PackageReference Include="System.Threading.Tasks" Version="4.3.0" />
+    <None Include="appsettings.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always" />
+  </ItemGroup>
+</Project>
