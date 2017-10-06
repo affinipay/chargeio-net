@@ -1,27 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using ChargeIo.services;
 using ChargeIO.Infrastructure;
 using ChargeIO.Models;
 
 namespace ChargeIO.Services.Transactions
 {
-	public class TransactionService
-	{
-        private string SecretKey { get; }
+    public sealed class TransactionService : ServiceBase
+    {
+        public TransactionService(string secretKey = null) : base(secretKey)
+        {
+        }
 
-        public TransactionService(string secretKey = "")
-		{
-		    if (secretKey == null)
-		    {
-		        SecretKey = Configuration.SecretKey;
-		    }
-		    else
-		    {
-		        SecretKey = secretKey.Length > 0 ? secretKey : Configuration.SecretKey;
-		    }
-		}
-
-        public virtual Charge Charge(ChargeOptions options)
+        public Charge Charge(ChargeOptions options)
         {
             options.AutoCapture = true;
 
@@ -32,7 +23,7 @@ namespace ChargeIO.Services.Transactions
             return Mapper<Charge>.MapFromJson(response);
         }
 
-        public virtual Charge Authorize(ChargeOptions options)
+        public Charge Authorize(ChargeOptions options)
         {
             options.AutoCapture = false;
 
@@ -43,22 +34,22 @@ namespace ChargeIO.Services.Transactions
             return Mapper<Charge>.MapFromJson(response);
         }
 
-        public virtual Transaction Void(string transactionId, string reference = null)
+        public Transaction Void(string transactionId, string reference = null)
         {
             var url = string.Format("{0}/{1}/void", Urls.Transactions, transactionId);
             var reqparams = new Dictionary<string, string> {{"reference", reference}};
-            var response = Requestor.PostJson(url, 
+            var response = Requestor.PostJson(url,
                 ParameterBuilder.BuildJsonPostParameters(reqparams), SecretKey);
 
             return TransactionMapper.MapFromJson(response);
         }
 
-        public virtual Charge Capture(string chargeId, int amountInCents, string reference = null)
+        public Charge Capture(string chargeId, int amountInCents, string reference = null)
         {
             var url = string.Format("{0}/{1}/capture", Urls.Charges, chargeId);
 
-            var response = Requestor.PostJson(url, 
-                ParameterBuilder.BuildJsonPostParameters(new CaptureOptions() 
+            var response = Requestor.PostJson(url,
+                ParameterBuilder.BuildJsonPostParameters(new CaptureOptions()
                 {
                     AmountInCents = amountInCents,
                     Reference = reference
@@ -67,7 +58,7 @@ namespace ChargeIO.Services.Transactions
             return Mapper<Charge>.MapFromJson(response);
         }
 
-        public virtual Charge Capture(string chargeId, CaptureOptions options)
+        public Charge Capture(string chargeId, CaptureOptions options)
         {
             var url = string.Format("{0}/{1}/capture", Urls.Charges, chargeId);
 
@@ -76,7 +67,7 @@ namespace ChargeIO.Services.Transactions
             return Mapper<Charge>.MapFromJson(response);
         }
 
-        public virtual Refund Refund(string chargeId, RefundOptions options)
+        public Refund Refund(string chargeId, RefundOptions options)
         {
             var url = string.Format("{0}/{1}/refund", Urls.Charges, chargeId);
 
@@ -85,7 +76,7 @@ namespace ChargeIO.Services.Transactions
             return Mapper<Refund>.MapFromJson(response);
         }
 
-        public virtual Refund Refund(string chargeId, int? refundAmountInCents, string reference = null, object data = null)
+        public Refund Refund(string chargeId, int? refundAmountInCents, string reference = null, object data = null)
         {
             var url = string.Format("{0}/{1}/refund", Urls.Charges, chargeId);
 
@@ -100,7 +91,7 @@ namespace ChargeIO.Services.Transactions
             return Mapper<Refund>.MapFromJson(response);
         }
 
-        public virtual Credit Credit(CreditOptions options)
+        public Credit Credit(CreditOptions options)
         {
             var response = Requestor.PostJson(
                 Urls.Credits,
@@ -109,16 +100,16 @@ namespace ChargeIO.Services.Transactions
             return Mapper<Credit>.MapFromJson(response);
         }
 
-        public virtual Transaction GetTransaction(string transactionId)
+        public Transaction GetTransaction(string transactionId)
         {
             var url = string.Format("{0}/{1}", Urls.Transactions, transactionId);
             var response = Requestor.GetString(url, SecretKey);
             return TransactionMapper.MapFromJson(response);
         }
 
-        public virtual SearchResults<Transaction> Transactions(
-            int page = 1, 
-            int pageSize = 20, 
+        public SearchResults<Transaction> Transactions(
+            int page = 1,
+            int pageSize = 20,
             string q = null,
             string qf = null,
             DateTime? startDate = null,
@@ -137,11 +128,13 @@ namespace ChargeIO.Services.Transactions
                 url = ParameterBuilder.ApplyParameterToUrl(url, "qf", qf);
 
             if (startDate != null)
-                url = ParameterBuilder.ApplyParameterToUrl(url, "start_date", ((DateTime) startDate).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ"));
+                url = ParameterBuilder.ApplyParameterToUrl(url, "start_date",
+                    ((DateTime) startDate).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ"));
 
             if (endDate != null)
-                url = ParameterBuilder.ApplyParameterToUrl(url, "end_date", ((DateTime)endDate).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ"));
-            
+                url = ParameterBuilder.ApplyParameterToUrl(url, "end_date",
+                    ((DateTime) endDate).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ"));
+
             if (!string.IsNullOrEmpty(accountId))
                 url = ParameterBuilder.ApplyParameterToUrl(url, "account_id", accountId);
 
@@ -153,7 +146,7 @@ namespace ChargeIO.Services.Transactions
             return TransactionMapper.MapCollectionFromJson(response);
         }
 
-        public virtual SearchResults<Transaction> Holds(
+        public SearchResults<Transaction> Holds(
             int page = 1,
             int pageSize = 20,
             string accountId = null)
@@ -170,14 +163,14 @@ namespace ChargeIO.Services.Transactions
             return TransactionMapper.MapCollectionFromJson(response);
         }
 
-        public virtual Transaction Sign(string transactionId, SignatureOptions options)
+        public Transaction Sign(string transactionId, SignatureOptions options)
         {
             var url = string.Format("{0}/{1}/sign", Urls.Transactions, transactionId);
             var response = Requestor.PostJson(url, ParameterBuilder.BuildJsonPostParameters(options), SecretKey);
             return TransactionMapper.MapFromJson(response);
         }
 
-        public virtual TransactionSignature GetSignature(string signatureId)
+        public TransactionSignature GetSignature(string signatureId)
         {
             var url = string.Format("{0}/{1}", Urls.Signatures, signatureId);
             var response = Requestor.GetString(url, SecretKey);

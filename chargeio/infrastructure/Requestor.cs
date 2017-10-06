@@ -1,109 +1,109 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ChargeIO.Infrastructure
 {
-	internal static class Requestor
-	{
-	    public static readonly string GetUserAgent = $"ChargeIO .net Client ({Configuration.AssemblyVersion})";
-	    
+    internal static class Requestor
+    {
+        private static readonly string GetUserAgent = $"ChargeIO .net Client ({Configuration.AssemblyVersion})";
+
         public static string GetString(string url, string secretKey = null)
-		{
-            return Get(url);
-		}
+        {
+            return Get(url, secretKey).Result;
+        }
 
         public static string PostString(string url, string postData, string secretKey = null)
         {
-            return Post(url, postData, "application/x-www-form-urlencoded", secretKey);
+            return Post(url, postData, "application/x-www-form-urlencoded", secretKey).Result;
         }
 
         public static string PostJson(string url, string postData, string secretKey = null)
         {
-            return Post(url, postData, "application/json", secretKey);
+            return Post(url, postData, "application/json", secretKey).Result;
         }
 
         public static string PutString(string url, string putData, string secretKey = null)
         {
-            return Put(url, putData, "application/x-www-form-urlencoded", secretKey);
+            return Put(url, putData, "application/x-www-form-urlencoded", secretKey).Result;
         }
 
         public static string PutJson(string url, string putData, string secretKey = null)
         {
-            return Put(url, putData, "application/json", secretKey);
+            return Put(url, putData, "application/json", secretKey).Result;
         }
 
         public static string Delete(string url, string secretKey = null)
-		{
-            return Delete(url);
-		}
-
-        private static string Get(string url)
         {
-            using(var client = new HttpClient()) {
-                try {
-                    var byteArray = Encoding.ASCII.GetBytes(Configuration.SecretKey + ":");
-                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
-                    client.Timeout = TimeSpan.FromMilliseconds(Configuration.HttpTimeout);
-                    client.DefaultRequestHeaders.Add("User-Agent", GetUserAgent);
-                    var result = client.GetStringAsync(url);
-                    return result.Result;
-                } catch (Exception e) {
-                    Console.WriteLine(e);
-                    return null;
-                }
+            return _Delete(url, secretKey).Result;
+        }
+
+        private static async Task<string> Get(string url, string secretKey)
+        {
+            using (var client = PrepareHttpClient(secretKey))
+            {
+                var response = await client.GetAsync(url);
+                var content = await response.Content.ReadAsStringAsync();
+                client.Dispose();
+                return HandleResponse(response, content);
             }
         }
 
-        private static string Put(string url, string putData, string contentType, string secretKey)
+        private static async Task<string> Put(string url, string putData, string contentType, string secretKey)
         {
-            using(var client = new HttpClient()) {
-                try {
-                    var byteArray = Encoding.ASCII.GetBytes(Configuration.SecretKey + ":");
-                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
-                    client.Timeout = TimeSpan.FromMilliseconds(Configuration.HttpTimeout);
-                    client.DefaultRequestHeaders.Add("User-Agent", GetUserAgent);
-                    var result = client.PutAsync(url, new StringContent(putData, Encoding.UTF8, contentType));
-                    return result.Result.Content.ReadAsStringAsync().Result;
-                } catch (Exception e) {
-                    Console.WriteLine(e);
-                    return null;
-                }
+            using (var client = PrepareHttpClient(secretKey))
+            {
+                var response = await client.PutAsync(url, new StringContent(putData, Encoding.UTF8, contentType));
+                var content = await response.Content.ReadAsStringAsync();
+                client.Dispose();
+                return HandleResponse(response, content);
             }
         }
 
-        private static string Post(string url, string putData, string contentType, string secretKey)
+        private static async Task<string> Post(string url, string putData, string contentType, string secretKey)
         {
-            using(var client = new HttpClient()) {
-                try {
-                    var byteArray = Encoding.ASCII.GetBytes(Configuration.SecretKey + ":");
-                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
-                    client.Timeout = TimeSpan.FromMilliseconds(Configuration.HttpTimeout);
-                    client.DefaultRequestHeaders.Add("User-Agent", GetUserAgent);
-                    var result = client.PostAsync(url, new StringContent(putData, Encoding.UTF8, contentType));
-                    return result.Result.Content.ReadAsStringAsync().Result;
-                } catch (Exception e) {
-                    Console.WriteLine(e);
-                    return null;
-                }
+            using (var client = PrepareHttpClient(secretKey))
+            {
+                var response = await client.PostAsync(url, new StringContent(putData, Encoding.UTF8, contentType));
+                var content = await response.Content.ReadAsStringAsync();
+                client.Dispose();
+                return HandleResponse(response, content);
             }
         }
 
-        private static string Delete(string url)
+        private static async Task<string> _Delete(string url, string secretKey)
         {
-            using(var client = new HttpClient()) {
-                try {
-                    var byteArray = Encoding.ASCII.GetBytes(Configuration.SecretKey + ":");
-                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
-                    client.Timeout = TimeSpan.FromMilliseconds(Configuration.HttpTimeout);
-                    client.DefaultRequestHeaders.Add("User-Agent", GetUserAgent);
-                    var result = client.DeleteAsync(url);
-                    return result.Result.Content.ReadAsStringAsync().Result;
-                } catch (Exception e) {
-                    Console.WriteLine(e);
-                    return null;
-                }
+            using (var client = PrepareHttpClient(secretKey))
+            {
+                var response = await client.DeleteAsync(url);
+                var content = await response.Content.ReadAsStringAsync();
+                client.Dispose();
+                return HandleResponse(response, content);
             }
+        }
+
+        private static HttpClient PrepareHttpClient(string secretKey)
+        {
+            var client = new HttpClient();
+            var byteArray = Encoding.ASCII.GetBytes((secretKey ?? Configuration.SecretKey) + ":");
+            client.DefaultRequestHeaders.Authorization =
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Basic",
+                    Convert.ToBase64String(byteArray));
+            client.Timeout = TimeSpan.FromMilliseconds(Configuration.HttpTimeout);
+            client.DefaultRequestHeaders.Add("User-Agent", GetUserAgent);
+            return client;
+        }
+
+        private static string HandleResponse(HttpResponseMessage response, string content)
+        {
+            if (response.IsSuccessStatusCode)
+            {
+                return content;
+            }
+            var errors = Mapper<List<ChargeIoError>>.MapFromJson(content, "messages");
+            throw new ChargeIoException(response.StatusCode, errors, errors[0].Message);
         }
     }
 }

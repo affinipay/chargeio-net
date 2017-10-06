@@ -1,26 +1,17 @@
 ﻿using System;
+using ChargeIo.services;
 using ChargeIO.Infrastructure;
 using ChargeIO.Models;
 
 namespace ChargeIO.Services.RecurringCharges
 {
-	public class RecurringChargeService
-	{
-        private string SecretKey { get; }
-        
-        public RecurringChargeService(string secretKey = "")
+    public sealed class RecurringChargeService : ServiceBase
+    {
+        public RecurringChargeService(string secretKey = null) : base(secretKey)
         {
-            if (secretKey == null)
-            {
-                SecretKey = Configuration.SecretKey;
-            }
-            else
-            {
-                SecretKey = secretKey.Length > 0 ? secretKey : Configuration.SecretKey;
-            }
         }
 
-        public virtual RecurringCharge RecurringCharge(RecurringChargeOptions options)
+        public RecurringCharge RecurringCharge(RecurringChargeOptions options)
         {
             var response = Requestor.PostJson(
                 Urls.RecurringCharges,
@@ -28,35 +19,35 @@ namespace ChargeIO.Services.RecurringCharges
             return Mapper<RecurringCharge>.MapFromJson(response);
         }
 
-        public virtual RecurringCharge GetRecurringCharge(string id)
+        public RecurringCharge GetRecurringCharge(string id)
         {
             var url = string.Format("{0}/{1}", Urls.RecurringCharges, id);
             var response = Requestor.GetString(url, SecretKey);
             return Mapper<RecurringCharge>.MapFromJson(response);
         }
 
-        public virtual RecurringCharge UpdateRecurringCharge(string id, RecurringChargeOptions options)
+        public RecurringCharge UpdateRecurringCharge(string id, RecurringChargeOptions options)
         {
             var url = string.Format("{0}/{1}", Urls.RecurringCharges, id);
             var response = Requestor.PutJson(url, ParameterBuilder.BuildJsonPostParameters(options), SecretKey);
             return Mapper<RecurringCharge>.MapFromJson(response);
         }
 
-        public virtual RecurringCharge CancelRecurringCharge(string id)
+        public RecurringCharge CancelRecurringCharge(string id)
         {
             var url = string.Format("{0}/{1}/cancel", Urls.RecurringCharges, id);
             var response = Requestor.PostJson(url, "", SecretKey);
             return Mapper<RecurringCharge>.MapFromJson(response);
         }
 
-        public virtual RecurringCharge DeleteRecurringCharge(string id)
+        public RecurringCharge DeleteRecurringCharge(string id)
         {
             var url = string.Format("{0}/{1}", Urls.RecurringCharges, id);
             var response = Requestor.Delete(url, SecretKey);
             return Mapper<RecurringCharge>.MapFromJson(response);
         }
 
-        public virtual SearchResults<RecurringCharge> RecurringCharges(
+        public SearchResults<RecurringCharge> RecurringCharges(
             int page = 1,
             int pageSize = 20,
             string accountId = null,
@@ -80,28 +71,30 @@ namespace ChargeIO.Services.RecurringCharges
             return Mapper<RecurringCharge>.MapCollectionFromJson(response);
         }
 
-        public virtual RecurringChargeOccurrence GetOccurrence(string recurringChargeId, string occurrenceId)
+        public RecurringChargeOccurrence GetOccurrence(string recurringChargeId, string occurrenceId)
         {
             var url = string.Format("{0}/{1}/occurrences/{2}", Urls.RecurringCharges, recurringChargeId, occurrenceId);
             var response = Requestor.GetString(url, SecretKey);
             return Mapper<RecurringChargeOccurrence>.MapFromJson(response);
         }
 
-        public virtual RecurringChargeOccurrence PayOccurrence(string recurringChargeId, string occurrenceId)
+        public RecurringChargeOccurrence PayOccurrence(string recurringChargeId, string occurrenceId)
         {
-            var url = string.Format("{0}/{1}/occurrences/{2}/pay", Urls.RecurringCharges, recurringChargeId, occurrenceId);
+            var url = string.Format("{0}/{1}/occurrences/{2}/pay", Urls.RecurringCharges, recurringChargeId,
+                occurrenceId);
             var response = Requestor.PostJson(url, "", SecretKey);
             return Mapper<RecurringChargeOccurrence>.MapFromJson(response);
         }
 
-        public virtual RecurringChargeOccurrence IgnoreOccurrence(string recurringChargeId, string occurrenceId)
+        public RecurringChargeOccurrence IgnoreOccurrence(string recurringChargeId, string occurrenceId)
         {
-            var url = string.Format("{0}/{1}/occurrences/{2}/ignore", Urls.RecurringCharges, recurringChargeId, occurrenceId);
+            var url = string.Format("{0}/{1}/occurrences/{2}/ignore", Urls.RecurringCharges, recurringChargeId,
+                occurrenceId);
             var response = Requestor.PostJson(url, "", SecretKey);
             return Mapper<RecurringChargeOccurrence>.MapFromJson(response);
         }
 
-        public virtual SearchResults<RecurringChargeOccurrence> Occurrences(
+        public SearchResults<RecurringChargeOccurrence> Occurrences(
             string recurringChargeId,
             int page = 1,
             int pageSize = 20)
@@ -113,5 +106,5 @@ namespace ChargeIO.Services.RecurringCharges
             var response = Requestor.GetString(url, SecretKey);
             return Mapper<RecurringChargeOccurrence>.MapCollectionFromJson(response);
         }
-	}
+    }
 }

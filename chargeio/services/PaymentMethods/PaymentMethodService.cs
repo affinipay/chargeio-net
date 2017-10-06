@@ -1,26 +1,17 @@
 ﻿using System;
+using ChargeIo.services;
 using ChargeIO.Infrastructure;
 using ChargeIO.Models;
 
 namespace ChargeIO.Services.PaymentMethods
 {
-	public class PaymentMethodService
-	{
-        private string SecretKey { get; }
-        
-        public PaymentMethodService(string secretKey = "")
+    public sealed class PaymentMethodService : ServiceBase
+    {
+        public PaymentMethodService(string secretKey = null) : base(secretKey)
         {
-            if (secretKey == null)
-            {
-                SecretKey = Configuration.SecretKey;
-            }
-            else
-            {
-                SecretKey = secretKey.Length > 0 ? secretKey : Configuration.SecretKey;
-            }
         }
 
-        public virtual Card CreateCard(object options)
+        public Card CreateCard(object options)
         {
             var response = Requestor.PostJson(
                 Urls.Cards,
@@ -29,7 +20,7 @@ namespace ChargeIO.Services.PaymentMethods
             return Mapper<Card>.MapFromJson(response);
         }
 
-        public virtual Card DeleteCard(string cardId)
+        public Card DeleteCard(string cardId)
         {
             var url = string.Format("{0}/{1}", Urls.Cards, cardId);
 
@@ -39,7 +30,7 @@ namespace ChargeIO.Services.PaymentMethods
         }
 
 
-        public virtual SearchResults<Card> ListCards(int page = 1, int page_size = 20, string reference = null)
+        public SearchResults<Card> ListCards(int page = 1, int page_size = 20, string reference = null)
         {
             var url = Urls.Cards;
             url = ParameterBuilder.ApplyParameterToUrl(url, "page", page.ToString());
@@ -54,7 +45,7 @@ namespace ChargeIO.Services.PaymentMethods
             return Mapper<Card>.MapCollectionFromJson(response);
         }
 
-        public virtual Bank CreateBank(object options)
+        public Bank CreateBank(object options)
         {
             var response = Requestor.PostJson(
                 Urls.Banks,
@@ -63,7 +54,7 @@ namespace ChargeIO.Services.PaymentMethods
             return Mapper<Bank>.MapFromJson(response);
         }
 
-        public virtual Bank DeleteBank(string bankId)
+        public Bank DeleteBank(string bankId)
         {
             var url = string.Format("{0}/{1}", Urls.Banks, bankId);
 
@@ -72,7 +63,7 @@ namespace ChargeIO.Services.PaymentMethods
             return Mapper<Bank>.MapFromJson(response);
         }
 
-        public virtual SearchResults<Bank> ListBanks(int page = 1, int page_size = 20, string reference = null)
+        public SearchResults<Bank> ListBanks(int page = 1, int page_size = 20, string reference = null)
         {
             var url = Urls.Banks;
             url = ParameterBuilder.ApplyParameterToUrl(url, "page", page.ToString());
@@ -87,7 +78,7 @@ namespace ChargeIO.Services.PaymentMethods
             return Mapper<Bank>.MapCollectionFromJson(response);
         }
 
-        public virtual Token GetToken(string tokenId)
+        public Token GetToken(string tokenId)
         {
             var url = string.Format("{0}/{1}", Urls.Tokens, tokenId);
 
@@ -95,12 +86,12 @@ namespace ChargeIO.Services.PaymentMethods
 
             return Mapper<Token>.MapFromJson(response);
         }
-     
-        public virtual Token CreateToken(TokenOptions t)
+
+        public Token CreateToken(TokenOptions t)
         {
             var response = Requestor.PostString(Urls.Tokens, ParameterBuilder.BuildPostParameters(t), SecretKey);
 
             return Mapper<Token>.MapFromJson(response);
         }
-	}
+    }
 }
