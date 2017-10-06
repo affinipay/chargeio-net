@@ -1,8 +1,6 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,11 +8,11 @@ namespace ChargeIO.Infrastructure
 {
     internal static class Requestor
     {
-        public static readonly string GetUserAgent = $"ChargeIO .net Client ({Configuration.AssemblyVersion})";
+        private static readonly string GetUserAgent = $"ChargeIO .net Client ({Configuration.AssemblyVersion})";
 
         public static string GetString(string url, string secretKey = null)
         {
-            return Get(url).Result;
+            return Get(url, secretKey).Result;
         }
 
         public static string PostString(string url, string postData, string secretKey = null)
@@ -39,12 +37,12 @@ namespace ChargeIO.Infrastructure
 
         public static string Delete(string url, string secretKey = null)
         {
-            return Delete(url).Result;
+            return _Delete(url, secretKey).Result;
         }
 
-        private static async Task<string> Get(string url)
+        private static async Task<string> Get(string url, string secretKey)
         {
-            using (var client = PrepareHttpClient())
+            using (var client = PrepareHttpClient(secretKey))
             {
                 var response = await client.GetAsync(url);
                 var content = await response.Content.ReadAsStringAsync();
@@ -55,7 +53,7 @@ namespace ChargeIO.Infrastructure
 
         private static async Task<string> Put(string url, string putData, string contentType, string secretKey)
         {
-            using (var client = PrepareHttpClient())
+            using (var client = PrepareHttpClient(secretKey))
             {
                 var response = await client.PutAsync(url, new StringContent(putData, Encoding.UTF8, contentType));
                 var content = await response.Content.ReadAsStringAsync();
@@ -66,7 +64,7 @@ namespace ChargeIO.Infrastructure
 
         private static async Task<string> Post(string url, string putData, string contentType, string secretKey)
         {
-            using (var client = PrepareHttpClient())
+            using (var client = PrepareHttpClient(secretKey))
             {
                 var response = await client.PostAsync(url, new StringContent(putData, Encoding.UTF8, contentType));
                 var content = await response.Content.ReadAsStringAsync();
@@ -75,9 +73,9 @@ namespace ChargeIO.Infrastructure
             }
         }
 
-        private static async Task<string> Delete(string url)
+        private static async Task<string> _Delete(string url, string secretKey)
         {
-            using (var client = PrepareHttpClient())
+            using (var client = PrepareHttpClient(secretKey))
             {
                 var response = await client.DeleteAsync(url);
                 var content = await response.Content.ReadAsStringAsync();
@@ -86,10 +84,10 @@ namespace ChargeIO.Infrastructure
             }
         }
 
-        private static HttpClient PrepareHttpClient()
+        private static HttpClient PrepareHttpClient(string secretKey)
         {
             var client = new HttpClient();
-            var byteArray = Encoding.ASCII.GetBytes(Configuration.SecretKey + ":");
+            var byteArray = Encoding.ASCII.GetBytes((secretKey ?? Configuration.SecretKey) + ":");
             client.DefaultRequestHeaders.Authorization =
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Basic",
                     Convert.ToBase64String(byteArray));

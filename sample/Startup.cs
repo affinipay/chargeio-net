@@ -1,6 +1,5 @@
-﻿using System;
-using ChargeIO.Infrastructure;
-using ChargeIO.Services.Merchant;
+﻿﻿using System;
+ using ChargeIO.Services.Merchant;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -30,7 +29,7 @@ namespace Sample
 
             app.Run(async context =>
             {
-                var service = new MerchantService(null);
+                var service = new MerchantService();
                 try
                 {
                     //TODO: try out API calls here
