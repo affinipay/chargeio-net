@@ -105,9 +105,7 @@ namespace ChargeIO.Infrastructure
                 return content;
             }
             var errors = Mapper<List<ChargeIoError>>.MapFromJson(content, "messages");
-            var property = response.GetType().GetProperty("StatusCode");
-            throw new ChargeIoException((HttpStatusCode) property.GetValue(response), errors,
-                errors[0].Message);
+            throw new ChargeIoException(response.StatusCode, errors, errors[0].Message);
         }
     }
 }
