@@ -1,5 +1,4 @@
-﻿using System;
-using ChargeIO.Infrastructure;
+﻿using ChargeIO.Infrastructure;
 using ChargeIO.Models;
 
 namespace ChargeIO.Services.Merchant
