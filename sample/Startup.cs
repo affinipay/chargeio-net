@@ -1,4 +1,6 @@
-﻿using ChargeIO.Services.Merchant;
+﻿using System;
+using ChargeIO.Infrastructure;
+using ChargeIO.Services.Merchant;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -29,8 +31,16 @@ namespace Sample
             app.Run(async context =>
             {
                 var service = new MerchantService(null);
-                var merchant = service.GetMerchant();
-                await context.Response.WriteAsync(JObject.FromObject(merchant).ToString());
+                try
+                {
+                    //TODO: try out API calls here
+                    var merchant = service.GetMerchant();
+                    await context.Response.WriteAsync(JObject.FromObject(merchant).ToString());
+                }
+                catch (Exception exception)
+                {
+                    await context.Response.WriteAsync(exception.Message);
+                }
             });
         }
     }
