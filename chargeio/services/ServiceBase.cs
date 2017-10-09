@@ -8,7 +8,7 @@ namespace ChargeIO.services
         
         protected ServiceBase(string secretKey)
         {
-            SecretKey = secretKey == null || secretKey.Equals(string.Empty) ? Configuration.SecretKey : secretKey;
+            SecretKey = string.IsNullOrEmpty(secretKey) ? Configuration.SecretKey : secretKey;
         }
     }
 }
