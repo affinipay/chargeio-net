@@ -1,4 +1,3 @@
-using System;
 using ChargeIO.Infrastructure;
 using NUnit.Framework;
 

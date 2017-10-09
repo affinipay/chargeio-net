@@ -412,7 +412,7 @@ namespace ChargeIO.Tests
                     Method = new CardOptions()
                     {
                         Name = "John Doe",
-                        Number = "4242424242424241",
+                        Number = "4111111111111111",
                         ExpMonth = 12,
                         ExpYear = 2020,
                         Address1 = "123 Main Dr",
