@@ -1,6 +1,5 @@
 ﻿using ChargeIO.Infrastructure;
 using ChargeIO.Models;
-using ChargeIO.services;
 
 namespace ChargeIO.Services.Merchant
 {

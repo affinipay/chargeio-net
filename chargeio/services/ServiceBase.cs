@@ -1,6 +1,6 @@
 ﻿using ChargeIO.Infrastructure;
 
-namespace ChargeIO.services
+namespace ChargeIO.Services
 {
     public abstract class ServiceBase
     {
