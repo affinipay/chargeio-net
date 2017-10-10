@@ -403,7 +403,7 @@ namespace ChargeIO.Tests
         [Test]
         public void TestChargeInvalidCard()
         {
-            try
+            TestDelegate code = () =>
             {
                 _transactionService.Authorize(new ChargeOptions()
                 {
@@ -412,7 +412,7 @@ namespace ChargeIO.Tests
                     Method = new CardOptions()
                     {
                         Name = "John Doe",
-                        Number = "4111111111111111",
+                        Number = "4242424242424241",
                         ExpMonth = 12,
                         ExpYear = 2020,
                         Address1 = "123 Main Dr",
@@ -420,14 +420,15 @@ namespace ChargeIO.Tests
                         PostalCode = "78759"
                     }
                 });
-            }
-            catch (ChargeIoException ex)
-            {
-                Assert.AreEqual(1, ex.Errors.Count);
-                Assert.AreEqual("Card number is invalid", ex.Message);
-                Assert.AreEqual("error", ex.Errors[0].Level);
-                Assert.AreEqual("card_number_invalid", ex.Errors[0].Code);
-            }
+            };
+
+            var aggregateException = Assert.Throws(typeof(AggregateException), code);
+            Assert.AreEqual(aggregateException.InnerException.GetType(), typeof(ChargeIoException));
+            ChargeIoException ex = (ChargeIoException) aggregateException.GetBaseException();
+            Assert.AreEqual(1, ex.Errors.Count);
+            Assert.AreEqual("Card number is invalid", ex.Message);
+            Assert.AreEqual("error", ex.Errors[0].Level);
+            Assert.AreEqual("card_number_invalid", ex.Errors[0].Code);
         }
 
         [Test]
