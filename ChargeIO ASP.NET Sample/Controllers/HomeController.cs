@@ -37,7 +37,6 @@ namespace ChargeIOASP.NETSample.Controllers
                 var merchant = service.GetMerchant();
                 ViewBag.Message = JsonConvert.SerializeObject(merchant,
                     Formatting.Indented, new StringEnumConverter());
-//                ViewBag.Message = JObject.FromObject(merchant).ToString();
             }
             catch (Exception exception)
             {
