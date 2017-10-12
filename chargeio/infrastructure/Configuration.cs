@@ -7,10 +7,10 @@ namespace ChargeIO.Infrastructure
 	public static class Configuration
 	{
         public static IConfigurationRoot Get { get; }
-		public static string SecretKey { get; set; }
-		public static string ApiUrl { get; set; }
-		public static long HttpTimeout { get; set; }
-		public static Version AssemblyVersion { get; set; }
+		public static string SecretKey { get; }
+		public static string ApiUrl { get; }
+		public static long HttpTimeout { get; }
+		public static Version AssemblyVersion { get; }
 
         static Configuration()
         {
