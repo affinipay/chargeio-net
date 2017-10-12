@@ -1,13 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
-    <Version>1.1.1</Version>
+    <TargetFrameworks>netcoreapp2.0;net462;net47</TargetFrameworks>
+    <Version>1.1.0</Version>
     <Authors>Victor Ude</Authors>
     <Company>AffiniPay LLC</Company>
     <Product>affinipay.com</Product>
     <PackageId>chargeio-net</PackageId>
-    <AssemblyVersion>1.1.1.0</AssemblyVersion>
-    <FileVersion>1.1.1.0</FileVersion>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
     <NeutralLanguage>en</NeutralLanguage>
     <Description>.NET client library for the AffiniPay Payment Gateway</Description>
     <Copyright>

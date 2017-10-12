@@ -1,5 +1,4 @@
 ﻿using System;
-using ChargeIO.Infrastructure;
 using ChargeIO.Services.Merchant;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
