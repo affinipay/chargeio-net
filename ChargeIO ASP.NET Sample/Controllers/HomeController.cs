@@ -3,7 +3,6 @@ using System.Web.Mvc;
 using ChargeIO.Services.Merchant;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
 
 namespace ChargeIOASP.NETSample.Controllers
 {
