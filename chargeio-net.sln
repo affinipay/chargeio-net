@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample", "Sample\Sample.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChargeIo.Tests", "ChargeIo.Tests\ChargeIo.Tests.csproj", "{494047D2-C3C3-4E21-850D-E81EA8D4382B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChargeIO ASP.NET Sample", "ChargeIO ASP.NET Sample\ChargeIO ASP.NET Sample.csproj", "{C195082A-9B3E-41AC-9849-2AD3C7DFA37B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
