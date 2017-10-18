@@ -1,23 +1,13 @@
-﻿using System;
-using ChargeIO.Infrastructure;
+﻿using ChargeIO.Infrastructure;
 using ChargeIO.Models;
 
 namespace ChargeIO.Services.RecurringCharges
 {
-	public class RecurringChargeService
+	public class RecurringChargeService : ServiceBase
 	{
-        private string SecretKey { get; }
-        
-        public RecurringChargeService(string secretKey = "")
+        public RecurringChargeService(string secretKey = null) : base(secretKey)
         {
-            if (secretKey == null)
-            {
-                SecretKey = Configuration.SecretKey;
-            }
-            else
-            {
-                SecretKey = secretKey.Length > 0 ? secretKey : Configuration.SecretKey;
-            }
+            
         }
 
         public virtual RecurringCharge RecurringCharge(RecurringChargeOptions options)

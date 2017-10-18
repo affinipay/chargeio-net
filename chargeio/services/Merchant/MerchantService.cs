@@ -3,20 +3,11 @@ using ChargeIO.Models;
 
 namespace ChargeIO.Services.Merchant
 {
-	public class MerchantService
+	public class MerchantService : ServiceBase
 	{
-        private string SecretKey { get; }
-        
-        public MerchantService(string secretKey = "")
+        public MerchantService(string secretKey = null) : base(secretKey)
         {
-            if (secretKey == null)
-            {
-                SecretKey = Configuration.SecretKey;
-            }
-            else
-            {
-                SecretKey = secretKey.Length > 0 ? secretKey : Configuration.SecretKey;
-            }
+            
         }
 
         public virtual Models.Merchant GetMerchant()

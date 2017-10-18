@@ -5,20 +5,11 @@ using ChargeIO.Models;
 
 namespace ChargeIO.Services.Transactions
 {
-	public class TransactionService
+	public class TransactionService : ServiceBase
 	{
-        private string SecretKey { get; }
-
-        public TransactionService(string secretKey = "")
+        public TransactionService(string secretKey = null) : base(secretKey)
 		{
-		    if (secretKey == null)
-		    {
-		        SecretKey = Configuration.SecretKey;
-		    }
-		    else
-		    {
-		        SecretKey = secretKey.Length > 0 ? secretKey : Configuration.SecretKey;
-		    }
+		    
 		}
 
         public virtual Charge Charge(ChargeOptions options)

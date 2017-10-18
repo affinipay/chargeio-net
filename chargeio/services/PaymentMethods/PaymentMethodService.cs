@@ -1,23 +1,13 @@
-﻿using System;
-using ChargeIO.Infrastructure;
+﻿using ChargeIO.Infrastructure;
 using ChargeIO.Models;
 
 namespace ChargeIO.Services.PaymentMethods
 {
-	public class PaymentMethodService
+	public class PaymentMethodService : ServiceBase
 	{
-        private string SecretKey { get; }
-        
-        public PaymentMethodService(string secretKey = "")
+        public PaymentMethodService(string secretKey = null) : base(secretKey)
         {
-            if (secretKey == null)
-            {
-                SecretKey = Configuration.SecretKey;
-            }
-            else
-            {
-                SecretKey = secretKey.Length > 0 ? secretKey : Configuration.SecretKey;
-            }
+            
         }
 
         public virtual Card CreateCard(object options)
