@@ -5,7 +5,7 @@ namespace ChargeIO.Services.PaymentMethods
 {
 	public class PaymentMethodService : ServiceBase
 	{
-        public PaymentMethodService(string secretKey = "") : base(secretKey)
+        public PaymentMethodService(string secretKey = null) : base(secretKey)
         {
             
         }

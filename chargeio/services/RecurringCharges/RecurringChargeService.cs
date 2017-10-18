@@ -5,7 +5,7 @@ namespace ChargeIO.Services.RecurringCharges
 {
 	public class RecurringChargeService : ServiceBase
 	{
-        public RecurringChargeService(string secretKey = "") : base(secretKey)
+        public RecurringChargeService(string secretKey = null) : base(secretKey)
         {
             
         }

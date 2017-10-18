@@ -5,7 +5,7 @@ namespace ChargeIO.Services.Merchant
 {
 	public class MerchantService : ServiceBase
 	{
-        public MerchantService(string secretKey = "") : base(secretKey)
+        public MerchantService(string secretKey = null) : base(secretKey)
         {
             
         }

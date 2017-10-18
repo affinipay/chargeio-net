@@ -10,37 +10,37 @@ namespace ChargeIO.Infrastructure
     {
         public static readonly string GetUserAgent = $"ChargeIO .net Client ({Configuration.AssemblyVersion})";
 
-        public static string GetString(string url, string secretKey = null)
+        public static string GetString(string url, string secretKey)
         {
             return Get(url, secretKey).Result;
         }
 
-        public static string PostString(string url, string postData, string secretKey = null)
+        public static string PostString(string url, string postData, string secretKey)
         {
             return Post(url, postData, "application/x-www-form-urlencoded", secretKey).Result;
         }
 
-        public static string PostJson(string url, string postData, string secretKey = null)
+        public static string PostJson(string url, string postData, string secretKey)
         {
             return Post(url, postData, "application/json", secretKey).Result;
         }
 
-        public static string PutString(string url, string putData, string secretKey = null)
+        public static string PutString(string url, string putData, string secretKey)
         {
             return Put(url, putData, "application/x-www-form-urlencoded", secretKey).Result;
         }
 
-        public static string PutJson(string url, string putData, string secretKey = null)
+        public static string PutJson(string url, string putData, string secretKey)
         {
             return Put(url, putData, "application/json", secretKey).Result;
         }
 
-        public static string Delete(string url, string secretKey = null)
+        public static string Delete(string url, string secretKey)
         {
             return _Delete(url, secretKey).Result;
         }
 
-        private static async Task<string> Get(string url, string secretKey = null)
+        private static async Task<string> Get(string url, string secretKey)
         {
             using (var client = PrepareHttpClient(secretKey))
             {
@@ -86,6 +86,11 @@ namespace ChargeIO.Infrastructure
 
         private static HttpClient PrepareHttpClient(string secretKey)
         {
+            if (secretKey == null)
+            {
+                throw new ArgumentNullException(nameof(secretKey));
+            }
+
             var client = new HttpClient();
             var byteArray = Encoding.ASCII.GetBytes(secretKey + ":");
             client.DefaultRequestHeaders.Authorization =

@@ -7,7 +7,7 @@ namespace ChargeIO.Services.Transactions
 {
 	public class TransactionService : ServiceBase
 	{
-        public TransactionService(string secretKey = "") : base(secretKey)
+        public TransactionService(string secretKey = null) : base(secretKey)
 		{
 		    
 		}
